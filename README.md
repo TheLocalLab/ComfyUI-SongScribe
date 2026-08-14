@@ -33,7 +33,7 @@ The whole pack runs on CPU.
 |---|---|---|
 | 1 | DSP analyzer, multi-format loading, embedded lyrics, sidecar cache | **Done** |
 | 2 | CLAP zero-shot descriptors (genre, mood, instruments, vocal character) | **Done** |
-| 3 | Full composer grammar + style-abstraction dial | Planned |
+| 3 | Full composer grammar + style-abstraction dial | **Done** |
 | 4 | Caption Splitter/Composer, Style Presets, Lyrics tools, ID3 write-back | Planned |
 | 5 | Optional `faster-whisper` lyric transcription | Planned |
 
@@ -98,8 +98,30 @@ anything else ComfyUI depends on.
 |---|---|
 | `audio_file` | Upload widget. Set to `(use AUDIO input)` when driving it from a socket. |
 | `audio` *(optional)* | `AUDIO` from an upstream node. Takes priority over the file when connected. |
+| `describe` | `clap` scores genre/mood/instruments/vocals; `off` emits measured facts only. |
+| `style` | How literally the caption reproduces the track — see below. |
 | `use_cache` | Reuse a previous analysis of the same file instead of recomputing. |
 | `seed` | Varies caption phrasing without re-analysing the audio. |
+
+### The `style` dial
+
+Feeding a verbatim analysis of a song back into a generator produces a clone of
+that song. This is the knob that stops it:
+
+| Style | Keeps | Use for |
+|---|---|---|
+| `verbatim` | Exact BPM, key, and second-level section timings | Reproducing a reference as closely as possible |
+| `balanced` *(default)* | BPM and key; drops exact timings | Steering the model while letting it write a new song |
+| `loose` | Genre, mood, texture. No tempo, key or structure | Vibe transfer only |
+
+Style affects composition only, never analysis — so switching it recomposes
+instantly from the cached measurements rather than re-analysing the audio.
+
+Section names come from position and energy only (`Intro`, `Section 3`,
+`Outro`). The segmentation finds *where* the music changes, not *what* a
+section is; labelling something a chorus would be a claim the analysis can't
+support. Consecutive sections that behave identically are collapsed into one
+entry (`Sections 2-6: the core groove running`).
 
 **Outputs**
 

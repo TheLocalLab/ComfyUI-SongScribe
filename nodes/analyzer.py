@@ -39,6 +39,16 @@ class SongScribeAnalyzer:
                         "facts only.",
                     },
                 ),
+                "style": (
+                    list(compose.STYLES.keys()),
+                    {
+                        "default": compose.DEFAULT_STYLE,
+                        "tooltip": "How literally the caption reproduces the "
+                        "track. 'verbatim' keeps exact section timings (closest "
+                        "clone); 'balanced' keeps tempo and key; 'loose' gives "
+                        "genre, mood and texture only.",
+                    },
+                ),
                 "use_cache": (
                     "BOOLEAN",
                     {
@@ -102,19 +112,39 @@ class SongScribeAnalyzer:
     )
 
     @classmethod
-    def IS_CHANGED(cls, audio_file, describe="clap", use_cache=True, seed=0, audio=None, **kwargs):
+    def IS_CHANGED(
+        cls,
+        audio_file,
+        describe="clap",
+        style=compose.DEFAULT_STYLE,
+        use_cache=True,
+        seed=0,
+        audio=None,
+        **kwargs,
+    ):
         # Seed changes phrasing, so it must invalidate. File content changes
         # must too - hence the fingerprint rather than the filename.
         if audio_file and audio_file != USE_SOCKET:
             path = audio_io.resolve_input_path(audio_file)
             if os.path.isfile(path):
                 try:
-                    return f"{cache.fingerprint(path)}:{seed}:{use_cache}:{describe}"
+                    return (
+                        f"{cache.fingerprint(path)}:{seed}:{use_cache}"
+                        f":{describe}:{style}"
+                    )
                 except OSError:
                     pass
         return float("nan")
 
-    def analyze(self, audio_file, describe="clap", use_cache=True, seed=0, audio=None):
+    def analyze(
+        self,
+        audio_file,
+        describe="clap",
+        style=compose.DEFAULT_STYLE,
+        use_cache=True,
+        seed=0,
+        audio=None,
+    ):
         started = time.perf_counter()
 
         loaded = self._load(audio_file, audio)
@@ -151,8 +181,15 @@ class SongScribeAnalyzer:
 
         lyrics, lyrics_source = self._lyrics(loaded, file_tags)
 
+        # Style affects only composition, never analysis, so it deliberately
+        # stays out of the cache key - switching styles recomposes instantly
+        # from the cached measurements.
         composed = compose.compose_caption(
-            analysis, tags=file_tags, descriptors=descriptors, seed=seed
+            analysis,
+            tags=file_tags,
+            descriptors=descriptors,
+            seed=seed,
+            style=style,
         )
 
         duration = float(analysis.get("duration") or loaded.duration)
