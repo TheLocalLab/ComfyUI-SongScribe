@@ -10,9 +10,7 @@ dependencies = ["librosa>=0.10", "mutagen>=1.45", "PyYAML>=6.0"]
 Repository = "https://github.com/TheLocalLab/ComfyUI-SongScribe"
 
 [tool.comfy]
-# Only needed to publish to registry.comfy.org. Manual and git-clone installs
-# ignore this file entirely. Fill in the publisher ID from your registry
-# account when/if you publish - it is not necessarily your GitHub username.
-PublisherId = ""
+# registry.comfy.org/publishers/thelocallab
+PublisherId = "thelocallab"
 DisplayName = "SongScribe"
 Icon = ""
