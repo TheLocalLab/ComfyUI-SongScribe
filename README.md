@@ -35,7 +35,7 @@ The whole pack runs on CPU.
 | 2 | CLAP zero-shot descriptors (genre, mood, instruments, vocal character) | **Done** |
 | 3 | Full composer grammar + style-abstraction dial | **Done** |
 | 4 | Caption Splitter/Composer, Style Presets, Lyrics tools | **Done** |
-| 5 | Optional `faster-whisper` lyric transcription | Planned |
+| 5 | Optional `faster-whisper` lyric transcription | **Done** |
 
 ## How the descriptors work
 
@@ -152,10 +152,39 @@ formats libsndfile can't open are decoded through PyAV, which ships with ComfyUI
 
 ### Lyrics
 
-Read from embedded tags (`USLT`/`SYLT`/Vorbis/MP4) or a sibling `.lrc`/`.txt`
-file, with LRC timestamps stripped. Both sources are exact. Neither is
-guaranteed to exist — if the file carries no lyrics, this output is empty until
-phase 5 adds optional transcription.
+Three sources, tried in order of how much they can be trusted:
+
+1. **Embedded tags** (`USLT`/`SYLT`/Vorbis/MP4) — exact, someone typed them.
+2. **A sibling `.lrc`/`.txt`** — exact, timestamps stripped. `.lrc` is a
+   dedicated lyric format and is trusted as-is; a `.txt` could be credits or
+   liner notes, so it must actually look like lyrics (short lines, no prose
+   paragraphs) before it's accepted.
+3. **Whisper transcription** — an estimate, and off by default.
+
+The estimate is never preferred over an exact source unless you set
+`transcribe_lyrics` to `always`.
+
+### Transcription quality
+
+`transcribe_lyrics` is `off` by default because sung ASR is markedly worse than
+speech. Measured on real tracks with `base` on CPU:
+
+| Track | Speed | Word overlap with true lyrics |
+|---|---|---|
+| English R&B, clear lead vocal | 0.61× realtime | 90% |
+| English reggae, dense mix | 0.12× realtime | 78% |
+| Korean/English rap | 0.71× realtime | 52% |
+
+Good enough to save typing, not good enough to ship unread — expect to fix
+names, run-together lines, and hummed passages, where Whisper tends to repeat
+itself. Bigger models help; `medium` is roughly 4× slower than `base`.
+
+**Section tags are not taken from the ASR.** Whisper emits words and timings and
+knows nothing about song structure. Tags come from two things it does report
+honestly: silence between sung phrases (→ `[Instrumental]`), and repetition of
+the lyric text itself — a block that occurs more than once is a `[Chorus]` by
+definition of the word. Everything else is `[Verse]`, which claims only that it
+is sung, non-repeating material.
 
 ### Caching
 

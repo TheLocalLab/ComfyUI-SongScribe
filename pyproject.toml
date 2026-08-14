@@ -1,7 +1,7 @@
 [project]
 name = "songscribe"
 description = "Extract structured music captions, lyrics and duration from audio files. Built for MiniMax Music 3's caption format, usable in any audio workflow. Runs on CPU."
-version = "0.4.1"
+version = "0.5.0"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 dependencies = ["librosa>=0.10", "mutagen>=1.45", "PyYAML>=6.0"]

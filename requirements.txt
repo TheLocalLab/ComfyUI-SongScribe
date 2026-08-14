@@ -1,3 +1,6 @@
 librosa>=0.10
 mutagen>=1.45
 PyYAML>=6.0
+
+# Optional: lyric transcription fallback (Song Analyzer -> transcribe_lyrics)
+# faster-whisper>=1.0

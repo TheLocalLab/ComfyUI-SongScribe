@@ -13,6 +13,7 @@ from ..songscribe import (
     descriptors as descriptor_engine,
     features,
     tags as tag_reader,
+    transcribe as transcriber,
 )
 
 # Sentinel shown in the file dropdown when the user is feeding the AUDIO socket
@@ -37,6 +38,25 @@ class SongScribeAnalyzer:
                         "character with CLAP (CPU, no GPU needed). The first "
                         "run downloads a ~600 MB model. 'off' emits measured "
                         "facts only.",
+                    },
+                ),
+                "transcribe_lyrics": (
+                    ["off", "if missing", "always"],
+                    {
+                        "default": "off",
+                        "tooltip": "Transcribe sung lyrics with Whisper when "
+                        "the file carries none. CPU, slow, and sung ASR is "
+                        "markedly worse than speech - expect to hand-fix the "
+                        "result. Embedded tags and .lrc files are always "
+                        "preferred over this.",
+                    },
+                ),
+                "whisper_model": (
+                    list(transcriber.MODEL_SIZES),
+                    {
+                        "default": transcriber.DEFAULT_MODEL,
+                        "tooltip": "Larger is more accurate and much slower. "
+                        "Only used when transcribe_lyrics is enabled.",
                     },
                 ),
                 "style": (
@@ -116,6 +136,8 @@ class SongScribeAnalyzer:
         cls,
         audio_file,
         describe="clap",
+        transcribe_lyrics="off",
+        whisper_model=transcriber.DEFAULT_MODEL,
         style=compose.DEFAULT_STYLE,
         use_cache=True,
         seed=0,
@@ -130,7 +152,7 @@ class SongScribeAnalyzer:
                 try:
                     return (
                         f"{cache.fingerprint(path)}:{seed}:{use_cache}"
-                        f":{describe}:{style}"
+                        f":{describe}:{style}:{transcribe_lyrics}:{whisper_model}"
                     )
                 except OSError:
                     pass
@@ -140,6 +162,8 @@ class SongScribeAnalyzer:
         self,
         audio_file,
         describe="clap",
+        transcribe_lyrics="off",
+        whisper_model=transcriber.DEFAULT_MODEL,
         style=compose.DEFAULT_STYLE,
         use_cache=True,
         seed=0,
@@ -179,7 +203,9 @@ class SongScribeAnalyzer:
             file_tags = payload.get("tags", {})
             descriptors = payload.get("descriptors")
 
-        lyrics, lyrics_source = self._lyrics(loaded, file_tags)
+        lyrics, lyrics_source = self._lyrics(
+            loaded, file_tags, transcribe_lyrics, whisper_model, analysis
+        )
 
         # Style affects only composition, never analysis, so it deliberately
         # stays out of the cache key - switching styles recomposes instantly
@@ -256,20 +282,50 @@ class SongScribeAnalyzer:
         path = audio_io.resolve_input_path(audio_file)
         return audio_io.load_from_path(path)
 
-    def _lyrics(self, loaded, file_tags) -> tuple[str, str]:
-        """Embedded tags first, then a sidecar file. Both are exact; neither is
-        guaranteed to exist. ASR fallback arrives in a later phase."""
+    def _lyrics(
+        self, loaded, file_tags, transcribe_mode="off", whisper_model=None, analysis=None
+    ) -> tuple[str, str]:
+        """Embedded tags first, then a sidecar file, then optionally ASR.
+
+        The order matters: tags and .lrc files are exact transcriptions someone
+        already made, while Whisper on a full mix is an estimate. Never prefer
+        the estimate over the exact source.
+        """
         embedded = file_tags.get("lyrics")
-        if embedded:
+        if embedded and transcribe_mode != "always":
             return tag_reader.strip_lrc_timestamps(embedded), "embedded tag"
 
-        if loaded.has_file:
+        if loaded.has_file and transcribe_mode != "always":
             found = tag_reader.find_sidecar_lyrics(loaded.source_path)
             if found:
                 text, source = found
                 return tag_reader.strip_lrc_timestamps(text), source
 
-        return "", "none found"
+        if transcribe_mode == "off":
+            return "", "none found"
+
+        try:
+            samples = loaded.samples_at(transcriber.WHISPER_SR)
+            duration = (analysis or {}).get("duration") or loaded.duration
+            result = transcriber.transcribe_to_lyrics(
+                samples,
+                duration=duration,
+                model_size=whisper_model or transcriber.DEFAULT_MODEL,
+            )
+            if result["lyrics"]:
+                return (
+                    result["lyrics"],
+                    f"whisper {whisper_model} ({result['language']}, "
+                    f"{result['line_count']} segments)",
+                )
+            return "", "whisper found no lyrics"
+        except transcriber.TranscriptionError as exc:
+            print(f"[SongScribe] transcription unavailable: {exc}")
+        except Exception as exc:
+            print(f"[SongScribe] transcription failed: {exc}")
+            traceback.print_exc()
+
+        return "", "transcription failed"
 
 
 NODE_CLASS_MAPPINGS = {"SongScribeAnalyzer": SongScribeAnalyzer}

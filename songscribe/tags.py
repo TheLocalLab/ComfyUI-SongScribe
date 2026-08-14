@@ -104,6 +104,32 @@ def _extract_lyrics(flat: dict) -> str | None:
     return None
 
 
+def looks_like_lyrics(text: str) -> bool:
+    """Heuristic guard for untyped sidecar files.
+
+    A .lrc is unambiguously a lyric file. A .txt sitting next to a song could
+    be anything - credits, liner notes, a style description, a README - and
+    whatever it holds becomes the lyrics output, which in turn becomes an
+    instruction to the music model. So .txt has to look the part.
+
+    Lyrics are short lines. Prose is long ones.
+    """
+    lines = [line.strip() for line in (text or "").splitlines() if line.strip()]
+    if len(lines) < 2:
+        return False
+
+    # Bracketed section tags are close to proof.
+    if any(re.fullmatch(r"[\[\(].{1,24}[\]\)]", line) for line in lines):
+        return True
+
+    long_lines = sum(1 for line in lines if len(line) > 120)
+    if long_lines / len(lines) > 0.25:
+        return False
+
+    average = sum(len(line) for line in lines) / len(lines)
+    return average <= 80
+
+
 def find_sidecar_lyrics(audio_path: str) -> tuple[str, str] | None:
     """Look for a .lrc / .txt lyric file sitting next to the audio.
 
@@ -118,8 +144,16 @@ def find_sidecar_lyrics(audio_path: str) -> tuple[str, str] | None:
                     text = fh.read().strip()
             except OSError:
                 continue
-            if len(text) > 20:
-                return text, f"sidecar {ext} file"
+            if len(text) <= 20:
+                continue
+            # .lrc is a dedicated lyric format and is trusted as-is.
+            if ext == ".txt" and not looks_like_lyrics(text):
+                print(
+                    f"[SongScribe] ignoring {os.path.basename(candidate)}: "
+                    "does not look like lyrics"
+                )
+                continue
+            return text, f"sidecar {ext} file"
     return None
 
 
