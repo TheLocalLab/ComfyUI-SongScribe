@@ -78,13 +78,6 @@ def main() -> int:
         print(f"  required: {list(spec.get('required', {}))}")
         print(f"  optional: {list(spec.get('optional', {}))}")
 
-        file_widget = spec["required"]["audio_file"][0]
-        if "test_track.wav" not in file_widget:
-            print("  FAIL  upload widget did not list the input-dir file")
-            failures.append(f"{name}.audio_file")
-        else:
-            print(f"  PASS  upload widget sees {len(file_widget) - 1} audio file(s)")
-
         if len(cls.RETURN_TYPES) != len(cls.RETURN_NAMES):
             print("  FAIL  RETURN_TYPES/RETURN_NAMES length mismatch")
             failures.append(f"{name}.returns")
@@ -94,6 +87,20 @@ def main() -> int:
         if not hasattr(cls, cls.FUNCTION):
             print(f"  FAIL  FUNCTION '{cls.FUNCTION}' is not a method")
             failures.append(f"{name}.function")
+
+        # Everything above is the contract every node must satisfy. What
+        # follows drives the analyzer specifically, since it is the only node
+        # that takes audio; the companion nodes are exercised by
+        # companion_test.py against their underlying core functions.
+        if name != "SongScribeAnalyzer":
+            continue
+
+        file_widget = spec["required"]["audio_file"][0]
+        if "test_track.wav" not in file_widget:
+            print("  FAIL  upload widget did not list the input-dir file")
+            failures.append(f"{name}.audio_file")
+        else:
+            print(f"  PASS  upload widget sees {len(file_widget) - 1} audio file(s)")
 
         # Actually execute it, the way the graph would.
         print("  executing...")

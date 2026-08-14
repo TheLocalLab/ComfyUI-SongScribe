@@ -1,0 +1,21 @@
+name: Synthwave
+bpm: 112
+key: F# minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: solid bass weight
+genre: [synthwave, synth-pop]
+mood: [hypnotic and trance-like, warm and nostalgic, mysterious and shadowy]
+scene: [a long night drive, a summer road trip]
+production:
+  - a wide spacious stereo image
+  - long cavernous hall reverb
+  - warm analog tape saturation
+instruments:
+  - punchy electronic drum machine
+  - warm analog synth bass
+  - bright synth lead
+  - arpeggiated synthesizer
+  - analog synth pads
+vocal_presence: instrumental

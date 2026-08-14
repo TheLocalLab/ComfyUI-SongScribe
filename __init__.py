@@ -18,7 +18,7 @@ def _register(module):
 # Import failures here would take the whole pack down and hide every node, so
 # each module is registered independently and a failure is reported loudly
 # rather than silently swallowed.
-_MODULES = ("analyzer",)
+_MODULES = ("analyzer", "caption_tools", "style_preset", "lyrics_tools")
 
 for _name in _MODULES:
     try:

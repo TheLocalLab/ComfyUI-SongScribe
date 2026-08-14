@@ -17,8 +17,19 @@ Two rules govern everything here:
 from __future__ import annotations
 
 import random
+import re
 
 SECTION_HEADERS = ("Global Metadata", "Vocal Details", "Arrangement")
+
+# Matches "Global Metadata:" at the start of a line, tolerating the markdown
+# bold that creeps in when captions are pasted out of documentation. The
+# asterisks may fall either side of the colon - "**Arrangement:**" and
+# "**Arrangement**:" are both common - so both positions are optional.
+HEADER_PATTERN = re.compile(
+    r"^[ \t]*\**[ \t]*(Global Metadata|Vocal Details|Arrangement)[ \t]*\**[ \t]*"
+    r":[ \t]*\**[ \t]*",
+    re.IGNORECASE | re.MULTILINE,
+)
 
 # How literally the caption reproduces the analysed track.
 STYLES = {
@@ -513,6 +524,44 @@ def compose_arrangement(
 
 
 # --------------------------------------------------------------------------
+
+
+def split_caption(caption: str) -> dict:
+    """Split a caption back into its three sections.
+
+    Falls back gracefully: a caption with no recognisable headers is returned
+    whole in `global` rather than being silently discarded, and text sitting
+    before the first header is preserved rather than dropped.
+    """
+    text = (caption or "").strip()
+    result = {"global": "", "vocal": "", "arrangement": ""}
+    if not text:
+        return result
+
+    matches = list(HEADER_PATTERN.finditer(text))
+    if not matches:
+        result["global"] = text
+        return result
+
+    mapping = {
+        "global metadata": "global",
+        "vocal details": "vocal",
+        "arrangement": "arrangement",
+    }
+
+    preamble = text[: matches[0].start()].strip()
+
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+        body = text[match.end() : end].strip()
+        key = mapping[match.group(1).lower()]
+        # Repeated headers append rather than overwrite.
+        result[key] = f"{result[key]}\n\n{body}".strip() if result[key] else body
+
+    if preamble:
+        result["global"] = f"{preamble}\n\n{result['global']}".strip()
+
+    return result
 
 
 def compose_caption(

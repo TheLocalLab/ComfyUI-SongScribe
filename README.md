@@ -34,7 +34,7 @@ The whole pack runs on CPU.
 | 1 | DSP analyzer, multi-format loading, embedded lyrics, sidecar cache | **Done** |
 | 2 | CLAP zero-shot descriptors (genre, mood, instruments, vocal character) | **Done** |
 | 3 | Full composer grammar + style-abstraction dial | **Done** |
-| 4 | Caption Splitter/Composer, Style Presets, Lyrics tools, ID3 write-back | Planned |
+| 4 | Caption Splitter/Composer, Style Presets, Lyrics tools | **Done** |
 | 5 | Optional `faster-whisper` lyric transcription | Planned |
 
 ## How the descriptors work
@@ -89,6 +89,16 @@ python_embeded/python.exe -m pip install librosa mutagen pyyaml
 
 These are purely additive — they don't upgrade or downgrade numpy, torch or
 anything else ComfyUI depends on.
+
+## Nodes
+
+| Node | Does |
+|---|---|
+| **Song Analyzer** | Audio → caption, lyrics, duration |
+| **Style Preset** | Curated style → caption, no reference track needed |
+| **Caption Splitter** | Caption → three editable sections |
+| **Caption Composer** | Three sections → caption |
+| **Lyrics Structure** | Normalise section tags, check they fit the duration |
 
 ## Node: Song Analyzer
 
@@ -154,6 +164,41 @@ runs reuse it. This matters more than it sounds: ComfyUI re-executes a node
 whenever anything upstream changes, and analysis takes seconds, not
 milliseconds. If the audio's directory isn't writable, the cache falls back to
 ComfyUI's temp directory. Cached runs are ~100× faster.
+
+## Style Presets
+
+Presets are **structured YAML**, not prose — they declare the same fields the
+analyzer produces (genre, mood, instruments, production…) and are rendered
+through the *same* composer. One grammar, one set of tests, and presets and
+analysed tracks come out speaking the same language.
+
+It also makes blending well defined: merging two structured presets is a list
+operation, where blending two paragraphs of prose is not. `blend_with` plus a
+`blend` weight interleaves each field proportionally; scalars like BPM cross
+over at the halfway point rather than averaging, since the mean of 78 and 132
+BPM is a tempo neither preset asked for.
+
+Three modifier axes (`era`, `texture`, `mood_shift`) layer on top. Modifiers
+always *add* — they never replace what the preset declared.
+
+Ships with: lo-fi hip-hop, neo-soul, indie folk, synthwave, dark techno, pop
+anthem, cinematic epic, ambient drift. Drop your own `.yaml` into
+`songscribe/presets/` and it appears in the dropdown on the next restart.
+
+## Lyrics Structure
+
+MiniMax treats bracketed section tags as the **only** executable structural
+instruction — the lyric text itself just conveys mood. So a malformed tag
+doesn't produce a slightly-off song, it silently drops structure from a render
+that may take minutes.
+
+This node normalises `(intro)`, `Verse 1:`, `{HOOK}`, `[middle 8]` and `ending:`
+into `[Intro]` `[Verse]` `[Chorus]` `[Bridge]` `[Outro]`, and estimates whether
+the lyrics fit your `max_duration` — warning in both directions (words cut short,
+or long instrumental stretches). The estimate is reported as a **range**, since
+delivery speed differs enormously between a ballad and a rap verse.
+
+A lyric line that merely ends in a colon is not mistaken for a tag.
 
 ## Performance
 

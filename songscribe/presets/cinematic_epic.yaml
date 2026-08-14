@@ -1,0 +1,23 @@
+name: Cinematic Epic
+bpm: 92
+key: D minor
+harmony: simple diatonic
+feel: steady
+drums: drum-forward
+low_end: deep sub-heavy low end
+genre: [cinematic score, epic trailer]
+mood: [epic and cinematic, triumphant and soaring, tense and anxious]
+scene: [a film's emotional climax, a video game boss fight]
+production:
+  - a wide spacious stereo image
+  - long cavernous hall reverb
+  - a loud heavily compressed master
+instruments:
+  - orchestral timpani
+  - string section
+  - brass section
+  - solo cello
+  - acoustic drum kit
+vocal_presence: wordless
+vocal_timbre: [a choir of many voices, a soaring operatic voice]
+vocal_delivery: [layered in thick stacked harmonies, drenched in delay and reverb]
