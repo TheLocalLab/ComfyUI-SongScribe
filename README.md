@@ -225,6 +225,40 @@ python_embeded/python.exe custom_nodes/ComfyUI-SongScribe/tests/smoke_test.py
 - `format_test.py` — transcodes to every supported container and verifies each loads back.
 - `node_test.py` — loads the pack through ComfyUI's importlib path and executes the node end to end.
 
+## Measured accuracy
+
+Scored against five labelled tracks with `tests/evaluate.py`. Read the caveat
+below before trusting the numbers.
+
+| Axis | Result |
+|---|---|
+| Vocal presence (voice / no voice) | 5/5 |
+| Sung vs rapped | 4/5 |
+| Key — mode only | 2/2 |
+| Key — exact tonic | 0/3 |
+| BPM vs label | 1/5 |
+| Vocal **gender** | **2/5 — removed from the vocabulary** |
+
+**The caveat:** those labels are *generation prompts*, not measurements of the
+finished audio. Where the label and the analyzer disagreed on tempo, the audio's
+own onset autocorrelation backed the analyzer in 4 of 5 cases — on one track the
+correlation at the labelled 96 BPM was *negative* (−0.031) versus 0.421 at the
+detected tempo. So "BPM 1/5" is not 1/5 accuracy against real ground truth; it
+substantially measures how closely a music generator honoured its own prompt.
+Proper calibration needs tracks with tempo and key measured from the audio.
+
+Two changes came directly out of this run:
+
+- **Gender claims were removed from the vocal vocabulary.** CLAP scored 2/5 on a
+  *binary* male/female question — worse than chance — and answered "female" with
+  0.80–0.90 confidence on three tracks that were male. A caption is an
+  instruction, so a wrong gender claim doesn't just misdescribe the source, it
+  generates the wrong voice.
+- **The key phrase now names the relative when the margin is tight.** One track
+  led its relative by 0.023 while beating every other candidate decisively —
+  reported, correctly but uselessly, as confidence 1.00. It now reads
+  "B flat major (or its relative G minor)" rather than picking a side.
+
 ## Accuracy notes
 
 - **Key** is Krumhansl-Schmuckler profile correlation. Confidence is scored against the best *non-relative* alternative, since a key and its relative minor share all seven pitch classes and would otherwise always look ambiguous. Relative-key confusion is reported in `analysis.key.relative_margin` rather than hidden.

@@ -1,4 +1,14 @@
 # The voice itself. Only scored when vocal_presence says there is one.
+#
+# Deliberately contains no gender terms. Measured against five labelled tracks,
+# CLAP scored 2/5 on a *binary* male/female question - worse than chance - and
+# answered "female" with 0.80-0.90 confidence on three tracks that were male.
+# A wrong gender claim is not a cosmetic error: the caption instructs the music
+# model, so it would actively generate the wrong voice. Register and texture
+# below are acoustic properties rather than identity claims.
+#
+# If you want a specific voice, say so in the Vocal Details section yourself -
+# the Caption Splitter node exists precisely for that edit.
 axis: vocal_timbre
 prompt: "a song with {label}"
 top_k: 2
@@ -6,14 +16,14 @@ threshold: 0.07
 temperature: 0.06
 labels:
   - a soft androgynous voice
-  - a deep resonant male voice
-  - a warm mid-range male voice
-  - a high airy male falsetto
-  - a gritty rasping male voice
-  - a clear bright female voice
-  - a warm husky female voice
-  - a light breathy female voice
-  - a powerful belting female voice
+  - a deep resonant low-register voice
+  - a warm mid-range voice
+  - a high airy falsetto
+  - a gritty rasping voice
+  - a clear bright voice
+  - a warm husky voice
+  - a light breathy voice
+  - a powerful belting voice
   - a soaring operatic voice
   - a childlike innocent voice
   - a smoky jazz-club voice

@@ -19,6 +19,8 @@ from __future__ import annotations
 import random
 import re
 
+from .keys import spoken_key
+
 SECTION_HEADERS = ("Global Metadata", "Vocal Details", "Arrangement")
 
 # Matches "Global Metadata:" at the start of a line, tolerating the markdown
@@ -184,6 +186,14 @@ def _tempo_phrase(tempo: dict, style: dict, rng: random.Random) -> str:
     return tempo.get("descriptor", "")
 
 
+# Below this margin, a key and its relative are indistinguishable from the
+# chroma alone and the caption names both. Measured on real tracks the winner
+# can lead its relative by as little as 0.02 while every other rival is far
+# behind - which the confidence score reads, correctly, as a decisive win over
+# the field. Stating one key outright there is a coin flip dressed as a fact.
+RELATIVE_AMBIGUITY_MARGIN = 0.05
+
+
 def _key_phrase(key: dict, style: dict) -> str:
     if not key or not key.get("spoken"):
         return ""
@@ -194,6 +204,17 @@ def _key_phrase(key: dict, style: dict) -> str:
         return f"{key.get('mode', '')} tonality".strip()
 
     phrase = key["spoken"]
+
+    margin = key.get("relative_margin")
+    if (
+        margin is not None
+        and margin < RELATIVE_AMBIGUITY_MARGIN
+        and key.get("relative")
+    ):
+        relative = key["relative"].split()
+        spoken_relative = f"{spoken_key(relative[0])} {relative[1]}" if len(relative) > 1 else key["relative"]
+        phrase += f" (or its relative {spoken_relative})"
+
     complexity = key.get("harmonic_complexity")
     if complexity == "chromatic / extended harmony":
         phrase += ", chromatic extended harmony"
