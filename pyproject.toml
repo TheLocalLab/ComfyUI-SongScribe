@@ -7,7 +7,7 @@ requires-python = ">=3.10"
 dependencies = ["librosa>=0.10", "mutagen>=1.45", "PyYAML>=6.0"]
 
 [project.urls]
-Repository = "https://github.com/thelocallab/ComfyUI-SongScribe"
+Repository = "https://github.com/TheLocalLab/ComfyUI-SongScribe"
 
 [tool.comfy]
 PublisherId = "thelocallab"
