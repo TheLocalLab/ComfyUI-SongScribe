@@ -1,0 +1,72 @@
+# Genre / style. Phrased the way MiniMax captions name a style, so the winning
+# labels can be dropped into the caption verbatim.
+axis: genre
+prompt: "{label} music"
+top_k: 2
+threshold: 0.10
+temperature: 0.04
+labels:
+  - lo-fi hip-hop
+  - chillhop
+  - boom bap hip-hop
+  - trap
+  - drill
+  - contemporary R&B
+  - neo-soul
+  - classic soul
+  - funk
+  - disco
+  - house
+  - deep house
+  - techno
+  - trance
+  - drum and bass
+  - dubstep
+  - ambient electronic
+  - downtempo
+  - synthwave
+  - IDM
+  - indie pop
+  - synth-pop
+  - dream pop
+  - shoegaze
+  - bedroom pop
+  - mainstream pop
+  - power pop
+  - indie rock
+  - alternative rock
+  - classic rock
+  - hard rock
+  - heavy metal
+  - punk rock
+  - post-rock
+  - emo
+  - grunge
+  - folk
+  - indie folk
+  - singer-songwriter acoustic
+  - country
+  - americana
+  - bluegrass
+  - blues
+  - jazz
+  - smooth jazz
+  - bebop jazz
+  - jazz fusion
+  - bossa nova
+  - latin pop
+  - reggaeton
+  - reggae
+  - dub
+  - afrobeats
+  - k-pop
+  - classical orchestral
+  - solo piano
+  - string quartet
+  - cinematic score
+  - epic trailer
+  - gospel
+  - world fusion
+  - lounge
+  - trip-hop
+  - new age

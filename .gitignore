@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*.songscribe.json
+.venv/
+.vscode/
+.idea/
+*.egg-info/

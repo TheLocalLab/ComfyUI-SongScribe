@@ -1,0 +1,19 @@
+# Is there a voice at all? Gates the entire Vocal Details section, so it is
+# scored on its own with a straight argmax rather than a threshold.
+axis: vocal_presence
+prompt: "{label}"
+mode: exclusive
+top_k: 1
+threshold: 0.0
+temperature: 0.10
+labels:
+  - an instrumental track with no singing at all
+  - a song with lead singing vocals
+  - a track with spoken word or rapping
+  - a track with wordless humming and vocal textures
+# Maps the winning label onto the state the composer branches on.
+outcomes:
+  "an instrumental track with no singing at all": instrumental
+  "a song with lead singing vocals": sung
+  "a track with spoken word or rapping": spoken
+  "a track with wordless humming and vocal textures": wordless

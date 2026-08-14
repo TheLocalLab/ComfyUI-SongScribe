@@ -1,0 +1,29 @@
+# The voice itself. Only scored when vocal_presence says there is one.
+axis: vocal_timbre
+prompt: "a song with {label}"
+top_k: 2
+threshold: 0.07
+temperature: 0.06
+labels:
+  - a soft androgynous voice
+  - a deep resonant male voice
+  - a warm mid-range male voice
+  - a high airy male falsetto
+  - a gritty rasping male voice
+  - a clear bright female voice
+  - a warm husky female voice
+  - a light breathy female voice
+  - a powerful belting female voice
+  - a soaring operatic voice
+  - a childlike innocent voice
+  - a smoky jazz-club voice
+  - a soulful gospel-trained voice
+  - a nasal indie voice
+  - a heavily autotuned voice
+  - a vocoded robotic voice
+  - a whispered intimate voice
+  - a strained emotional voice
+  - a smooth polished pop voice
+  - a rough untrained raw voice
+  - a choir of many voices
+  - a distant heavily reverbed voice

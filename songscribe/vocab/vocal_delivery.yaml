@@ -1,0 +1,27 @@
+# How the voice is performed and placed in the mix.
+axis: vocal_delivery
+prompt: "a song where the vocal is {label}"
+top_k: 2
+threshold: 0.06
+temperature: 0.06
+labels:
+  - hushed and half-spoken
+  - sung softly and gently
+  - belted out powerfully
+  - rapped in tight rhythmic flow
+  - rapped in a slow drawling flow
+  - crooned smoothly
+  - shouted and screamed
+  - sung with heavy vibrato
+  - sung in a flat deadpan monotone
+  - phrased lazily behind the beat
+  - phrased tightly on the grid
+  - layered in thick stacked harmonies
+  - doubled with a close harmony
+  - answered by a call-and-response choir
+  - sitting low in the mix like another instrument
+  - pushed loud and forward in the mix
+  - drenched in delay and reverb
+  - chopped and stuttered as a sample
+  - wordless humming and ooh-ahh textures
+  - ad-libbed loosely over the beat

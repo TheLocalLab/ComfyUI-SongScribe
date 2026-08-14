@@ -1,0 +1,40 @@
+# Emotional character. These land in the Global Metadata section, so they are
+# written as descriptive phrases rather than single adjectives.
+axis: mood
+prompt: "music that feels {label}"
+top_k: 3
+threshold: 0.09
+temperature: 0.05
+labels:
+  - laid-back and dreamy
+  - warm and nostalgic
+  - melancholy and wistful
+  - sad and heavy-hearted
+  - lonely and introspective
+  - calm and meditative
+  - hazy and drifting
+  - tender and intimate
+  - hopeful and uplifting
+  - bright and joyful
+  - playful and carefree
+  - triumphant and soaring
+  - confident and swaggering
+  - energetic and driving
+  - urgent and restless
+  - tense and anxious
+  - dark and brooding
+  - menacing and aggressive
+  - angry and defiant
+  - haunting and eerie
+  - mysterious and shadowy
+  - epic and cinematic
+  - romantic and longing
+  - sensual and smouldering
+  - bittersweet
+  - reflective and quiet
+  - euphoric and rushing
+  - hypnotic and trance-like
+  - gritty and raw
+  - polished and glossy
+  - spacious and weightless
+  - claustrophobic and dense

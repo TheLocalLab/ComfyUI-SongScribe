@@ -1,0 +1,32 @@
+# Listening context / use case. MiniMax captions routinely include a line like
+# "studying, raining-outside, headphones-on late-night listening".
+axis: scene
+prompt: "music for {label}"
+top_k: 2
+threshold: 0.08
+temperature: 0.06
+labels:
+  - studying and late-night focus
+  - rainy-day headphones listening
+  - falling asleep and winding down
+  - a slow lazy Sunday morning
+  - a long night drive
+  - a summer road trip
+  - a crowded dancefloor at peak hour
+  - an after-hours club
+  - a gym workout
+  - running and cardio
+  - a coffee shop afternoon
+  - a cocktail lounge evening
+  - a beach party
+  - a campfire singalong
+  - a wedding first dance
+  - a funeral or memorial
+  - a film's emotional climax
+  - a tense chase scene
+  - a video game boss fight
+  - meditation and yoga
+  - a children's playroom
+  - a festival main stage
+  - background music while working
+  - a romantic dinner

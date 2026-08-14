@@ -1,0 +1,15 @@
+[project]
+name = "songscribe"
+description = "Extract structured music captions, lyrics and duration from audio files. Built for MiniMax Music 3's caption format, usable in any audio workflow. Runs on CPU."
+version = "0.2.0"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = ["librosa>=0.10", "mutagen>=1.45", "PyYAML>=6.0"]
+
+[project.urls]
+Repository = "https://github.com/thelocallab/ComfyUI-SongScribe"
+
+[tool.comfy]
+PublisherId = "thelocallab"
+DisplayName = "SongScribe"
+Icon = ""

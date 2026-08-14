@@ -1,0 +1,166 @@
+# SongScribe
+
+ComfyUI nodes that take an audio file and produce a **structured music caption**,
+**lyrics**, and **duration** — shaped for [MiniMax Music 3](https://github.com/MiniMax-AI/MiniMax-Music3)'s
+three-section caption format, but emitted as plain `STRING`/`FLOAT` so they drop
+into any audio workflow.
+
+```
+Global Metadata: 78 BPM, D flat major, moderately extended. Machine-tight timing.
+Energy arc: quiet-open, peaks late. Production: tonally warm and rounded, ...
+
+Vocal Details: ...
+
+Arrangement: Mix sits drum-forward, with a solid bass weight. Section map — ...
+```
+
+## Design principle
+
+**Nothing in the caption is guessed.** BPM, key, dynamics, spectral balance and
+the section map are measured by DSP. Where a value can't be measured or scored,
+the clause is *omitted* rather than filled with something plausible — a caption
+that says less beats one that says something wrong, because every sentence in it
+becomes an instruction to the music model.
+
+This is also why there's no large language model in the pipeline. The caption
+format is a fixed three-section template drawn from a bounded vocabulary, so
+filling it is a measurement-and-retrieval problem, not a text-generation one.
+The whole pack runs on CPU.
+
+## Status
+
+| Phase | What | State |
+|---|---|---|
+| 1 | DSP analyzer, multi-format loading, embedded lyrics, sidecar cache | **Done** |
+| 2 | CLAP zero-shot descriptors (genre, mood, instruments, vocal character) | **Done** |
+| 3 | Full composer grammar + style-abstraction dial | Planned |
+| 4 | Caption Splitter/Composer, Style Presets, Lyrics tools, ID3 write-back | Planned |
+| 5 | Optional `faster-whisper` lyric transcription | Planned |
+
+## How the descriptors work
+
+The `describe` widget switches on CLAP scoring. There is no language model
+involved: [`laion/clap-htsat-unfused`](https://huggingface.co/laion/clap-htsat-unfused)
+(~150M params, CPU) embeds audio and text into a shared space, and SongScribe
+ranks a **hand-authored vocabulary** against the track.
+
+Every phrase the system can emit lives in `songscribe/vocab/*.yaml`. That's the
+whole point: the model picks *from* a list rather than writing free text, so the
+worst failure is a less apt word — never an invented fact. Each axis is one file:
+
+| Axis | Picks | Feeds |
+|---|---|---|
+| `genre` | top 2 | Global Metadata |
+| `mood` | top 3 | Global Metadata |
+| `production` | top 3 | Global Metadata |
+| `scene` | top 2 | Global Metadata |
+| `instruments` | top 6 | Arrangement |
+| `vocal_timbre` | top 2 | Vocal Details |
+| `vocal_delivery` | top 2 | Vocal Details |
+| `vocal_presence` | exclusive | gates the whole Vocal Details section |
+
+Scores are softmaxed **within each axis** — raw CLAP cosine similarities sit in
+a narrow band and aren't interpretable on their own. Labels below the axis
+threshold are dropped rather than padded out to `top_k`.
+
+`vocal_presence` is scored first and, on an instrumental, the vocal axes are
+skipped entirely rather than reported with low scores. Describing a voice that
+isn't there is the most damaging thing this layer could do to a caption.
+
+### Editing the vocabulary
+
+Drop a new `.yaml` into `songscribe/vocab/` and it becomes an axis on the next
+run — no code changes. Tune `threshold` if an axis is too eager or too shy,
+`top_k` for how many labels it may contribute, and `temperature` for how sharply
+it discriminates.
+
+**The vocabulary is the tuning surface.** If captions come out generic for the
+music you work with, add the specific language you want to that genre's file
+rather than reaching for a bigger model.
+
+## Install
+
+Clone into `ComfyUI/custom_nodes/`, then install the dependencies into the same
+Python that runs ComfyUI. For a Windows portable install:
+
+```bash
+python_embeded/python.exe -m pip install librosa mutagen pyyaml
+```
+
+These are purely additive — they don't upgrade or downgrade numpy, torch or
+anything else ComfyUI depends on.
+
+## Node: Song Analyzer
+
+**Inputs**
+
+| Input | Notes |
+|---|---|
+| `audio_file` | Upload widget. Set to `(use AUDIO input)` when driving it from a socket. |
+| `audio` *(optional)* | `AUDIO` from an upstream node. Takes priority over the file when connected. |
+| `use_cache` | Reuse a previous analysis of the same file instead of recomputing. |
+| `seed` | Varies caption phrasing without re-analysing the audio. |
+
+**Outputs**
+
+| Output | Type | Wire to |
+|---|---|---|
+| `caption` | `STRING` | MiniMax `caption` |
+| `lyrics` | `STRING` | MiniMax `lyrics` |
+| `duration` | `FLOAT` | MiniMax `max_duration` |
+| `duration_int` | `INT` | — |
+| `duration_str` | `STRING` | `3:47`, for filenames and notes |
+| `analysis` | `SONGSCRIBE_ANALYSIS` | Downstream SongScribe nodes |
+
+### Formats
+
+Anything libsndfile or ffmpeg can decode: wav, flac, mp3, m4a/aac, ogg, opus,
+aiff, wma, alac, ape and more. librosa 1.0 dropped its audioread fallback, so
+formats libsndfile can't open are decoded through PyAV, which ships with ComfyUI.
+
+### Lyrics
+
+Read from embedded tags (`USLT`/`SYLT`/Vorbis/MP4) or a sibling `.lrc`/`.txt`
+file, with LRC timestamps stripped. Both sources are exact. Neither is
+guaranteed to exist — if the file carries no lyrics, this output is empty until
+phase 5 adds optional transcription.
+
+### Caching
+
+The first analysis of a file writes a `<name>.songscribe.json` sidecar; later
+runs reuse it. This matters more than it sounds: ComfyUI re-executes a node
+whenever anything upstream changes, and analysis takes seconds, not
+milliseconds. If the audio's directory isn't writable, the cache falls back to
+ComfyUI's temp directory. Cached runs are ~100× faster.
+
+## Performance
+
+Measured on a portable Windows install, CPU only, warm process:
+
+| Track length | Time |
+|---|---|
+| 40 s | ~5 s |
+| 5 min | ~14 s |
+| any, cached | ~0.15 s |
+
+Add roughly 10 s once per ComfyUI session for numba's JIT warm-up on the first
+analysis.
+
+## Tests
+
+No ComfyUI required — they stub out `folder_paths`:
+
+```bash
+python_embeded/python.exe custom_nodes/ComfyUI-SongScribe/tests/smoke_test.py
+```
+
+- `smoke_test.py` — synthesises a track at a known 78 BPM in D♭ major and checks the measured values land on it.
+- `format_test.py` — transcodes to every supported container and verifies each loads back.
+- `node_test.py` — loads the pack through ComfyUI's importlib path and executes the node end to end.
+
+## Accuracy notes
+
+- **Key** is Krumhansl-Schmuckler profile correlation. Confidence is scored against the best *non-relative* alternative, since a key and its relative minor share all seven pitch classes and would otherwise always look ambiguous. Relative-key confusion is reported in `analysis.key.relative_margin` rather than hidden.
+- **BPM** can land on half or double time. That's inherent to beat tracking, not a bug.
+- **Percussive ratio** is estimated from ~24 s of evenly spaced excerpts rather than the whole track; measured error against a full-resolution HPSS is ~0.002, for roughly a sixth of the cost.
+- **Section boundaries** come from timbral/harmonic self-similarity clustering. They mark where the music changes — they do not identify *what* a section is. Verse/chorus labelling is not something this can honestly claim.

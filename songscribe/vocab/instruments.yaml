@@ -1,0 +1,63 @@
+# Instrumentation. Multi-label by nature - a track has several of these at
+# once - so top_k is high and the threshold does the real filtering.
+axis: instruments
+prompt: "music featuring {label}"
+top_k: 6
+threshold: 0.035
+temperature: 0.07
+labels:
+  - warm Rhodes electric piano
+  - grand piano
+  - upright piano
+  - honky-tonk piano
+  - Hammond organ
+  - church organ
+  - analog synth pads
+  - warm analog synth bass
+  - bright synth lead
+  - arpeggiated synthesizer
+  - mellotron
+  - acoustic guitar
+  - fingerpicked acoustic guitar
+  - clean electric guitar
+  - jazzy electric guitar
+  - crunchy distorted electric guitar
+  - heavily distorted guitar
+  - slide guitar
+  - banjo
+  - mandolin
+  - ukulele
+  - harp
+  - electric bass guitar
+  - upright double bass
+  - deep sub bass
+  - slap bass
+  - acoustic drum kit
+  - dusty boom-bap drums
+  - punchy electronic drum machine
+  - 808 drum machine
+  - brushed jazz drums
+  - hand percussion
+  - congas and bongos
+  - tambourine and shaker
+  - handclaps
+  - orchestral timpani
+  - string section
+  - solo violin
+  - solo cello
+  - brass section
+  - solo trumpet
+  - muted trumpet
+  - saxophone
+  - flute
+  - clarinet
+  - accordion
+  - vibraphone
+  - marimba
+  - glockenspiel
+  - music box
+  - vinyl crackle texture
+  - tape hiss
+  - field recording ambience
+  - rain and weather sounds
+  - reversed ambient swells

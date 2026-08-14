@@ -1,0 +1,35 @@
+# Production and recording character. Deliberately overlaps with what the DSP
+# already measures (brightness, dynamics) - where they disagree, the composer
+# prefers the measured value and uses these for the texture words DSP can't name.
+axis: production
+prompt: "a recording with {label}"
+top_k: 3
+threshold: 0.05
+temperature: 0.06
+labels:
+  - heavy vinyl crackle and surface noise
+  - warm analog tape saturation
+  - tape hiss and wow-flutter pitch wobble
+  - a muddy lo-fi bedroom mix
+  - a dusty low-passed mix
+  - a clean modern polished mix
+  - a bright airy hi-fi mix
+  - a wide spacious stereo image
+  - a narrow mono-leaning image
+  - heavy reverb drenching everything
+  - a dry close-mic'd intimate sound
+  - long cavernous hall reverb
+  - warm spring reverb
+  - heavy tape delay throws
+  - a loud heavily compressed master
+  - soft-clipped saturated drums
+  - gritty distortion and fuzz
+  - a raw live-room recording
+  - a crisp studio multitrack production
+  - a rough demo quality recording
+  - lo-fi bitcrushed digital artefacts
+  - sidechain pumping compression
+  - a deep sub-heavy club mix
+  - a thin telephone-filtered sound
+  - gentle detuning and chorus wobble
+  - a shimmering high-end sheen
