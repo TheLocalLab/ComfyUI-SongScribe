@@ -4,6 +4,12 @@ axis: instruments
 prompt: "music featuring {label}"
 top_k: 6
 threshold: 0.035
+# min_z: minimum standout (0-1 fraction of the maximum possible for this axis)
+# before a label may be stated. Calibrated on labelled tracks with
+# tools/calibrate.py against laion/larger_clap_music_and_speech.
+# observed 0.23-0.42 across labelled tracks
+# Sample size is small (6 tracks) - treat as a starting point, not settled.
+min_z: 0.28
 temperature: 0.07
 labels:
   - warm Rhodes electric piano

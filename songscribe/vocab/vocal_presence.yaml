@@ -5,6 +5,13 @@ prompt: "{label}"
 mode: exclusive
 top_k: 1
 threshold: 0.0
+# min_z: minimum standout (0-1 fraction of the maximum possible for this axis)
+# before a label may be stated. Calibrated on labelled tracks with
+# tools/calibrate.py against laion/larger_clap_music_and_speech.
+# correct calls scored 0.77-0.98, the one wrong call 0.66;
+# silence here yields 'state the voice you want' rather than a wrong 'instrumental'
+# Sample size is small (6 tracks) - treat as a starting point, not settled.
+min_z: 0.7
 temperature: 0.10
 labels:
   - an instrumental track with no singing at all

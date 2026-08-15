@@ -50,6 +50,17 @@ WINDOW_SECONDS = 10.0
 # song at one window per 50 s.
 MAX_WINDOWS = 6
 
+# Minimum standout (0-1, fraction of the maximum possible for the axis) before
+# a label may be stated at all. Per-axis `min_z` in a vocabulary file
+# overrides it. Calibrated against labelled tracks - see tools/calibrate.py.
+#
+# Set low on purpose. Measured on six labelled tracks, standout does not
+# separate correct genre calls from wrong ones - the two worst calls scored
+# highest - so a high bar here buys silence, not accuracy. It exists to catch
+# the genuinely undecided case, not to fix genre; that needs a better model,
+# not a stricter gate.
+DEFAULT_MIN_Z = 0.25
+
 VOCAB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vocab")
 
 _lock = threading.Lock()
@@ -245,6 +256,32 @@ def _softmax(values: np.ndarray, temperature: float) -> np.ndarray:
     return exponentiated / (exponentiated.sum() + 1e-9)
 
 
+def _standout(similarity: np.ndarray) -> np.ndarray:
+    """How far each label stands out from its axis, on a 0-1 scale.
+
+    This - not the softmax probability - is the confidence signal.
+
+    A softmax probability cannot measure confidence here because it is
+    dominated by `temperature`: at the 0.04-0.07 settings these axes use, the
+    winner takes 0.15-0.4 of the mass whether or not the model can tell the
+    labels apart. Measured across six tracks and eight axes, every softmax
+    threshold fired on every track - the gates were dead code, which is why a
+    wrong call was never suppressed.
+
+    A raw z-score fixes the temperature dependence but introduces a subtler
+    one: z is bounded by sqrt(n_labels - 1), so the same z means very different
+    things on a 4-label axis (ceiling 1.73) and a 64-label axis (ceiling 7.94).
+    Comparing those directly repeats the original mistake in a new coordinate
+    system. Dividing by the ceiling gives a fraction-of-maximum-possible
+    standout that is comparable everywhere.
+    """
+    mean = similarity.mean(axis=1, keepdims=True)
+    std = similarity.std(axis=1, keepdims=True) + 1e-9
+    z = (similarity - mean) / std
+    ceiling = max(np.sqrt(max(similarity.shape[1] - 1, 1)), 1e-9)
+    return z / ceiling
+
+
 def score_axis(
     audio_embeddings: np.ndarray, spec: dict, axis: str, model_id: str | None = None
 ) -> dict:
@@ -282,38 +319,47 @@ def score_axis(
         [_softmax(row, spec["temperature"]) for row in similarity], axis=0
     )
     mean_probability = per_window.mean(axis=0)
+    mean_z = _standout(similarity).mean(axis=0)
 
-    order = np.argsort(mean_probability)[::-1]
+    order = np.argsort(mean_z)[::-1]
+    min_z = float(spec.get("min_z", DEFAULT_MIN_Z))
+
+    def entry(index: int) -> dict:
+        return {
+            "label": labels[index],
+            "score": round(float(mean_probability[index]), 4),
+            "z": round(float(mean_z[index]), 3),
+        }
 
     if spec.get("mode") == "exclusive":
         winner = int(order[0])
-        outcome = (spec.get("outcomes") or {}).get(labels[winner])
+        confident = float(mean_z[winner]) >= min_z
+        outcome = (
+            (spec.get("outcomes") or {}).get(labels[winner]) if confident else None
+        )
         return {
-            "top": [
-                {
-                    "label": labels[winner],
-                    "score": round(float(mean_probability[winner]), 4),
-                }
-            ],
+            "top": [entry(winner)] if confident else [],
             "outcome": outcome,
-            "all": {
-                labels[i]: round(float(mean_probability[i]), 4) for i in order[:6]
-            },
+            "confident": confident,
+            "all": {labels[i]: round(float(mean_z[i]), 3) for i in order[:6]},
         }
 
     selected = []
     for index in order[: spec["top_k"]]:
-        score = float(mean_probability[index])
-        if score < spec["threshold"]:
+        if float(mean_z[index]) < min_z:
             break
-        selected.append({"label": labels[index], "score": round(score, 4)})
+        # The softmax gate is kept as a secondary filter so existing tuned
+        # thresholds still apply, but z is what actually decides.
+        if float(mean_probability[index]) < spec.get("threshold", 0.0):
+            break
+        selected.append(entry(index))
 
     return {
         "top": selected,
-        "all": {labels[i]: round(float(mean_probability[i]), 4) for i in order[:8]},
+        "all": {labels[i]: round(float(mean_z[i]), 3) for i in order[:8]},
         # Per-window winners let the composer talk about how the arrangement
         # changes rather than describing the track as one static block.
-        "per_window": [labels[int(np.argmax(row))] for row in per_window],
+        "per_window": [labels[int(np.argmax(row))] for row in similarity],
     }
 
 

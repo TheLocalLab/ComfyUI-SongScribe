@@ -4,6 +4,13 @@ axis: genre
 prompt: "{label} music"
 top_k: 2
 threshold: 0.10
+# min_z: minimum standout (0-1 fraction of the maximum possible for this axis)
+# before a label may be stated. Calibrated on labelled tracks with
+# tools/calibrate.py against laion/larger_clap_music_and_speech.
+# the only two calls above this were correct; all three wrong
+# calls sat at 0.21-0.22. Prefers silence, and a preset supplies genre far more reliably
+# Sample size is small (6 tracks) - treat as a starting point, not settled.
+min_z: 0.24
 temperature: 0.04
 labels:
   - lo-fi hip-hop

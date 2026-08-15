@@ -356,6 +356,15 @@ def compose_vocal(
     timbre_words = _labels(descriptors, "vocal_timbre", 2)
     delivery_words = _labels(descriptors, "vocal_delivery", 2)
 
+    # Presence scored but undecided. Describing a voice whose existence is in
+    # doubt is worse than saying nothing: the caption is an instruction, and
+    # "instrumental" and "belted vocal" produce completely different songs.
+    if descriptors and presence is None and "vocal_presence" in descriptors:
+        return (
+            "Vocals could not be identified with confidence - state the voice "
+            "you want here, or leave as-is for the model to choose."
+        )
+
     if not (timbre_words or delivery_words):
         return (
             "Vocal character not analysed - describe the voice you want here, "

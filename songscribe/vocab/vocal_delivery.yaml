@@ -3,6 +3,12 @@ axis: vocal_delivery
 prompt: "a song where the vocal is {label}"
 top_k: 2
 threshold: 0.06
+# min_z: minimum standout (0-1 fraction of the maximum possible for this axis)
+# before a label may be stated. Calibrated on labelled tracks with
+# tools/calibrate.py against laion/larger_clap_music_and_speech.
+# observed 0.41-0.57 across labelled tracks
+# Sample size is small (6 tracks) - treat as a starting point, not settled.
+min_z: 0.42
 temperature: 0.06
 labels:
   - hushed and half-spoken
