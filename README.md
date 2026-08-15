@@ -254,6 +254,40 @@ python_embeded/python.exe custom_nodes/ComfyUI-SongScribe/tests/smoke_test.py
 - `format_test.py` — transcodes to every supported container and verifies each loads back.
 - `node_test.py` — loads the pack through ComfyUI's importlib path and executes the node end to end.
 
+## Genre: supervised tagging (`genre_source`)
+
+CLAP guesses genre by embedding text and audio near each other — it has never
+seen "reggae" as a training label. [MAEST](https://huggingface.co/mtg-upf/discogs-maest-10s-pw-129e)
+is *supervised* on 400 Discogs styles, so it has. On the same six tracks:
+
+| Track | MAEST | CLAP |
+|---|---|---|
+| trap | **trap** | bossa nova |
+| reggae | **reggae** | classic soul |
+| rock | **heavy metal** | power pop |
+| hip-hop w/ R&B hooks | **contemporary R&B, R&B/swing** | dream pop |
+
+Both cost ~2s per track on CPU. Set `genre_source` to `maest` to use it,
+`clap` (default) for zero-shot, or `off` to omit genre entirely so a preset
+supplies it. Only genre is affected — mood, instruments and vocal character
+stay with CLAP, which is what MAEST does not predict.
+
+### Why `maest` is not the default: `trust_remote_code`
+
+MAEST ships a custom feature extractor, so loading it executes Python from the
+model repository. That is a real risk to hand to anyone who installs this pack,
+and it is mitigated rather than dismissed:
+
+- **Opt-in.** Nothing loads unless you select it.
+- **Pinned revision.** `songscribe/tagger.py` pins commit `54b3b0a`, so a later
+  change to that repository cannot silently execute on installed users.
+  Loading `main` would run whatever the repo contains on the day you hit queue.
+- **Audited.** The pinned file is a 242-line mel-spectrogram extractor
+  importing only numpy, torch and transformers' audio utilities — no network,
+  no subprocess, no `eval`/`exec`, no file access.
+
+If you re-point `REVISION` at a newer commit, read that file first.
+
 ## Measured accuracy
 
 Scored against five labelled tracks with `tests/evaluate.py`. Read the caveat

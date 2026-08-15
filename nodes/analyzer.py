@@ -12,6 +12,7 @@ from ..songscribe import (
     compose,
     descriptors as descriptor_engine,
     features,
+    tagger as style_tagger,
     tags as tag_reader,
     transcribe as transcriber,
 )
@@ -38,6 +39,19 @@ class SongScribeAnalyzer:
                         "character with CLAP (CPU, no GPU needed). The first "
                         "run downloads a ~600 MB model. 'off' emits measured "
                         "facts only.",
+                    },
+                ),
+                "genre_source": (
+                    ["clap", "maest", "off"],
+                    {
+                        "default": "clap",
+                        "tooltip": "Where genre comes from. 'maest' is a "
+                        "supervised tagger trained on 400 Discogs styles and "
+                        "is markedly more accurate than CLAP's zero-shot "
+                        "guessing, but it executes custom model code "
+                        "(trust_remote_code) from a pinned, audited revision - "
+                        "opt in knowingly. 'off' omits genre so a preset can "
+                        "supply it.",
                     },
                 ),
                 "clap_model": (
@@ -147,6 +161,7 @@ class SongScribeAnalyzer:
         cls,
         audio_file,
         describe="clap",
+        genre_source="clap",
         clap_model=descriptor_engine.DEFAULT_MODEL,
         transcribe_lyrics="off",
         whisper_model=transcriber.DEFAULT_MODEL,
@@ -165,7 +180,7 @@ class SongScribeAnalyzer:
                     return (
                         f"{cache.fingerprint(path)}:{seed}:{use_cache}"
                         f":{describe}:{style}:{transcribe_lyrics}:{whisper_model}"
-                        f":{clap_model}"
+                        f":{clap_model}:{genre_source}"
                     )
                 except OSError:
                     pass
@@ -175,6 +190,7 @@ class SongScribeAnalyzer:
         self,
         audio_file,
         describe="clap",
+        genre_source="clap",
         clap_model=descriptor_engine.DEFAULT_MODEL,
         transcribe_lyrics="off",
         whisper_model=transcriber.DEFAULT_MODEL,
@@ -211,6 +227,7 @@ class SongScribeAnalyzer:
                 tag_reader.read_tags(loaded.source_path) if loaded.has_file else {}
             )
             descriptors = self._describe(loaded, describe, clap_model)
+            descriptors = self._apply_genre_source(loaded, descriptors, genre_source)
             payload = {
                 "analysis": analysis,
                 "tags": file_tags,
@@ -288,6 +305,38 @@ class SongScribeAnalyzer:
             print(f"[SongScribe] descriptor scoring failed: {exc}")
             traceback.print_exc()
         return None
+
+    def _apply_genre_source(self, loaded, descriptors, genre_source):
+        """Override CLAP's genre with a supervised tagger, or drop it.
+
+        Only genre is replaced. MAEST predicts Discogs styles and nothing else,
+        so mood, instruments and vocal character stay with CLAP.
+        """
+        if genre_source == "clap":
+            return descriptors
+
+        if descriptors is None:
+            descriptors = {}
+
+        if genre_source == "off":
+            descriptors["genre"] = []
+            return descriptors
+
+        try:
+            result = style_tagger.tag(loaded.samples_at(style_tagger.MAEST_SR))
+            descriptors["genre"] = result["genre"]
+            descriptors["_genre_detail"] = {"source": "maest", "all": result["raw"]}
+            labels = ", ".join(g["label"] for g in result["genre"]) or "(none)"
+            print(f"[SongScribe] style tagger: {labels}")
+        except style_tagger.TaggerError as exc:
+            # Leave CLAP's genre in place rather than emptying it - a worse
+            # guess still beats losing the field entirely on a load failure.
+            print(f"[SongScribe] style tagging unavailable, keeping CLAP genre: {exc}")
+        except Exception as exc:
+            print(f"[SongScribe] style tagging failed, keeping CLAP genre: {exc}")
+            traceback.print_exc()
+
+        return descriptors
 
     def _load(self, audio_file, audio):
         if audio is not None:
