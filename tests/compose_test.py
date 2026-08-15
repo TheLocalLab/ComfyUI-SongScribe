@@ -34,7 +34,12 @@ def main() -> int:
     scored = None
     if descriptors.is_available():
         try:
-            scored = descriptors.describe(loaded.samples_at(descriptors.CLAP_SR))
+            # Tests must not depend on a multi-gigabyte download. Override with
+            # SONGSCRIBE_TEST_MODEL to check a different checkpoint.
+            scored = descriptors.describe(
+                loaded.samples_at(descriptors.CLAP_SR),
+                model_id=os.environ.get("SONGSCRIBE_TEST_MODEL", "general"),
+            )
         except Exception as exc:
             print(f"(descriptors unavailable: {exc})")
 

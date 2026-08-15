@@ -47,13 +47,18 @@ def main() -> int:
     resample_time = time.perf_counter() - started
     print(f"48 kHz signal ready in {resample_time:.2f}s ({len(samples)} samples)")
 
+    # Default to a checkpoint that is already cached: a test suite that pulls
+    # gigabytes on every run is a test suite nobody runs.
+    model = os.environ.get("SONGSCRIBE_TEST_MODEL", "general")
+    print(f"Model: {descriptors.resolve_model(model)}")
+
     started = time.perf_counter()
-    result = descriptors.describe(samples, verbose=True)
+    result = descriptors.describe(samples, verbose=True, model_id=model)
     elapsed = time.perf_counter() - started
     print(f"\nScored in {elapsed:.2f}s (includes one-off model load)\n")
 
     started = time.perf_counter()
-    descriptors.describe(samples)
+    descriptors.describe(samples, model_id=model)
     print(f"Second pass (model warm): {time.perf_counter() - started:.2f}s\n")
 
     print("--- DESCRIPTORS ---")

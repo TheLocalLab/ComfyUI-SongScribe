@@ -40,6 +40,17 @@ class SongScribeAnalyzer:
                         "facts only.",
                     },
                 ),
+                "clap_model": (
+                    list(descriptor_engine.MODELS.keys()),
+                    {
+                        "default": descriptor_engine.DEFAULT_MODEL,
+                        "tooltip": "Which CLAP checkpoint scores the "
+                        "descriptors. Downloaded on first use: "
+                        "'music_and_speech' ~1.5 GB (music-specialised, "
+                        "better on genre), 'general' ~1.9 GB (broader audio, "
+                        "weaker on genre). Ignored when describe is off.",
+                    },
+                ),
                 "transcribe_lyrics": (
                     ["off", "if missing", "always"],
                     {
@@ -136,6 +147,7 @@ class SongScribeAnalyzer:
         cls,
         audio_file,
         describe="clap",
+        clap_model=descriptor_engine.DEFAULT_MODEL,
         transcribe_lyrics="off",
         whisper_model=transcriber.DEFAULT_MODEL,
         style=compose.DEFAULT_STYLE,
@@ -153,6 +165,7 @@ class SongScribeAnalyzer:
                     return (
                         f"{cache.fingerprint(path)}:{seed}:{use_cache}"
                         f":{describe}:{style}:{transcribe_lyrics}:{whisper_model}"
+                        f":{clap_model}"
                     )
                 except OSError:
                     pass
@@ -162,6 +175,7 @@ class SongScribeAnalyzer:
         self,
         audio_file,
         describe="clap",
+        clap_model=descriptor_engine.DEFAULT_MODEL,
         transcribe_lyrics="off",
         whisper_model=transcriber.DEFAULT_MODEL,
         style=compose.DEFAULT_STYLE,
@@ -178,9 +192,15 @@ class SongScribeAnalyzer:
         if loaded.has_file:
             # The descriptor mode is part of the key: a cached facts-only run
             # must not satisfy a request that also wants CLAP scoring.
+            # The checkpoint is part of the key: descriptors scored by one
+            # model must not be served from cache to a request for another.
             cache_key = cache.fingerprint(
                 loaded.source_path,
-                extra={"analysis": cache.SCHEMA_VERSION, "describe": describe},
+                extra={
+                    "analysis": cache.SCHEMA_VERSION,
+                    "describe": describe,
+                    "clap_model": clap_model,
+                },
             )
             if use_cache:
                 payload = cache.load(loaded.source_path, cache_key)
@@ -190,7 +210,7 @@ class SongScribeAnalyzer:
             file_tags = (
                 tag_reader.read_tags(loaded.source_path) if loaded.has_file else {}
             )
-            descriptors = self._describe(loaded, describe)
+            descriptors = self._describe(loaded, describe, clap_model)
             payload = {
                 "analysis": analysis,
                 "tags": file_tags,
@@ -253,7 +273,7 @@ class SongScribeAnalyzer:
             analysis_out,
         )
 
-    def _describe(self, loaded, mode):
+    def _describe(self, loaded, mode, clap_model=None):
         """Run CLAP scoring. A failure here degrades the caption but must never
         take the workflow down - the measured half is still worth having."""
         if mode == "off":
@@ -261,7 +281,7 @@ class SongScribeAnalyzer:
 
         try:
             samples = loaded.samples_at(descriptor_engine.CLAP_SR)
-            return descriptor_engine.describe(samples)
+            return descriptor_engine.describe(samples, model_id=clap_model)
         except descriptor_engine.DescriptorError as exc:
             print(f"[SongScribe] descriptor scoring unavailable: {exc}")
         except Exception as exc:

@@ -17,7 +17,29 @@ import threading
 
 import numpy as np
 
-MODEL_ID = "laion/clap-htsat-unfused"
+# Selectable CLAP checkpoints. The general model was the original default, but
+# it was trained on environmental sound and speech alongside music; the
+# music-specialised checkpoints are the same architecture trained on a music-
+# heavy corpus, and score better on genre.
+# laion/larger_clap_music is deliberately absent. Measured on five labelled
+# tracks it returned no genre above threshold and called every one of them
+# instrumental - not weak accuracy but a pipeline mismatch, probably around the
+# fused-model input handling. Offering a checkpoint that silently returns
+# nothing is worse than not offering it. Pass the full id to try it anyway.
+MODELS = {
+    "music_and_speech": "laion/larger_clap_music_and_speech",
+    "general": "laion/clap-htsat-unfused",
+}
+DEFAULT_MODEL = "music_and_speech"
+
+MODEL_ID = MODELS[DEFAULT_MODEL]
+
+
+def resolve_model(name: str | None) -> str:
+    """Accept a short key or a full Hugging Face id."""
+    if not name:
+        return MODEL_ID
+    return MODELS.get(name, name)
 
 # CLAP was trained at 48 kHz on 10 s excerpts.
 CLAP_SR = 48000
@@ -31,8 +53,9 @@ MAX_WINDOWS = 6
 VOCAB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vocab")
 
 _lock = threading.Lock()
-_model = None
-_processor = None
+# Keyed by model id: switching checkpoints must not reuse another model's
+# weights or, more subtly, another model's text embeddings.
+_loaded: dict[str, tuple] = {}
 _text_cache: dict[str, np.ndarray] = {}
 
 
@@ -72,6 +95,12 @@ def load_vocabularies(vocab_dir: str = VOCAB_DIR) -> dict:
 
         axis = spec.get("axis") or os.path.splitext(name)[0]
         spec.setdefault("prompt", "{label}")
+        # An axis may declare several phrasings. Zero-shot scores move
+        # noticeably with wording, so averaging a few templates per label is
+        # more stable than betting on one - the same trick CLIP uses for its
+        # zero-shot benchmarks. A single "prompt" remains valid.
+        if not spec.get("prompts"):
+            spec["prompts"] = [spec["prompt"]]
         spec.setdefault("top_k", 3)
         spec.setdefault("threshold", 0.05)
         spec.setdefault("temperature", 0.05)
@@ -83,13 +112,13 @@ def load_vocabularies(vocab_dir: str = VOCAB_DIR) -> dict:
     return axes
 
 
-def _get_model():
-    """Load CLAP once per process. The first call downloads ~600 MB."""
-    global _model, _processor
+def _get_model(model_id: str | None = None):
+    """Load a CLAP checkpoint once per process. First call downloads weights."""
+    model_id = resolve_model(model_id)
 
     with _lock:
-        if _model is not None:
-            return _model, _processor
+        if model_id in _loaded:
+            return _loaded[model_id]
 
         try:
             import torch
@@ -100,33 +129,33 @@ def _get_model():
                 "with ComfyUI. Import failed: " + str(exc)
             ) from exc
 
-        print(f"[SongScribe] loading {MODEL_ID} (first run downloads ~600 MB)...")
+        print(f"[SongScribe] loading {model_id} (first run downloads weights)...")
         try:
-            _model = ClapModel.from_pretrained(MODEL_ID)
-            _processor = ClapProcessor.from_pretrained(MODEL_ID)
+            model = ClapModel.from_pretrained(model_id)
+            processor = ClapProcessor.from_pretrained(model_id)
         except Exception as exc:
             raise DescriptorError(
-                f"Could not load {MODEL_ID}: {exc}\n"
+                f"Could not load {model_id}: {exc}\n"
                 "Check the network connection, or pre-download the model into "
                 "the Hugging Face cache."
             ) from exc
 
-        _model.eval()
+        model.eval()
         # CPU by design - this stays off the GPU so it never competes with the
         # music model for VRAM in the same workflow.
-        _model.to("cpu")
+        model.to("cpu")
         torch.set_grad_enabled(False)
-        print("[SongScribe] CLAP ready")
+        print(f"[SongScribe] CLAP ready ({model_id})")
 
-    return _model, _processor
+        _loaded[model_id] = (model, processor)
+
+    return _loaded[model_id]
 
 
 def free_model() -> None:
-    """Drop the model so a long-running ComfyUI session can reclaim the RAM."""
-    global _model, _processor
+    """Drop loaded models so a long-running session can reclaim the RAM."""
     with _lock:
-        _model = None
-        _processor = None
+        _loaded.clear()
         _text_cache.clear()
 
 
@@ -170,10 +199,10 @@ def _normalise(array: np.ndarray) -> np.ndarray:
     return array / (np.linalg.norm(array, axis=1, keepdims=True) + 1e-9)
 
 
-def _embed_audio(windows: list[np.ndarray]) -> np.ndarray:
+def _embed_audio(windows: list[np.ndarray], model_id: str | None = None) -> np.ndarray:
     import torch
 
-    model, processor = _get_model()
+    model, processor = _get_model(model_id)
 
     inputs = processor(
         audio=[w.astype(np.float32) for w in windows],
@@ -187,15 +216,18 @@ def _embed_audio(windows: list[np.ndarray]) -> np.ndarray:
     return _normalise(_to_embedding_array(features))
 
 
-def _embed_text(prompts: list[str], cache_key: str) -> np.ndarray:
+def _embed_text(
+    prompts: list[str], cache_key: str, model_id: str | None = None
+) -> np.ndarray:
     """Text embeddings are fixed for a given vocabulary, so they are computed
     once per process rather than once per song."""
     import torch
 
+    cache_key = f"{resolve_model(model_id)}|{cache_key}"
     if cache_key in _text_cache:
         return _text_cache[cache_key]
 
-    model, processor = _get_model()
+    model, processor = _get_model(model_id)
 
     inputs = processor(text=prompts, return_tensors="pt", padding=True)
     with torch.no_grad():
@@ -213,7 +245,9 @@ def _softmax(values: np.ndarray, temperature: float) -> np.ndarray:
     return exponentiated / (exponentiated.sum() + 1e-9)
 
 
-def score_axis(audio_embeddings: np.ndarray, spec: dict, axis: str) -> dict:
+def score_axis(
+    audio_embeddings: np.ndarray, spec: dict, axis: str, model_id: str | None = None
+) -> dict:
     """Score one vocabulary axis against every window.
 
     Similarities are softmaxed *within the axis*, which is what makes the
@@ -221,12 +255,25 @@ def score_axis(audio_embeddings: np.ndarray, spec: dict, axis: str) -> dict:
     are not interpretable on their own.
     """
     labels = list(spec["labels"])
-    prompts = [spec["prompt"].format(label=label) for label in labels]
+    templates = list(spec.get("prompts") or [spec["prompt"]])
+
+    # Every template for every label, flattened into one batch.
+    prompts = [
+        template.format(label=label) for label in labels for template in templates
+    ]
     # Key on the prompt text itself. Keying on the label count would silently
     # reuse stale embeddings when a vocabulary is edited without changing
     # length - which is exactly what happens while tuning wording.
     digest = hashlib.sha1("\n".join(prompts).encode("utf-8")).hexdigest()[:16]
-    text_embeddings = _embed_text(prompts, cache_key=f"{axis}:{digest}")
+    flat = _embed_text(prompts, cache_key=f"{axis}:{digest}", model_id=model_id)
+
+    if len(templates) > 1:
+        # Mean of the unit vectors for each label's templates, renormalised.
+        # Averaging before normalising would let a longer template dominate.
+        grouped = flat.reshape(len(labels), len(templates), -1)
+        text_embeddings = _normalise(grouped.mean(axis=1))
+    else:
+        text_embeddings = flat
 
     # (n_windows, n_labels)
     similarity = audio_embeddings @ text_embeddings.T
@@ -271,7 +318,10 @@ def score_axis(audio_embeddings: np.ndarray, spec: dict, axis: str) -> dict:
 
 
 def describe(
-    samples_48k: np.ndarray, vocab_dir: str = VOCAB_DIR, verbose: bool = False
+    samples_48k: np.ndarray,
+    vocab_dir: str = VOCAB_DIR,
+    verbose: bool = False,
+    model_id: str | None = None,
 ) -> dict:
     """Score every axis. `samples_48k` must be mono float32 at 48 kHz."""
     axes = load_vocabularies(vocab_dir)
@@ -280,14 +330,16 @@ def describe(
     if verbose:
         print(f"[SongScribe] scoring {len(windows)} window(s) across {len(axes)} axes")
 
-    audio_embeddings = _embed_audio(windows)
+    audio_embeddings = _embed_audio(windows, model_id)
 
-    results: dict = {"_windows": len(windows)}
+    results: dict = {"_windows": len(windows), "_model": resolve_model(model_id)}
 
     presence_spec = axes.pop("vocal_presence", None)
     vocal_state = None
     if presence_spec is not None:
-        presence = score_axis(audio_embeddings, presence_spec, "vocal_presence")
+        presence = score_axis(
+            audio_embeddings, presence_spec, "vocal_presence", model_id
+        )
         vocal_state = presence.get("outcome")
         results["vocal_presence"] = vocal_state
         results["_vocal_presence_detail"] = presence
@@ -300,7 +352,7 @@ def describe(
             results[axis] = []
             continue
 
-        scored = score_axis(audio_embeddings, spec, axis)
+        scored = score_axis(audio_embeddings, spec, axis, model_id)
         results[axis] = scored["top"]
         results[f"_{axis}_detail"] = scored
 
