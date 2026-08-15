@@ -1,0 +1,27 @@
+name: Rock / Punk
+category: rock
+bpm: 168
+key: D major
+harmony: simple diatonic
+feel: loose and human
+drums: drum-forward
+low_end: moderate low end
+genre:
+  - punk rock
+mood:
+  - angry and defiant
+  - energetic and driving
+scene:
+  - a festival main stage
+production:
+  - a raw live-room recording
+  - a rough demo quality recording
+instruments:
+  - acoustic drum kit
+  - electric bass guitar
+  - crunchy distorted electric guitar
+vocal_presence: sung
+vocal_timbre:
+  - a rough untrained raw voice
+vocal_delivery:
+  - shouted and screamed

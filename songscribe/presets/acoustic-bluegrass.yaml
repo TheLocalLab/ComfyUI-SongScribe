@@ -1,0 +1,31 @@
+name: Acoustic / Bluegrass
+category: acoustic
+bpm: 140
+key: A major
+harmony: simple diatonic
+feel: loose and human
+drums: harmonically led
+low_end: moderate low end
+genre:
+  - bluegrass
+  - folk
+mood:
+  - playful and carefree
+  - bright and joyful
+scene:
+  - a campfire singalong
+production:
+  - a raw live-room recording
+  - a dry close-mic'd intimate sound
+instruments:
+  - banjo
+  - mandolin
+  - fingerpicked acoustic guitar
+  - upright double bass
+  - solo violin
+vocal_presence: sung
+vocal_timbre:
+  - a clear bright voice
+vocal_delivery:
+  - layered in thick stacked harmonies
+  - answered by a call-and-response choir

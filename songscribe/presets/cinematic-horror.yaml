@@ -1,0 +1,28 @@
+name: Cinematic / Horror Tension
+category: cinematic
+bpm: 60
+key: C minor
+harmony: chromatic / extended harmony
+feel: loose and human
+drums: harmonically led
+low_end: deep sub-heavy low end
+genre:
+  - cinematic score
+  - ambient electronic
+mood:
+  - haunting and eerie
+  - tense and anxious
+  - menacing and aggressive
+scene:
+  - a tense chase scene
+production:
+  - heavy reverb drenching everything
+  - gritty distortion and fuzz
+  - lo-fi bitcrushed digital artefacts
+instruments:
+  - solo violin
+  - string section
+  - reversed ambient swells
+  - orchestral timpani
+  - music box
+vocal_presence: instrumental

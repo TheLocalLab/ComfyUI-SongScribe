@@ -1,0 +1,31 @@
+name: Rock / Grunge
+category: rock
+bpm: 118
+key: E minor
+harmony: simple diatonic
+feel: loose and human
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - grunge
+  - alternative rock
+mood:
+  - angry and defiant
+  - gritty and raw
+scene:
+  - a film's emotional climax
+production:
+  - a raw live-room recording
+  - gritty distortion and fuzz
+instruments:
+  - acoustic drum kit
+  - electric bass guitar
+  - heavily distorted guitar
+  - crunchy distorted electric guitar
+vocal_presence: sung
+vocal_timbre:
+  - a rough untrained raw voice
+  - a strained emotional voice
+vocal_delivery:
+  - shouted and screamed
+  - sung in a flat deadpan monotone

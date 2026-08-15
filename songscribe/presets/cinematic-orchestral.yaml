@@ -1,0 +1,26 @@
+name: Cinematic / Orchestral Score
+category: cinematic
+bpm: 76
+key: C major
+harmony: moderately extended
+feel: loose and human
+drums: harmonically led
+low_end: moderate low end
+genre:
+  - classical orchestral
+  - cinematic score
+mood:
+  - reflective and quiet
+  - hopeful and uplifting
+scene:
+  - a film's emotional climax
+production:
+  - long cavernous hall reverb
+  - a wide spacious stereo image
+instruments:
+  - string section
+  - solo violin
+  - flute
+  - clarinet
+  - harp
+vocal_presence: instrumental

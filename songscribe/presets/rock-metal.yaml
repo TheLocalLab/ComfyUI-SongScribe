@@ -1,0 +1,31 @@
+name: Rock / Heavy Metal
+category: rock
+bpm: 150
+key: E minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: deep sub-heavy low end
+genre:
+  - heavy metal
+  - hard rock
+mood:
+  - menacing and aggressive
+  - epic and cinematic
+scene:
+  - a video game boss fight
+production:
+  - a loud heavily compressed master
+  - gritty distortion and fuzz
+instruments:
+  - acoustic drum kit
+  - heavily distorted guitar
+  - electric bass guitar
+  - orchestral timpani
+vocal_presence: sung
+vocal_timbre:
+  - a gritty rasping voice
+  - a strained emotional voice
+vocal_delivery:
+  - shouted and screamed
+  - belted out powerfully

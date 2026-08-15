@@ -1,13 +1,20 @@
-name: Ambient Drift
+name: Electronic / Ambient Drift
+category: electronic
 bpm: 62
 key: D major
 harmony: simple diatonic
 feel: loose and human
 drums: harmonically led
 low_end: light low end
-genre: [ambient electronic, new age]
-mood: [calm and meditative, spacious and weightless, hazy and drifting]
-scene: [falling asleep and winding down, meditation and yoga]
+genre:
+  - ambient electronic
+  - new age
+mood:
+  - calm and meditative
+  - spacious and weightless
+scene:
+  - falling asleep and winding down
+  - meditation and yoga
 production:
   - heavy reverb drenching everything
   - a wide spacious stereo image

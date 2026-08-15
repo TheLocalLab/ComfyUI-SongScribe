@@ -1,0 +1,30 @@
+name: Pop / Synth-Pop
+category: pop
+bpm: 118
+key: A minor
+harmony: simple diatonic
+feel: machine-tight
+drums: balanced
+low_end: solid bass weight
+genre:
+  - synth-pop
+  - indie pop
+mood:
+  - bittersweet
+  - hopeful and uplifting
+scene:
+  - a long night drive
+production:
+  - a wide spacious stereo image
+  - long cavernous hall reverb
+instruments:
+  - punchy electronic drum machine
+  - warm analog synth bass
+  - arpeggiated synthesizer
+  - analog synth pads
+vocal_presence: sung
+vocal_timbre:
+  - a clear bright voice
+vocal_delivery:
+  - sung softly and gently
+  - doubled with a close harmony

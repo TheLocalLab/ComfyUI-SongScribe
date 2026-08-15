@@ -1,0 +1,26 @@
+name: Rock / Post-Rock
+category: rock
+bpm: 84
+key: D major
+harmony: simple diatonic
+feel: steady
+drums: balanced
+low_end: moderate low end
+genre:
+  - post-rock
+mood:
+  - epic and cinematic
+  - spacious and weightless
+  - hopeful and uplifting
+scene:
+  - a film's emotional climax
+production:
+  - heavy reverb drenching everything
+  - a wide spacious stereo image
+instruments:
+  - clean electric guitar
+  - crunchy distorted electric guitar
+  - acoustic drum kit
+  - string section
+  - reversed ambient swells
+vocal_presence: instrumental

@@ -1,0 +1,30 @@
+name: Rock / Indie
+category: rock
+bpm: 132
+key: G major
+harmony: simple diatonic
+feel: loose and human
+drums: drum-forward
+low_end: moderate low end
+genre:
+  - indie rock
+  - alternative rock
+mood:
+  - bittersweet
+  - energetic and driving
+scene:
+  - a summer road trip
+production:
+  - a raw live-room recording
+  - a crisp studio multitrack production
+instruments:
+  - acoustic drum kit
+  - electric bass guitar
+  - clean electric guitar
+  - crunchy distorted electric guitar
+vocal_presence: sung
+vocal_timbre:
+  - a nasal indie voice
+vocal_delivery:
+  - sung with heavy vibrato
+  - doubled with a close harmony

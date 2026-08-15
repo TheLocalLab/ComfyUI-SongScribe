@@ -25,8 +25,18 @@ def check(ok, label):
 def test_presets():
     print("\n=== PRESETS ===")
     names = presets.list_presets()
-    print(f"found {len(names)}: {', '.join(names)}")
-    check(len(names) >= 6, "at least 6 presets ship")
+    choices = presets.list_choices()
+    print(f"found {len(names)} presets in {len(set(n.split('-')[0] for n in names))} categories")
+    check(len(names) >= 30, f"at least 30 presets ship (got {len(names)})")
+    check(len(choices) == len(names), "every preset has a unique display name")
+    check(
+        all("/" in c for c in choices),
+        "display names are category-qualified for a readable dropdown",
+    )
+    check(
+        presets.load_choice(choices[0]).get("name") == choices[0],
+        "display name round-trips back to its preset",
+    )
 
     for name in names:
         data = presets.load_preset(name)
@@ -37,14 +47,14 @@ def test_presets():
         if not ok:
             print(f"      got: {caption[:200]}")
 
-    lofi = presets.load_preset("lofi_hiphop")
+    lofi = presets.load_choice("Hip-Hop / Lo-Fi Chillhop")
     rendered = presets.to_caption(lofi, seed=0)["caption"]
     print(f"\n--- lofi_hiphop ---\n{rendered}\n")
     check("78 BPM" in rendered, "preset tempo reaches the caption")
     check("D flat major" in rendered, "preset key is spelled out")
 
     # Blending must actually mix, and must be directional.
-    techno = presets.load_preset("dark_techno")
+    techno = presets.load_choice("Electronic / Dark Techno")
     low = presets.to_caption(presets.blend(lofi, techno, 0.0), seed=0)["caption"]
     high = presets.to_caption(presets.blend(lofi, techno, 1.0), seed=0)["caption"]
     mid = presets.to_caption(presets.blend(lofi, techno, 0.5), seed=0)["caption"]

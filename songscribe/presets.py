@@ -65,6 +65,7 @@ class PresetError(RuntimeError):
 
 
 def list_presets(preset_dir: str = PRESET_DIR) -> list[str]:
+    """Filename stems, e.g. 'world-reggae'."""
     if not os.path.isdir(preset_dir):
         return []
     return sorted(
@@ -72,6 +73,47 @@ def list_presets(preset_dir: str = PRESET_DIR) -> list[str]:
         for name in os.listdir(preset_dir)
         if name.endswith((".yaml", ".yml"))
     )
+
+
+def preset_index(preset_dir: str = PRESET_DIR) -> dict[str, str]:
+    """Map display name -> filename stem.
+
+    The dropdown shows "World / Reggae" rather than "world-reggae"; with three
+    dozen entries the readable form is the difference between a usable menu and
+    a wall of slugs. A preset with no `name:` falls back to its stem, so a
+    hand-dropped file still appears.
+    """
+    import yaml
+
+    index: dict[str, str] = {}
+    for stem in list_presets(preset_dir):
+        display = stem
+        for extension in (".yaml", ".yml"):
+            path = os.path.join(preset_dir, stem + extension)
+            if os.path.isfile(path):
+                try:
+                    with open(path, "r", encoding="utf-8") as fh:
+                        data = yaml.safe_load(fh) or {}
+                    display = str(data.get("name") or stem)
+                except Exception:
+                    pass
+                break
+        # Collisions would make one preset unreachable, so disambiguate.
+        if display in index:
+            display = f"{display} ({stem})"
+        index[display] = stem
+    return index
+
+
+def list_choices(preset_dir: str = PRESET_DIR) -> list[str]:
+    """Display names, sorted so categories group together."""
+    return sorted(preset_index(preset_dir))
+
+
+def load_choice(display: str, preset_dir: str = PRESET_DIR) -> dict:
+    """Load by display name, falling back to treating it as a stem."""
+    stem = preset_index(preset_dir).get(display, display)
+    return load_preset(stem, preset_dir)
 
 
 def load_preset(name: str, preset_dir: str = PRESET_DIR) -> dict:

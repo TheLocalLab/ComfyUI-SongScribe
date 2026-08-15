@@ -1,0 +1,29 @@
+name: Rock / Classic 70s
+category: rock
+bpm: 124
+key: A major
+harmony: simple diatonic
+feel: loose and human
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - classic rock
+  - hard rock
+mood:
+  - confident and swaggering
+  - triumphant and soaring
+scene:
+  - a summer road trip
+production:
+  - a raw live-room recording
+  - warm analog tape saturation
+instruments:
+  - acoustic drum kit
+  - electric bass guitar
+  - crunchy distorted electric guitar
+  - Hammond organ
+vocal_presence: sung
+vocal_timbre:
+  - a gritty rasping voice
+vocal_delivery:
+  - belted out powerfully

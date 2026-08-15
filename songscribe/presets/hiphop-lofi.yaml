@@ -1,14 +1,20 @@
-name: Lo-fi Hip-Hop
+name: Hip-Hop / Lo-Fi Chillhop
+category: hiphop
 bpm: 78
 key: Db major
 harmony: moderately extended
 feel: loose and human
-swing: 0.12
 drums: drum-forward
 low_end: solid bass weight
-genre: [lo-fi hip-hop, chillhop]
-mood: [laid-back and dreamy, warm and nostalgic]
-scene: [studying and late-night focus, rainy-day headphones listening]
+genre:
+  - lo-fi hip-hop
+  - chillhop
+mood:
+  - laid-back and dreamy
+  - warm and nostalgic
+scene:
+  - studying and late-night focus
+  - rainy-day headphones listening
 production:
   - a muddy lo-fi bedroom mix
   - heavy vinyl crackle and surface noise
@@ -20,8 +26,8 @@ instruments:
   - jazzy electric guitar
   - vinyl crackle texture
 vocal_presence: wordless
-vocal_timbre: [a soft androgynous voice, a whispered intimate voice]
+vocal_timbre:
+  - a soft androgynous voice
 vocal_delivery:
   - hushed and half-spoken
   - sitting low in the mix like another instrument
-  - phrased lazily behind the beat

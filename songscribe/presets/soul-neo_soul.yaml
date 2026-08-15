@@ -1,14 +1,20 @@
-name: Neo-Soul
+name: Soul / Neo-Soul
+category: soul
 bpm: 86
 key: Eb major
 harmony: chromatic / extended harmony
 feel: loose and human
-swing: 0.10
 drums: balanced
 low_end: solid bass weight
-genre: [neo-soul, contemporary R&B]
-mood: [sensual and smouldering, warm and nostalgic, romantic and longing]
-scene: [a romantic dinner, a cocktail lounge evening]
+genre:
+  - neo-soul
+  - contemporary R&B
+mood:
+  - sensual and smouldering
+  - romantic and longing
+scene:
+  - a romantic dinner
+  - a cocktail lounge evening
 production:
   - a crisp studio multitrack production
   - warm analog tape saturation
@@ -19,5 +25,9 @@ instruments:
   - clean electric guitar
   - saxophone
 vocal_presence: sung
-vocal_timbre: [a soulful gospel-trained voice, a warm husky female voice]
-vocal_delivery: [crooned smoothly, layered in thick stacked harmonies]
+vocal_timbre:
+  - a soulful gospel-trained voice
+  - a warm husky voice
+vocal_delivery:
+  - crooned smoothly
+  - layered in thick stacked harmonies

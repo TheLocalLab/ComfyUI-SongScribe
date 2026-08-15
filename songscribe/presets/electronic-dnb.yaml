@@ -1,0 +1,25 @@
+name: Electronic / Drum & Bass
+category: electronic
+bpm: 174
+key: F minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: deep sub-heavy low end
+genre:
+  - drum and bass
+mood:
+  - urgent and restless
+  - energetic and driving
+scene:
+  - a crowded dancefloor at peak hour
+  - running and cardio
+production:
+  - a deep sub-heavy club mix
+  - a loud heavily compressed master
+instruments:
+  - punchy electronic drum machine
+  - deep sub bass
+  - analog synth pads
+  - bright synth lead
+vocal_presence: instrumental

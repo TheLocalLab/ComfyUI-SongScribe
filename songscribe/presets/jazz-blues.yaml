@@ -1,0 +1,32 @@
+name: Jazz / Slow Blues
+category: jazz
+bpm: 72
+key: E major
+harmony: moderately extended
+feel: loose and human
+drums: balanced
+low_end: solid bass weight
+genre:
+  - blues
+  - classic soul
+mood:
+  - melancholy and wistful
+  - gritty and raw
+scene:
+  - a cocktail lounge evening
+production:
+  - a raw live-room recording
+  - warm analog tape saturation
+instruments:
+  - clean electric guitar
+  - Hammond organ
+  - electric bass guitar
+  - acoustic drum kit
+  - saxophone
+vocal_presence: sung
+vocal_timbre:
+  - a gritty rasping voice
+  - a smoky jazz-club voice
+vocal_delivery:
+  - belted out powerfully
+  - phrased lazily behind the beat

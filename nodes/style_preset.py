@@ -10,7 +10,7 @@ class SongScribeStylePreset:
 
     @classmethod
     def INPUT_TYPES(cls):
-        available = presets.list_presets() or ["(no presets found)"]
+        available = presets.list_choices() or ["(no presets found)"]
         return {
             "required": {
                 "preset": (available, {"default": available[0]}),
@@ -34,7 +34,7 @@ class SongScribeStylePreset:
             },
             "optional": {
                 "blend_with": (
-                    ["none"] + (presets.list_presets() or []),
+                    ["none"] + (presets.list_choices() or []),
                     {"default": "none", "tooltip": "Optional second preset to mix in."},
                 ),
                 "blend": (
@@ -73,13 +73,13 @@ class SongScribeStylePreset:
         blend=0.5,
     ):
         try:
-            data = presets.load_preset(preset)
+            data = presets.load_choice(preset)
         except presets.PresetError as exc:
             return (f"[SongScribe] {exc}", "", "", "")
 
         if blend_with and blend_with != "none" and blend_with != preset:
             try:
-                data = presets.blend(data, presets.load_preset(blend_with), blend)
+                data = presets.blend(data, presets.load_choice(blend_with), blend)
             except presets.PresetError as exc:
                 print(f"[SongScribe] blend skipped: {exc}")
 

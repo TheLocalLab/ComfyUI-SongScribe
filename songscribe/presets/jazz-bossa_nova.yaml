@@ -1,0 +1,32 @@
+name: Jazz / Bossa Nova
+category: jazz
+bpm: 130
+key: A minor
+harmony: chromatic / extended harmony
+feel: loose and human
+drums: harmonically led
+low_end: moderate low end
+genre:
+  - bossa nova
+  - latin pop
+mood:
+  - calm and meditative
+  - romantic and longing
+scene:
+  - a beach party
+  - a romantic dinner
+production:
+  - a dry close-mic'd intimate sound
+  - warm analog tape saturation
+instruments:
+  - fingerpicked acoustic guitar
+  - upright double bass
+  - brushed jazz drums
+  - flute
+  - vibraphone
+vocal_presence: sung
+vocal_timbre:
+  - a light breathy voice
+vocal_delivery:
+  - sung softly and gently
+  - phrased lazily behind the beat

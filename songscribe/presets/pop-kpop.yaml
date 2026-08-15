@@ -1,0 +1,33 @@
+name: Pop / K-Pop
+category: pop
+bpm: 110
+key: B minor
+harmony: moderately extended
+feel: machine-tight
+drums: drum-forward
+low_end: deep sub-heavy low end
+genre:
+  - k-pop
+  - mainstream pop
+mood:
+  - confident and swaggering
+  - euphoric and rushing
+scene:
+  - a festival main stage
+production:
+  - a clean modern polished mix
+  - a loud heavily compressed master
+  - sidechain pumping compression
+instruments:
+  - punchy electronic drum machine
+  - 808 drum machine
+  - bright synth lead
+  - arpeggiated synthesizer
+  - handclaps
+vocal_presence: sung
+vocal_timbre:
+  - a smooth polished pop voice
+  - a clear bright voice
+vocal_delivery:
+  - layered in thick stacked harmonies
+  - rapped in tight rhythmic flow

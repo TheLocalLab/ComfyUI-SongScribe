@@ -1,0 +1,29 @@
+name: Hip-Hop / Trap
+category: hiphop
+bpm: 140
+key: F minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: deep sub-heavy low end
+genre:
+  - trap
+mood:
+  - menacing and aggressive
+  - dark and brooding
+scene:
+  - an after-hours club
+production:
+  - a deep sub-heavy club mix
+  - a loud heavily compressed master
+instruments:
+  - 808 drum machine
+  - punchy electronic drum machine
+  - bright synth lead
+  - arpeggiated synthesizer
+vocal_presence: spoken
+vocal_timbre:
+  - a heavily autotuned voice
+vocal_delivery:
+  - rapped in a slow drawling flow
+  - layered in thick stacked harmonies

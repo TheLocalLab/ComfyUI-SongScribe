@@ -1,13 +1,19 @@
-name: Pop Anthem
+name: Pop / Modern Anthem
+category: pop
 bpm: 124
 key: C major
 harmony: simple diatonic
 feel: machine-tight
 drums: drum-forward
 low_end: solid bass weight
-genre: [mainstream pop, indie pop]
-mood: [bright and joyful, hopeful and uplifting, euphoric and rushing]
-scene: [a festival main stage, a gym workout]
+genre:
+  - mainstream pop
+mood:
+  - bright and joyful
+  - euphoric and rushing
+scene:
+  - a festival main stage
+  - a gym workout
 production:
   - a clean modern polished mix
   - a loud heavily compressed master
@@ -19,5 +25,9 @@ instruments:
   - clean electric guitar
   - handclaps
 vocal_presence: sung
-vocal_timbre: [a clear bright female voice, a smooth polished pop voice]
-vocal_delivery: [belted out powerfully, layered in thick stacked harmonies]
+vocal_timbre:
+  - a clear bright voice
+  - a smooth polished pop voice
+vocal_delivery:
+  - belted out powerfully
+  - layered in thick stacked harmonies

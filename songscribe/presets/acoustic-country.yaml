@@ -1,0 +1,32 @@
+name: Acoustic / Country
+category: acoustic
+bpm: 104
+key: D major
+harmony: simple diatonic
+feel: loose and human
+drums: balanced
+low_end: solid bass weight
+genre:
+  - country
+  - americana
+mood:
+  - warm and nostalgic
+  - bittersweet
+scene:
+  - a summer road trip
+  - a campfire singalong
+production:
+  - a crisp studio multitrack production
+  - a raw live-room recording
+instruments:
+  - acoustic guitar
+  - slide guitar
+  - electric bass guitar
+  - acoustic drum kit
+  - upright piano
+vocal_presence: sung
+vocal_timbre:
+  - a warm husky voice
+vocal_delivery:
+  - crooned smoothly
+  - doubled with a close harmony

@@ -1,0 +1,26 @@
+name: Jazz / Late-Night Trio
+category: jazz
+bpm: 120
+key: Bb major
+harmony: chromatic / extended harmony
+feel: loose and human
+drums: balanced
+low_end: solid bass weight
+genre:
+  - jazz
+  - bebop jazz
+mood:
+  - reflective and quiet
+  - sensual and smouldering
+scene:
+  - a cocktail lounge evening
+production:
+  - a raw live-room recording
+  - warm analog tape saturation
+instruments:
+  - grand piano
+  - upright double bass
+  - brushed jazz drums
+  - solo trumpet
+  - saxophone
+vocal_presence: instrumental

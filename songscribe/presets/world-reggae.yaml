@@ -1,0 +1,33 @@
+name: World / Reggae
+category: world
+bpm: 76
+key: G major
+harmony: simple diatonic
+feel: loose and human
+drums: balanced
+low_end: solid bass weight
+genre:
+  - reggae
+  - dub
+mood:
+  - laid-back and dreamy
+  - hopeful and uplifting
+scene:
+  - a beach party
+  - a slow lazy Sunday morning
+production:
+  - a wide spacious stereo image
+  - heavy tape delay throws
+  - warm analog tape saturation
+instruments:
+  - acoustic drum kit
+  - electric bass guitar
+  - clean electric guitar
+  - Hammond organ
+  - hand percussion
+vocal_presence: sung
+vocal_timbre:
+  - a warm mid-range voice
+vocal_delivery:
+  - phrased lazily behind the beat
+  - answered by a call-and-response choir
