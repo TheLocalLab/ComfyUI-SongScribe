@@ -1,0 +1,30 @@
+name: Hip-Hop / Grime
+category: hiphop
+bpm: 140
+key: F minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: deep sub-heavy low end
+genre:
+  - drill
+  - trap
+mood:
+  - urgent and restless
+  - menacing and aggressive
+scene:
+  - an after-hours club
+production:
+  - a deep sub-heavy club mix
+  - a loud heavily compressed master
+instruments:
+  - 808 drum machine
+  - punchy electronic drum machine
+  - bright synth lead
+  - deep sub bass
+vocal_presence: spoken
+vocal_timbre:
+  - a gritty rasping voice
+vocal_delivery:
+  - rapped in tight rhythmic flow
+  - answered by a call-and-response choir

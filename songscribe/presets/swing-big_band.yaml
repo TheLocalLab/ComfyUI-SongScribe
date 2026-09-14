@@ -1,0 +1,31 @@
+name: Swing / Big Band
+category: swing
+bpm: 168
+key: Bb major
+harmony: moderately extended
+feel: loose and human
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - big band
+  - swing
+mood:
+  - playful and carefree
+  - bright and joyful
+scene:
+  - a cocktail lounge evening
+production:
+  - a raw live-room recording
+  - warm analog tape saturation
+instruments:
+  - brass section
+  - saxophone
+  - upright double bass
+  - brushed jazz drums
+  - grand piano
+vocal_presence: sung
+vocal_timbre:
+  - a smoky jazz-club voice
+vocal_delivery:
+  - crooned smoothly
+  - answered by a call-and-response choir

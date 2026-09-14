@@ -1,0 +1,28 @@
+name: Metal / Thrash
+category: metal
+bpm: 190
+key: E minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - heavy metal
+  - punk rock
+mood:
+  - angry and defiant
+  - menacing and aggressive
+scene:
+  - a video game boss fight
+production:
+  - a raw live-room recording
+  - gritty distortion and fuzz
+instruments:
+  - heavily distorted guitar
+  - acoustic drum kit
+  - electric bass guitar
+vocal_presence: sung
+vocal_timbre:
+  - a gritty rasping voice
+vocal_delivery:
+  - shouted and screamed

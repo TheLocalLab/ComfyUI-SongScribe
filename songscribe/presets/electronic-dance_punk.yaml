@@ -1,0 +1,30 @@
+name: Electronic / Dance-Punk
+category: electronic
+bpm: 138
+key: E minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - punk rock
+  - alternative rock
+mood:
+  - energetic and driving
+  - angry and defiant
+scene:
+  - a festival main stage
+production:
+  - a raw live-room recording
+  - gritty distortion and fuzz
+instruments:
+  - acoustic drum kit
+  - electric bass guitar
+  - crunchy distorted electric guitar
+  - punchy electronic drum machine
+vocal_presence: sung
+vocal_timbre:
+  - a nasal indie voice
+vocal_delivery:
+  - shouted and screamed
+  - sung in a flat deadpan monotone

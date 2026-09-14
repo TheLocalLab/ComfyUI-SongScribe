@@ -1,0 +1,32 @@
+name: Gospel / Southern
+category: gospel
+bpm: 108
+key: G major
+harmony: simple diatonic
+feel: loose and human
+drums: balanced
+low_end: solid bass weight
+genre:
+  - gospel
+  - country
+mood:
+  - hopeful and uplifting
+  - triumphant and soaring
+scene:
+  - a wedding first dance
+production:
+  - a raw live-room recording
+  - warm analog tape saturation
+instruments:
+  - upright piano
+  - solo violin
+  - mandolin
+  - slide guitar
+  - acoustic drum kit
+vocal_presence: sung
+vocal_timbre:
+  - a soulful gospel-trained voice
+  - a choir of many voices
+vocal_delivery:
+  - answered by a call-and-response choir
+  - layered in thick stacked harmonies

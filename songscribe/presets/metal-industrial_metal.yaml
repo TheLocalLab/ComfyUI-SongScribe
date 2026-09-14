@@ -1,0 +1,31 @@
+name: Metal / Industrial
+category: metal
+bpm: 145
+key: E minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: deep sub-heavy low end
+genre:
+  - heavy metal
+  - techno
+mood:
+  - menacing and aggressive
+  - claustrophobic and dense
+scene:
+  - a video game boss fight
+production:
+  - gritty distortion and fuzz
+  - a loud heavily compressed master
+  - lo-fi bitcrushed digital artefacts
+instruments:
+  - heavily distorted guitar
+  - 808 drum machine
+  - acoustic drum kit
+  - analog synth pads
+  - orchestral timpani
+vocal_presence: sung
+vocal_timbre:
+  - a gritty rasping voice
+vocal_delivery:
+  - shouted and screamed

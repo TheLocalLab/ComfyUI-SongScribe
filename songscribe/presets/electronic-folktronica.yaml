@@ -1,0 +1,31 @@
+name: Electronic / Folktronica
+category: electronic
+bpm: 100
+key: D major
+harmony: simple diatonic
+feel: loose and human
+drums: balanced
+low_end: moderate low end
+genre:
+  - downtempo
+  - indie folk
+mood:
+  - hazy and drifting
+  - warm and nostalgic
+scene:
+  - a slow lazy Sunday morning
+production:
+  - warm analog tape saturation
+  - a wide spacious stereo image
+instruments:
+  - fingerpicked acoustic guitar
+  - punchy electronic drum machine
+  - analog synth pads
+  - field recording ambience
+  - glockenspiel
+vocal_presence: sung
+vocal_timbre:
+  - a light breathy voice
+vocal_delivery:
+  - sung softly and gently
+  - drenched in delay and reverb

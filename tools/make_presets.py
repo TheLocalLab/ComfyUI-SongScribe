@@ -15,6 +15,7 @@ describe the same thing with the same words.
 from __future__ import annotations
 
 import os
+import sys
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "songscribe", "presets")
 
@@ -211,6 +212,14 @@ P = [
      ["solo violin", "string section", "reversed ambient swells", "orchestral timpani", "music box"],
      ("instrumental", [], [])),
 ]
+
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # noqa: E402
+from presets_yue2 import P2  # noqa: E402
+
+# The YuE2-taxonomy wave lives in its own module purely to keep this
+# table readable; both halves share one schema and one emitter.
+P = P + P2
 
 
 def quote(value: str) -> str:

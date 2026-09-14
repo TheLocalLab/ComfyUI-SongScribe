@@ -1,0 +1,26 @@
+name: Jazz / Cool Jazz
+category: jazz
+bpm: 96
+key: D minor
+harmony: chromatic / extended harmony
+feel: loose and human
+drums: harmonically led
+low_end: moderate low end
+genre:
+  - cool jazz
+  - jazz
+mood:
+  - calm and meditative
+  - reflective and quiet
+scene:
+  - a cocktail lounge evening
+production:
+  - a dry close-mic'd intimate sound
+  - warm analog tape saturation
+instruments:
+  - saxophone
+  - muted trumpet
+  - upright double bass
+  - brushed jazz drums
+  - grand piano
+vocal_presence: instrumental

@@ -244,3 +244,101 @@ def to_caption(preset: dict, seed: int = 0, style: str = compose.DEFAULT_STYLE) 
         seed=seed,
         style=style,
     )
+
+
+# ---------------------------------------------------------------------------
+# YuE2 output format
+#
+# YuE2 takes a single flat descriptor string, not MiniMax's three labelled
+# sections. Its published prompts vary enormously in length - from "country"
+# to full paragraphs - but the effective ones follow a consistent order:
+#
+#   genre -> tempo/mood -> instruments -> vocal (with gender) -> production -> scene
+#
+# Two conventions matter and are absent from MiniMax captions: vocal gender is
+# stated outright in most YuE2 prompts, and language is named when it is not
+# English. Both are node inputs rather than preset fields, since the same
+# style can be sung by anyone in any language.
+
+YUE2_VOCALS = {
+    "auto": None,
+    "female vocals": "female vocals",
+    "male vocals": "male vocals",
+    "androgynous vocals": "androgynous vocals",
+    "duet, male and female vocals": "duet, male and female vocals",
+    "group vocals": "group vocals, layered harmonies",
+    "choir": "full choir",
+    "rap vocals": "rap vocals",
+    "instrumental (no vocals)": "instrumental, no vocals",
+}
+
+YUE2_LANGUAGES = [
+    "auto", "English", "Mandarin", "Japanese", "Korean", "Spanish", "Russian",
+]
+
+
+def _plain(values, limit=None):
+    out = [str(v) for v in (values or []) if v]
+    return out[:limit] if limit else out
+
+
+def to_yue2(
+    preset: dict,
+    vocal: str = "auto",
+    language: str = "auto",
+    detail: str = "full",
+    include_bpm: bool = True,
+) -> str:
+    """Render a preset as a YuE2 style prompt.
+
+    `detail`:
+      tags  - genre, mood and vocal only; closest to YuE2's terse prompts
+      full  - the standard order above
+      rich  - adds production and scene, closest to their longest prompts
+    """
+    limits = {
+        "tags": {"mood": 2, "instruments": 0, "production": 0, "scene": 0},
+        "full": {"mood": 2, "instruments": 5, "production": 2, "scene": 0},
+        "rich": {"mood": 3, "instruments": 6, "production": 3, "scene": 2},
+    }.get(detail, {"mood": 2, "instruments": 5, "production": 2, "scene": 0})
+
+    parts: list[str] = []
+
+    parts.extend(_plain(preset.get("genre")))
+
+    if include_bpm and preset.get("bpm"):
+        parts.append(f"{int(preset['bpm'])} BPM")
+
+    parts.extend(_plain(preset.get("mood"), limits["mood"]))
+
+    if limits["instruments"]:
+        parts.extend(_plain(preset.get("instruments"), limits["instruments"]))
+
+    # Vocal: an explicit node choice wins; otherwise fall back to what the
+    # preset itself declares, so a preset marked instrumental stays that way.
+    resolved = YUE2_VOCALS.get(vocal)
+    if resolved is None and vocal == "auto":
+        if preset.get("vocal_presence") == "instrumental":
+            resolved = "instrumental, no vocals"
+        else:
+            timbre = _plain(preset.get("vocal_timbre"), 1)
+            delivery = _plain(preset.get("vocal_delivery"), 1)
+            resolved = ", ".join(timbre + delivery) or None
+    if resolved:
+        parts.append(resolved)
+        # Voice character still adds detail even when gender was forced.
+        if vocal != "auto" and vocal != "instrumental (no vocals)" and detail != "tags":
+            parts.extend(_plain(preset.get("vocal_delivery"), 1))
+
+    if limits["production"]:
+        parts.extend(_plain(preset.get("production"), limits["production"]))
+    if limits["scene"]:
+        parts.extend(_plain(preset.get("scene"), limits["scene"]))
+
+    if language and language != "auto":
+        parts.append(language)
+
+    # Dedupe while preserving order; presets and modifiers can overlap.
+    seen = set()
+    unique = [p for p in parts if not (p.lower() in seen or seen.add(p.lower()))]
+    return ", ".join(unique)

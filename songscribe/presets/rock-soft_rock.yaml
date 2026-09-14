@@ -1,0 +1,31 @@
+name: Rock / Soft Rock
+category: rock
+bpm: 96
+key: F major
+harmony: moderately extended
+feel: loose and human
+drums: harmonically led
+low_end: moderate low end
+genre:
+  - classic rock
+  - singer-songwriter acoustic
+mood:
+  - tender and intimate
+  - bittersweet
+scene:
+  - a slow lazy Sunday morning
+production:
+  - warm analog tape saturation
+  - a crisp studio multitrack production
+instruments:
+  - acoustic guitar
+  - grand piano
+  - electric bass guitar
+  - acoustic drum kit
+  - string section
+vocal_presence: sung
+vocal_timbre:
+  - a warm mid-range voice
+vocal_delivery:
+  - crooned smoothly
+  - doubled with a close harmony

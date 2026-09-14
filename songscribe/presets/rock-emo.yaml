@@ -1,0 +1,30 @@
+name: Rock / Emo
+category: rock
+bpm: 150
+key: C# minor
+harmony: simple diatonic
+feel: loose and human
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - emo
+  - punk rock
+mood:
+  - melancholy and wistful
+  - angry and defiant
+scene:
+  - a film's emotional climax
+production:
+  - a raw live-room recording
+  - gritty distortion and fuzz
+instruments:
+  - acoustic drum kit
+  - crunchy distorted electric guitar
+  - electric bass guitar
+  - clean electric guitar
+vocal_presence: sung
+vocal_timbre:
+  - a strained emotional voice
+vocal_delivery:
+  - shouted and screamed
+  - sung with heavy vibrato

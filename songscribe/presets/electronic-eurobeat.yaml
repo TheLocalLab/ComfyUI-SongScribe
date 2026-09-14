@@ -1,0 +1,31 @@
+name: Electronic / Eurobeat
+category: electronic
+bpm: 155
+key: B minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - trance
+  - synth-pop
+mood:
+  - euphoric and rushing
+  - urgent and restless
+scene:
+  - a long night drive
+  - a crowded dancefloor at peak hour
+production:
+  - a loud heavily compressed master
+  - a wide spacious stereo image
+instruments:
+  - punchy electronic drum machine
+  - warm analog synth bass
+  - arpeggiated synthesizer
+  - bright synth lead
+  - grand piano
+vocal_presence: sung
+vocal_timbre:
+  - a powerful belting voice
+vocal_delivery:
+  - belted out powerfully

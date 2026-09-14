@@ -1,0 +1,31 @@
+name: Country / Honky Tonk
+category: country
+bpm: 132
+key: A major
+harmony: simple diatonic
+feel: loose and human
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - country
+  - americana
+mood:
+  - playful and carefree
+  - gritty and raw
+scene:
+  - a campfire singalong
+production:
+  - a raw live-room recording
+  - a narrow mono-leaning image
+instruments:
+  - slide guitar
+  - honky-tonk piano
+  - upright double bass
+  - acoustic drum kit
+  - solo violin
+vocal_presence: sung
+vocal_timbre:
+  - a warm husky voice
+vocal_delivery:
+  - crooned smoothly
+  - doubled with a close harmony

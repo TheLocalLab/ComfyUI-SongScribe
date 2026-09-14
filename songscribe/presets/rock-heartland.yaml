@@ -1,0 +1,30 @@
+name: Rock / Heartland
+category: rock
+bpm: 128
+key: D major
+harmony: simple diatonic
+feel: loose and human
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - classic rock
+  - americana
+mood:
+  - hopeful and uplifting
+  - warm and nostalgic
+scene:
+  - a summer road trip
+production:
+  - a raw live-room recording
+  - a wide spacious stereo image
+instruments:
+  - acoustic drum kit
+  - electric bass guitar
+  - clean electric guitar
+  - upright piano
+  - saxophone
+vocal_presence: sung
+vocal_timbre:
+  - a gritty rasping voice
+vocal_delivery:
+  - belted out powerfully

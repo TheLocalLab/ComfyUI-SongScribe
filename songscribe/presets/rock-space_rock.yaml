@@ -1,0 +1,32 @@
+name: Rock / Space Rock
+category: rock
+bpm: 124
+key: E minor
+harmony: simple diatonic
+feel: steady
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - classic rock
+  - post-rock
+mood:
+  - epic and cinematic
+  - spacious and weightless
+scene:
+  - a long night drive
+production:
+  - a wide spacious stereo image
+  - long cavernous hall reverb
+  - warm analog tape saturation
+instruments:
+  - crunchy distorted electric guitar
+  - arpeggiated synthesizer
+  - electric bass guitar
+  - acoustic drum kit
+  - analog synth pads
+vocal_presence: sung
+vocal_timbre:
+  - a high airy falsetto
+vocal_delivery:
+  - drenched in delay and reverb
+  - belted out powerfully

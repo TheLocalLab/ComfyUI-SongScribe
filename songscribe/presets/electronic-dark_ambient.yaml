@@ -1,0 +1,26 @@
+name: Electronic / Dark Ambient
+category: electronic
+bpm: 60
+key: C minor
+harmony: chromatic / extended harmony
+feel: loose and human
+drums: harmonically led
+low_end: deep sub-heavy low end
+genre:
+  - ambient electronic
+  - cinematic score
+mood:
+  - haunting and eerie
+  - dark and brooding
+  - claustrophobic and dense
+scene:
+  - a tense chase scene
+production:
+  - heavy reverb drenching everything
+  - lo-fi bitcrushed digital artefacts
+instruments:
+  - analog synth pads
+  - reversed ambient swells
+  - field recording ambience
+  - solo cello
+vocal_presence: instrumental

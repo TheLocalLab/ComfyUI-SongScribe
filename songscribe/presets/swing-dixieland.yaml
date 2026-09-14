@@ -1,0 +1,26 @@
+name: Swing / Dixieland
+category: swing
+bpm: 200
+key: F major
+harmony: simple diatonic
+feel: loose and human
+drums: drum-forward
+low_end: moderate low end
+genre:
+  - dixieland
+  - jazz
+mood:
+  - playful and carefree
+  - euphoric and rushing
+scene:
+  - a campfire singalong
+production:
+  - a raw live-room recording
+  - a narrow mono-leaning image
+instruments:
+  - solo trumpet
+  - clarinet
+  - upright double bass
+  - acoustic drum kit
+  - honky-tonk piano
+vocal_presence: instrumental

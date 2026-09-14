@@ -1,0 +1,31 @@
+name: World / Flamenco
+category: world
+bpm: 110
+key: A minor
+harmony: chromatic / extended harmony
+feel: loose and human
+drums: drum-forward
+low_end: moderate low end
+genre:
+  - world fusion
+  - latin pop
+mood:
+  - gritty and raw
+  - romantic and longing
+scene:
+  - a festival main stage
+production:
+  - a raw live-room recording
+  - a dry close-mic'd intimate sound
+instruments:
+  - fingerpicked acoustic guitar
+  - hand percussion
+  - handclaps
+  - upright double bass
+vocal_presence: sung
+vocal_timbre:
+  - a gritty rasping voice
+  - a strained emotional voice
+vocal_delivery:
+  - belted out powerfully
+  - answered by a call-and-response choir

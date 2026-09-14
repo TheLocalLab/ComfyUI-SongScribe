@@ -1,0 +1,27 @@
+name: Cinematic / Classical Chamber
+category: cinematic
+bpm: 92
+key: D major
+harmony: chromatic / extended harmony
+feel: loose and human
+drums: harmonically led
+low_end: light low end
+genre:
+  - string quartet
+  - classical orchestral
+mood:
+  - reflective and quiet
+  - tender and intimate
+scene:
+  - a funeral or memorial
+  - a romantic dinner
+production:
+  - long cavernous hall reverb
+  - a dry close-mic'd intimate sound
+instruments:
+  - solo violin
+  - solo cello
+  - string section
+  - harp
+  - grand piano
+vocal_presence: instrumental

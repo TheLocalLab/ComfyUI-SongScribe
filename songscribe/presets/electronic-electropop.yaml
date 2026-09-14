@@ -1,0 +1,31 @@
+name: Electronic / Electropop
+category: electronic
+bpm: 112
+key: C minor
+harmony: simple diatonic
+feel: machine-tight
+drums: balanced
+low_end: solid bass weight
+genre:
+  - synth-pop
+  - indie pop
+mood:
+  - bittersweet
+  - confident and swaggering
+scene:
+  - a long night drive
+production:
+  - a clean modern polished mix
+  - gentle detuning and chorus wobble
+instruments:
+  - punchy electronic drum machine
+  - warm analog synth bass
+  - arpeggiated synthesizer
+  - analog synth pads
+vocal_presence: sung
+vocal_timbre:
+  - a clear bright voice
+  - a heavily autotuned voice
+vocal_delivery:
+  - sung softly and gently
+  - layered in thick stacked harmonies

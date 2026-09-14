@@ -1,0 +1,31 @@
+name: Electronic / Italo-Disco
+category: electronic
+bpm: 126
+key: D minor
+harmony: simple diatonic
+feel: machine-tight
+drums: drum-forward
+low_end: solid bass weight
+genre:
+  - disco
+  - synth-pop
+mood:
+  - euphoric and rushing
+  - warm and nostalgic
+scene:
+  - a crowded dancefloor at peak hour
+production:
+  - a wide spacious stereo image
+  - long cavernous hall reverb
+  - warm analog tape saturation
+instruments:
+  - punchy electronic drum machine
+  - warm analog synth bass
+  - arpeggiated synthesizer
+  - bright synth lead
+vocal_presence: sung
+vocal_timbre:
+  - a clear bright voice
+vocal_delivery:
+  - crooned smoothly
+  - drenched in delay and reverb
