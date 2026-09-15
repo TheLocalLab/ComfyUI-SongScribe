@@ -41,7 +41,7 @@ P = [
     ("hiphop", "drill", "Hip-Hop / Drill", 144, "G minor", "simple diatonic", "machine-tight", "drum-forward", "deep sub-heavy low end",
      ["drill"], ["menacing and aggressive", "tense and anxious"], ["a long night drive"],
      ["a deep sub-heavy club mix", "gritty distortion and fuzz"],
-     ["808 drum machine", "punchy electronic drum machine", "solo violin", "analog synth pads"],
+     ["808 drum machine", "punchy electronic drum machine", "string section", "analog synth pads"],
      ("spoken", ["a deep resonant low-register voice"], ["rapped in tight rhythmic flow"])),
     # ------------------------------------------------------------- soul / r&b
     ("soul", "neo_soul", "Soul / Neo-Soul", 86, "Eb major", "chromatic / extended harmony", "loose and human", "balanced", "solid bass weight",

@@ -13,6 +13,7 @@ operation, whereas blending two paragraphs of prose is not well defined.
 from __future__ import annotations
 
 import os
+import re
 
 from . import compose
 from .keys import spoken_key
@@ -277,8 +278,36 @@ YUE2_LANGUAGES = [
 ]
 
 
+# The shared vocabulary is authored as prose fragments, because that is what
+# the MiniMax composer needs: "Production: a deep sub-heavy club mix, ...".
+# Emitted as flat YuE2 tags the same strings read like a thesaurus - 16% of
+# them began with an article, which no published YuE2 prompt does. These
+# rewrite the handful whose prose form is actively wrong as a tag; the article
+# strip below handles the rest generically.
+YUE2_ALIASES = {
+    "808 drum machine": "heavy 808s",
+    "punchy electronic drum machine": "punchy electronic drums",
+    "vinyl crackle texture": "vinyl crackle",
+    "warm Rhodes electric piano": "warm Rhodes piano",
+    "field recording ambience": "field recordings",
+    "reversed ambient swells": "reversed swells",
+    "tambourine and shaker": "tambourine, shaker",
+    "congas and bongos": "congas, bongos",
+    "orchestral timpani": "timpani",
+    "acoustic drum kit": "live drum kit",
+}
+
+_ARTICLE = re.compile(r"^(?:a|an|the)\s+", re.IGNORECASE)
+
+
+def _tag(value: str) -> str:
+    """Prose fragment -> YuE2 tag."""
+    text = YUE2_ALIASES.get(value, value)
+    return _ARTICLE.sub("", text).strip()
+
+
 def _plain(values, limit=None):
-    out = [str(v) for v in (values or []) if v]
+    out = [_tag(str(v)) for v in (values or []) if v]
     return out[:limit] if limit else out
 
 
@@ -297,8 +326,8 @@ def to_yue2(
       rich  - adds production and scene, closest to their longest prompts
     """
     limits = {
-        "tags": {"mood": 2, "instruments": 0, "production": 0, "scene": 0},
-        "full": {"mood": 2, "instruments": 5, "production": 2, "scene": 0},
+        "tags": {"mood": 1, "instruments": 0, "production": 0, "scene": 0},
+        "full": {"mood": 1, "instruments": 5, "production": 2, "scene": 0},
         "rich": {"mood": 3, "instruments": 6, "production": 3, "scene": 2},
     }.get(detail, {"mood": 2, "instruments": 5, "production": 2, "scene": 0})
 
@@ -325,7 +354,7 @@ def to_yue2(
             delivery = _plain(preset.get("vocal_delivery"), 1)
             resolved = ", ".join(timbre + delivery) or None
     if resolved:
-        parts.append(resolved)
+        parts.append(_tag(resolved))
         # Voice character still adds detail even when gender was forced.
         if vocal != "auto" and vocal != "instrumental (no vocals)" and detail != "tags":
             parts.extend(_plain(preset.get("vocal_delivery"), 1))
