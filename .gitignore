@@ -5,3 +5,12 @@ __pycache__/
 .vscode/
 .idea/
 *.egg-info/
+
+# Build artifact from `comfy node pack` / `comfy node publish`.
+# Regenerated on demand; the registry builds its own copy from the repo.
+node.zip
+
+# Tool caches
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
