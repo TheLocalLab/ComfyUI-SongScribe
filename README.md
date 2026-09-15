@@ -1,82 +1,20 @@
 # SongScribe
 
-ComfyUI nodes that take an audio file and produce a **structured music caption**,
-**lyrics**, and **duration** — shaped for [MiniMax Music 3](https://github.com/MiniMax-AI/MiniMax-Music3)'s
-three-section caption format, but emitted as plain `STRING`/`FLOAT` so they drop
-into any audio workflow.
+ComfyUI nodes for driving music-generation models: **style prompts** from a
+curated preset library, and **caption / lyrics / duration** extracted from an
+audio file.
 
-```
-Global Metadata: 78 BPM, D flat major, moderately extended. Machine-tight timing.
-Energy arc: quiet-open, peaks late. Production: tonally warm and rounded, ...
+Targets two prompt formats:
 
-Vocal Details: ...
+- **[MiniMax Music 3](https://github.com/MiniMax-AI/MiniMax-Music3)** — the
+  three-section caption (`Global Metadata` / `Vocal Details` / `Arrangement`)
+- **[YuE2](https://map-yue2.github.io/)** — a flat comma-separated descriptor
+  string
 
-Arrangement: Mix sits drum-forward, with a solid bass weight. Section map — ...
-```
+Outputs are plain `STRING` / `FLOAT`, so they drop into any audio workflow.
+Everything runs on CPU.
 
-## Design principle
-
-**Nothing in the caption is guessed.** BPM, key, dynamics, spectral balance and
-the section map are measured by DSP. Where a value can't be measured or scored,
-the clause is *omitted* rather than filled with something plausible — a caption
-that says less beats one that says something wrong, because every sentence in it
-becomes an instruction to the music model.
-
-This is also why there's no large language model in the pipeline. The caption
-format is a fixed three-section template drawn from a bounded vocabulary, so
-filling it is a measurement-and-retrieval problem, not a text-generation one.
-The whole pack runs on CPU.
-
-## Status
-
-| Phase | What | State |
-|---|---|---|
-| 1 | DSP analyzer, multi-format loading, embedded lyrics, sidecar cache | **Done** |
-| 2 | CLAP zero-shot descriptors (genre, mood, instruments, vocal character) | **Done** |
-| 3 | Full composer grammar + style-abstraction dial | **Done** |
-| 4 | Caption Splitter/Composer, Style Presets, Lyrics tools | **Done** |
-| 5 | Optional `faster-whisper` lyric transcription | **Done** |
-
-## How the descriptors work
-
-The `describe` widget switches on CLAP scoring. There is no language model
-involved: [`laion/clap-htsat-unfused`](https://huggingface.co/laion/clap-htsat-unfused)
-(~150M params, CPU) embeds audio and text into a shared space, and SongScribe
-ranks a **hand-authored vocabulary** against the track.
-
-Every phrase the system can emit lives in `songscribe/vocab/*.yaml`. That's the
-whole point: the model picks *from* a list rather than writing free text, so the
-worst failure is a less apt word — never an invented fact. Each axis is one file:
-
-| Axis | Picks | Feeds |
-|---|---|---|
-| `genre` | top 2 | Global Metadata |
-| `mood` | top 3 | Global Metadata |
-| `production` | top 3 | Global Metadata |
-| `scene` | top 2 | Global Metadata |
-| `instruments` | top 6 | Arrangement |
-| `vocal_timbre` | top 2 | Vocal Details |
-| `vocal_delivery` | top 2 | Vocal Details |
-| `vocal_presence` | exclusive | gates the whole Vocal Details section |
-
-Scores are softmaxed **within each axis** — raw CLAP cosine similarities sit in
-a narrow band and aren't interpretable on their own. Labels below the axis
-threshold are dropped rather than padded out to `top_k`.
-
-`vocal_presence` is scored first and, on an instrumental, the vocal axes are
-skipped entirely rather than reported with low scores. Describing a voice that
-isn't there is the most damaging thing this layer could do to a caption.
-
-### Editing the vocabulary
-
-Drop a new `.yaml` into `songscribe/vocab/` and it becomes an axis on the next
-run — no code changes. Tune `threshold` if an axis is too eager or too shy,
-`top_k` for how many labels it may contribute, and `temperature` for how sharply
-it discriminates.
-
-**The vocabulary is the tuning surface.** If captions come out generic for the
-music you work with, add the specific language you want to that genre's file
-rather than reaching for a bigger model.
+---
 
 ## Install
 
@@ -87,160 +25,276 @@ Python that runs ComfyUI. For a Windows portable install:
 python_embeded/python.exe -m pip install librosa mutagen pyyaml
 ```
 
-These are purely additive — they don't upgrade or downgrade numpy, torch or
-anything else ComfyUI depends on.
+Purely additive — they don't upgrade or downgrade numpy, torch or anything else
+ComfyUI depends on. ComfyUI Manager installs `requirements.txt` for you.
+
+Optional, only for lyric transcription:
+
+```bash
+python_embeded/python.exe -m pip install faster-whisper
+```
 
 ## Nodes
 
 | Node | Does |
 |---|---|
+| **Style Preset** | Curated style → prompt, in MiniMax or YuE2 format. No audio needed. |
 | **Song Analyzer** | Audio → caption, lyrics, duration |
-| **Style Preset** | Curated style → caption, no reference track needed |
 | **Caption Splitter** | Caption → three editable sections |
 | **Caption Composer** | Three sections → caption |
 | **Lyrics Structure** | Normalise section tags, check they fit the duration |
 
-## Node: Song Analyzer
+---
 
-**Inputs**
+# Style Preset
+
+73 presets across 14 categories, covering the genre taxonomy YuE2 publishes.
+The dropdown shows readable names (`World / Reggae`), and any `.yaml` you drop
+into `songscribe/presets/` appears there on the next restart.
 
 | Input | Notes |
 |---|---|
-| `audio_file` | Upload widget. Set to `(use AUDIO input)` when driving it from a socket. |
-| `audio` *(optional)* | `AUDIO` from an upstream node. Takes priority over the file when connected. |
-| `describe` | `clap` scores genre/mood/instruments/vocals; `off` emits measured facts only. |
-| `style` | How literally the caption reproduces the track — see below. |
-| `use_cache` | Reuse a previous analysis of the same file instead of recomputing. |
-| `seed` | Varies caption phrasing without re-analysing the audio. |
+| `preset` | The style |
+| `format` | `minimax` (three sections) or `yue2` (flat descriptors) |
+| `detail` | *YuE2 only.* `tags` / `full` / `rich` — their own prompts span all three lengths |
+| `vocal` | *YuE2 only.* Voice type; `auto` uses whatever the preset declares |
+| `language` | *YuE2 only.* English, Mandarin, Japanese, Korean, Spanish, Russian |
+| `style` | *MiniMax only.* `verbatim` / `balanced` / `loose` |
+| `era`, `texture`, `mood_shift` | Modifier axes; they **add**, never replace |
+| `blend_with` + `blend` | Mix a second preset |
+| `extra` | Appended verbatim |
 
-### The `style` dial
+`seed` varies MiniMax phrasing only; it does nothing in `yue2` format, which is
+deterministic. `style` likewise does nothing in `yue2`, and `detail`/`vocal`/
+`language` do nothing in `minimax`. They're harmless, just inert.
 
-Feeding a verbatim analysis of a song back into a generator produces a clone of
-that song. This is the knob that stops it:
+Example, `World / Reggae` in `yue2` format:
 
-| Style | Keeps | Use for |
-|---|---|---|
-| `verbatim` | Exact BPM, key, and second-level section timings | Reproducing a reference as closely as possible |
-| `balanced` *(default)* | BPM and key; drops exact timings | Steering the model while letting it write a new song |
-| `loose` | Genre, mood, texture. No tempo, key or structure | Vibe transfer only |
+```
+reggae, roots reggae, dub, rocksteady, jamaican, 76 BPM, laid-back and dreamy,
+offbeat guitar skank on the upstroke, one-drop drums with the kick on the three,
+deep melodic round bassline, Hammond organ bubble, delay throws on the end of
+phrases, warm mid-range voice, sung lazily behind the beat, spring reverb and
+dub delay throws, English
+```
 
-Style affects composition only, never analysis — so switching it recomposes
-instantly from the cached measurements rather than re-analysing the audio.
+### How the presets are written
 
-Section names come from position and energy only (`Intro`, `Section 3`,
-`Outro`). The segmentation finds *where* the music changes, not *what* a
-section is; labelling something a chorus would be a claim the analysis can't
-support. Consecutive sections that behave identically are collapsed into one
-entry (`Sections 2-6: the core groove running`).
+**Name the signature, not the ingredients.** Every genre has drums, bass and a
+harmony instrument — listing those describes nothing. Drill is *sliding 808s and
+skittering hi-hat triplets*. Reggae is the *offbeat skank and the one-drop kick
+on the three*. Bluegrass is the *banjo roll, the mandolin chop, and no drums at
+all*.
 
-**Outputs**
+**Stack related genre terms.** A broad term like "hip hop" is far better
+represented in training data than "drill", so presets lead with the specific
+term and back it with its family (`drill, hip hop, rap, trap`). This mirrors
+YuE2's own prompts, which routinely name four or five related styles. Genres
+are named generally rather than regionally — "drill", not "UK drill" — since the
+signature elements are shared across scenes. Regional flavour goes in `extra`.
+
+**Presets are structured, not prose**, which is what makes blending meaningful:
+merging two structured presets is a list operation, where blending two
+paragraphs isn't well defined. Scalars like BPM cross over at the halfway point
+rather than averaging — the mean of 78 and 132 BPM is a tempo neither preset
+asked for.
+
+Regenerate the shipped set with `python tools/make_presets.py`; edit the YAML
+directly for one-offs.
+
+### Wiring to YuE2
+
+`style` is a widget on `YuE2GenerateMusic`, so right-click the node → **convert
+`style` to input**, then connect the Style Preset's `prompt` output.
+
+---
+
+# Song Analyzer
+
+**Nothing in the caption is guessed.** BPM, key, dynamics, spectral balance and
+the section map are measured by DSP. Where a value can't be measured or scored
+confidently, the clause is *omitted* rather than filled with something
+plausible — every sentence in a caption becomes an instruction to the music
+model, so saying less beats saying something wrong.
+
+| Input | Notes |
+|---|---|
+| `audio_file` | Upload widget. Set to `(use AUDIO input)` when driving from a socket. |
+| `audio` *(optional)* | `AUDIO` from an upstream node; takes priority when connected |
+| `describe` | `clap` scores mood/instruments/vocals; `off` emits measured facts only |
+| `genre_source` | `clap`, `maest` (supervised, more accurate), or `off` |
+| `clap_model` | `music_and_speech` (default) or `general` |
+| `transcribe_lyrics` | `off` / `if missing` / `always` |
+| `whisper_model` | `tiny` / `base` / `small` / `medium` |
+| `style` | How literally the caption reproduces the track |
+| `use_cache`, `seed` | |
 
 | Output | Type | Wire to |
 |---|---|---|
 | `caption` | `STRING` | MiniMax `caption` |
 | `lyrics` | `STRING` | MiniMax `lyrics` |
 | `duration` | `FLOAT` | MiniMax `max_duration` |
-| `duration_int` | `INT` | — |
-| `duration_str` | `STRING` | `3:47`, for filenames and notes |
+| `duration_int` / `duration_str` | `INT` / `STRING` | `3:47` for filenames |
 | `analysis` | `SONGSCRIBE_ANALYSIS` | Downstream SongScribe nodes |
+
+### The `style` dial
+
+Feeding a verbatim analysis back into a generator produces a clone of the
+source. This is the knob that stops it.
+
+| Style | Keeps |
+|---|---|
+| `verbatim` | Exact BPM, key, second-level section timings |
+| `balanced` *(default)* | BPM and key; drops exact timings |
+| `loose` | Genre, mood, texture only |
+
+Style affects composition only, so switching recomposes instantly from cached
+measurements.
 
 ### Formats
 
 Anything libsndfile or ffmpeg can decode: wav, flac, mp3, m4a/aac, ogg, opus,
-aiff, wma, alac, ape and more. librosa 1.0 dropped its audioread fallback, so
-formats libsndfile can't open are decoded through PyAV, which ships with ComfyUI.
+aiff, wma, alac, ape. librosa 1.0 dropped its audioread fallback, so formats
+libsndfile can't open are decoded through PyAV, which ships with ComfyUI.
 
 ### Lyrics
 
-Three sources, tried in order of how much they can be trusted:
+Three sources, in order of how much they can be trusted:
 
-1. **Embedded tags** (`USLT`/`SYLT`/Vorbis/MP4) — exact, someone typed them.
-2. **A sibling `.lrc`/`.txt`** — exact, timestamps stripped. `.lrc` is a
-   dedicated lyric format and is trusted as-is; a `.txt` could be credits or
-   liner notes, so it must actually look like lyrics (short lines, no prose
-   paragraphs) before it's accepted.
-3. **Whisper transcription** — an estimate, and off by default.
+1. **Embedded tags** (`USLT`/`SYLT`/Vorbis/MP4) — exact
+2. **A sibling `.lrc`/`.txt`** — exact. `.lrc` is trusted as-is; a `.txt` must
+   actually look like lyrics (short lines, no prose paragraphs), since it could
+   be credits or liner notes
+3. **Whisper transcription** — an estimate, off by default
 
-The estimate is never preferred over an exact source unless you set
-`transcribe_lyrics` to `always`.
-
-### Transcription quality
-
-`transcribe_lyrics` is `off` by default because sung ASR is markedly worse than
-speech. Measured on real tracks with `base` on CPU:
-
-| Track | Speed | Word overlap with true lyrics |
-|---|---|---|
-| English R&B, clear lead vocal | 0.61× realtime | 90% |
-| English reggae, dense mix | 0.12× realtime | 78% |
-| Korean/English rap | 0.71× realtime | 52% |
-
-Good enough to save typing, not good enough to ship unread — expect to fix
-names, run-together lines, and hummed passages, where Whisper tends to repeat
-itself. Bigger models help; `medium` is roughly 4× slower than `base`.
-
-**Section tags are not taken from the ASR.** Whisper emits words and timings and
-knows nothing about song structure. Tags come from two things it does report
-honestly: silence between sung phrases (→ `[Instrumental]`), and repetition of
-the lyric text itself — a block that occurs more than once is a `[Chorus]` by
-definition of the word. Everything else is `[Verse]`, which claims only that it
-is sung, non-repeating material.
+Section tags are **not** taken from the ASR. Whisper emits words and timings and
+knows nothing about song structure. Tags come from silence between sung phrases
+(→ `[Instrumental]`) and repetition of the lyric text — a block occurring more
+than once is a `[Chorus]` by definition. Everything else is `[Verse]`.
 
 ### Caching
 
-The first analysis of a file writes a `<name>.songscribe.json` sidecar; later
-runs reuse it. This matters more than it sounds: ComfyUI re-executes a node
-whenever anything upstream changes, and analysis takes seconds, not
-milliseconds. If the audio's directory isn't writable, the cache falls back to
-ComfyUI's temp directory. Cached runs are ~100× faster.
+The first analysis writes a `<name>.songscribe.json` sidecar; later runs reuse
+it. ComfyUI re-executes a node whenever anything upstream changes, and analysis
+takes seconds — cached runs are ~100× faster. Falls back to ComfyUI's temp
+directory if the audio's folder isn't writable.
 
-## Style Presets
+### Performance
 
-Presets are **structured YAML**, not prose — they declare the same fields the
-analyzer produces (genre, mood, instruments, production…) and are rendered
-through the *same* composer. One grammar, one set of tests, and presets and
-analysed tracks come out speaking the same language.
+CPU only, warm process: ~5s for a 40s track, ~14s for 5 minutes, ~0.15s cached.
+Add ~10s once per session for numba's JIT warm-up, and ~2s per track for CLAP
+or MAEST scoring.
 
-It also makes blending well defined: merging two structured presets is a list
-operation, where blending two paragraphs of prose is not. `blend_with` plus a
-`blend` weight interleaves each field proportionally; scalars like BPM cross
-over at the halfway point rather than averaging, since the mean of 78 and 132
-BPM is a tempo neither preset asked for.
+---
 
-Three modifier axes (`era`, `texture`, `mood_shift`) layer on top. Modifiers
-always *add* — they never replace what the preset declared.
-
-Ships with: lo-fi hip-hop, neo-soul, indie folk, synthwave, dark techno, pop
-anthem, cinematic epic, ambient drift. Drop your own `.yaml` into
-`songscribe/presets/` and it appears in the dropdown on the next restart.
-
-## Lyrics Structure
+# Lyrics Structure
 
 MiniMax treats bracketed section tags as the **only** executable structural
-instruction — the lyric text itself just conveys mood. So a malformed tag
-doesn't produce a slightly-off song, it silently drops structure from a render
-that may take minutes.
+instruction — the lyric text itself just conveys mood. A malformed tag doesn't
+produce a slightly-off song, it silently drops structure from a render that may
+take minutes.
 
-This node normalises `(intro)`, `Verse 1:`, `{HOOK}`, `[middle 8]` and `ending:`
-into `[Intro]` `[Verse]` `[Chorus]` `[Bridge]` `[Outro]`, and estimates whether
-the lyrics fit your `max_duration` — warning in both directions (words cut short,
-or long instrumental stretches). The estimate is reported as a **range**, since
-delivery speed differs enormously between a ballad and a rap verse.
+`normalise_tags` rewrites the tags in place; turn it off to validate without
+changing the text. `max_duration` enables the fit check (0 disables it).
 
-A lyric line that merely ends in a colon is not mistaken for a tag.
+Normalises `(intro)`, `Verse 1:`, `{HOOK}`, `[middle 8]`, `ending:` into
+`[Intro]` `[Verse]` `[Chorus]` `[Bridge]` `[Outro]`, and estimates whether the
+lyrics fit `max_duration` — warning in both directions. The estimate is a
+**range**, since delivery speed differs enormously between a ballad and a rap
+verse. A lyric line that merely ends in a colon is not mistaken for a tag.
 
-## Performance
+---
 
-Measured on a portable Windows install, CPU only, warm process:
+# Caption Splitter / Composer
 
-| Track length | Time |
+The round-trip pair. The useful edit is almost always to *one* section — keep
+the measured arrangement, replace the vocal description entirely — so these make
+that a graph operation instead of copy-paste.
+
+**Splitter** takes a `caption` and emits `global_metadata`, `vocal_details` and
+`arrangement`. Degenerate input is preserved rather than dropped: a caption with
+no headers comes back whole in `global_metadata`, text before the first header
+survives, and markdown-bold headers (`**Arrangement:**`) are handled.
+
+**Composer** takes those three back and rebuilds the caption. `headers` emits
+the `Global Metadata:` / `Vocal Details:` / `Arrangement:` labels — MiniMax
+expects them; turn it off for other models. Any header left in an input is
+stripped first, so enabling it can't produce `Arrangement: Arrangement: ...`.
+
+Both work with the Style Preset node, which always computes the three sections
+regardless of the selected `format`.
+
+---
+
+## Measured accuracy, and where it's weak
+
+Scored against six labelled tracks with `tests/evaluate.py`.
+
+| Axis | Result |
 |---|---|
-| 40 s | ~5 s |
-| 5 min | ~14 s |
-| any, cached | ~0.15 s |
+| Vocal presence (voice / no voice) | 6/6 |
+| Sung vs rapped | 5/6 |
+| Genre via `maest` | trap, reggae, heavy metal, contemporary R&B all correct |
+| Genre via `clap` | ~3/6, and confidently wrong when wrong |
+| Key — mode only | 2/2 |
+| Key — exact tonic | 0/3 |
+| BPM vs label | 1/5 — see caveat |
 
-Add roughly 10 s once per ComfyUI session for numba's JIT warm-up on the first
-analysis.
+**The BPM caveat:** those labels are generation *prompts*, not measurements of
+the finished audio. Where the label and the analyzer disagreed on tempo, the
+audio's own onset autocorrelation backed the analyzer in 4 of 5 cases — on one
+track the correlation at the labelled 96 BPM was *negative* versus 0.421 at the
+detected tempo. So that figure substantially measures how closely a generator
+honoured its own prompt, not this analyzer's accuracy.
+
+**Known weak spots, stated plainly:**
+
+- **`mood` and `vocal_timbre` barely discriminate.** Across six unrelated
+  tracks, `mood` returned the same top label on five of them and `vocal_timbre`
+  on four. Treat them as decoration; a preset supplies both far more reliably.
+- **`genre` via CLAP is a coin flip.** Confidence does *not* predict
+  correctness there — the two worst calls scored highest. Use `maest`.
+- **Vocal gender was removed from the vocabulary.** CLAP scored 2/5 on a binary
+  male/female question — worse than chance — and answered "female" at 0.80–0.90
+  confidence on three male tracks. A caption is an instruction, so a wrong
+  gender claim generates the wrong voice.
+- **Descriptor thresholds are calibrated on six tracks.** Enough to catch a
+  systematic failure, not enough to be settled. Re-run `tools/calibrate.py`
+  with more labelled audio.
+
+### Accuracy notes
+
+- **Key** is Krumhansl-Schmuckler profile correlation. Confidence is scored
+  against the best *non-relative* alternative, since a key and its relative
+  minor share all seven pitch classes. Where the margin is tight the caption
+  names both: *"B flat major (or its relative G minor)"*.
+- **BPM** can land on half or double time. Inherent to beat tracking.
+- **Section boundaries** come from timbral self-similarity. They mark where the
+  music changes, not *what* a section is — verse/chorus labelling isn't
+  something this can honestly claim, so sections are named positionally.
+
+## Genre: supervised tagging
+
+CLAP guesses genre by embedding text and audio near each other — it never saw
+"reggae" as a training label.
+[MAEST](https://huggingface.co/mtg-upf/discogs-maest-10s-pw-129e) is
+*supervised* on 400 Discogs styles, so it did. Same ~2s per track on CPU.
+
+Set `genre_source` to `maest`. Only genre changes; mood, instruments and vocal
+character stay with CLAP, which is what MAEST doesn't predict.
+
+**Why it isn't the default — `trust_remote_code`.** MAEST ships a custom feature
+extractor, so loading it executes Python from the model repository. Mitigated
+rather than dismissed:
+
+- **Opt-in** — nothing loads unless selected
+- **Pinned revision** — `songscribe/tagger.py` pins commit `54b3b0a`, so a later
+  change to that repo can't silently execute on installed users
+- **Audited** — the pinned file is a 242-line mel-spectrogram extractor
+  importing only numpy, torch and transformers' audio utilities; no network, no
+  subprocess, no `eval`/`exec`, no file access
+
+Re-point `REVISION` at a newer commit only after reading that file.
 
 ## Tests
 
@@ -250,81 +304,28 @@ No ComfyUI required — they stub out `folder_paths`:
 python_embeded/python.exe custom_nodes/ComfyUI-SongScribe/tests/smoke_test.py
 ```
 
-- `smoke_test.py` — synthesises a track at a known 78 BPM in D♭ major and checks the measured values land on it.
-- `format_test.py` — transcodes to every supported container and verifies each loads back.
-- `node_test.py` — loads the pack through ComfyUI's importlib path and executes the node end to end.
-
-## Genre: supervised tagging (`genre_source`)
-
-CLAP guesses genre by embedding text and audio near each other — it has never
-seen "reggae" as a training label. [MAEST](https://huggingface.co/mtg-upf/discogs-maest-10s-pw-129e)
-is *supervised* on 400 Discogs styles, so it has. On the same six tracks:
-
-| Track | MAEST | CLAP |
-|---|---|---|
-| trap | **trap** | bossa nova |
-| reggae | **reggae** | classic soul |
-| rock | **heavy metal** | power pop |
-| hip-hop w/ R&B hooks | **contemporary R&B, R&B/swing** | dream pop |
-
-Both cost ~2s per track on CPU. Set `genre_source` to `maest` to use it,
-`clap` (default) for zero-shot, or `off` to omit genre entirely so a preset
-supplies it. Only genre is affected — mood, instruments and vocal character
-stay with CLAP, which is what MAEST does not predict.
-
-### Why `maest` is not the default: `trust_remote_code`
-
-MAEST ships a custom feature extractor, so loading it executes Python from the
-model repository. That is a real risk to hand to anyone who installs this pack,
-and it is mitigated rather than dismissed:
-
-- **Opt-in.** Nothing loads unless you select it.
-- **Pinned revision.** `songscribe/tagger.py` pins commit `54b3b0a`, so a later
-  change to that repository cannot silently execute on installed users.
-  Loading `main` would run whatever the repo contains on the day you hit queue.
-- **Audited.** The pinned file is a 242-line mel-spectrogram extractor
-  importing only numpy, torch and transformers' audio utilities — no network,
-  no subprocess, no `eval`/`exec`, no file access.
-
-If you re-point `REVISION` at a newer commit, read that file first.
-
-## Measured accuracy
-
-Scored against five labelled tracks with `tests/evaluate.py`. Read the caveat
-below before trusting the numbers.
-
-| Axis | Result |
+| Suite | Checks |
 |---|---|
-| Vocal presence (voice / no voice) | 5/5 |
-| Sung vs rapped | 4/5 |
-| Key — mode only | 2/2 |
-| Key — exact tonic | 0/3 |
-| BPM vs label | 1/5 |
-| Vocal **gender** | **2/5 — removed from the vocabulary** |
+| `smoke_test` | Synthesises a 78 BPM D♭ major track, verifies measurements land on it |
+| `format_test` | Transcodes to every supported container, verifies each loads |
+| `node_test` | Loads the pack through ComfyUI's importlib path, executes end to end |
+| `compose_test` | Style dial reduces specificity monotonically; seeds reproduce |
+| `companion_test` | Presets, splitter round-trip, lyric tag normalisation |
+| `clap_test` / `transcribe_test` | Descriptor and ASR layers |
 
-**The caveat:** those labels are *generation prompts*, not measurements of the
-finished audio. Where the label and the analyzer disagreed on tempo, the audio's
-own onset autocorrelation backed the analyzer in 4 of 5 cases — on one track the
-correlation at the labelled 96 BPM was *negative* (−0.031) versus 0.421 at the
-detected tempo. So "BPM 1/5" is not 1/5 accuracy against real ground truth; it
-substantially measures how closely a music generator honoured its own prompt.
-Proper calibration needs tracks with tempo and key measured from the audio.
+`SONGSCRIBE_TEST_MODEL=general` keeps the descriptor tests on an already-cached
+checkpoint so the suite doesn't pull gigabytes.
 
-Two changes came directly out of this run:
+## Tools
 
-- **Gender claims were removed from the vocal vocabulary.** CLAP scored 2/5 on a
-  *binary* male/female question — worse than chance — and answered "female" with
-  0.80–0.90 confidence on three tracks that were male. A caption is an
-  instruction, so a wrong gender claim doesn't just misdescribe the source, it
-  generates the wrong voice.
-- **The key phrase now names the relative when the margin is tight.** One track
-  led its relative by 0.023 while beating every other candidate decisively —
-  reported, correctly but uselessly, as confidence 1.00. It now reads
-  "B flat major (or its relative G minor)" rather than picking a side.
+| Tool | For |
+|---|---|
+| `tools/make_presets.py` | Regenerate the shipped preset library |
+| `tools/calibrate.py` | Re-tune per-axis thresholds against labelled audio |
+| `tools/evaluate.py` *(tests/)* | Score the analyzer per-axis against labels |
+| `tools/compare_models.py` *(tests/)* | A/B CLAP checkpoints |
+| `tools/try_maest.py` | Compare MAEST against CLAP on your own files |
 
-## Accuracy notes
+## License
 
-- **Key** is Krumhansl-Schmuckler profile correlation. Confidence is scored against the best *non-relative* alternative, since a key and its relative minor share all seven pitch classes and would otherwise always look ambiguous. Relative-key confusion is reported in `analysis.key.relative_margin` rather than hidden.
-- **BPM** can land on half or double time. That's inherent to beat tracking, not a bug.
-- **Percussive ratio** is estimated from ~24 s of evenly spaced excerpts rather than the whole track; measured error against a full-resolution HPSS is ~0.002, for roughly a sixth of the cost.
-- **Section boundaries** come from timbral/harmonic self-similarity clustering. They mark where the music changes — they do not identify *what* a section is. Verse/chorus labelling is not something this can honestly claim.
+MIT — see [LICENSE](LICENSE).
