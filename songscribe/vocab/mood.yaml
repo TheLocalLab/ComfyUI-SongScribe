@@ -1,5 +1,15 @@
 # Emotional character. These land in the Global Metadata section, so they are
 # written as descriptive phrases rather than single adjectives.
+# RETIRED from audio scoring - measured, not assumed.
+# Across six unrelated labelled tracks this axis returned the same top label
+# on five of them ("confident and swaggering", including a funeral ballad).
+# That is a default with a track-shaped rounding error, not a classification,
+# and no threshold fixes an axis that ignores its input.
+#
+# The labels are kept because PRESETS still use this field, and a preset is a
+# human asserting the mood rather than a model inferring it. Set enabled: true
+# to score it from audio again.
+enabled: false
 axis: mood
 prompt: "music that feels {label}"
 top_k: 3

@@ -104,6 +104,11 @@ def load_vocabularies(vocab_dir: str = VOCAB_DIR) -> dict:
         if not spec or not spec.get("labels"):
             continue
 
+        # An axis can be retired without deleting it. Presets still use the
+        # field; this only stops CLAP scoring it from audio.
+        if spec.get("enabled") is False:
+            continue
+
         axis = spec.get("axis") or os.path.splitext(name)[0]
         spec.setdefault("prompt", "{label}")
         # An axis may declare several phrasings. Zero-shot scores move

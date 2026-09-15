@@ -9,6 +9,14 @@
 #
 # If you want a specific voice, say so in the Vocal Details section yourself -
 # the Caption Splitter node exists precisely for that edit.
+# RETIRED from audio scoring - measured, not assumed.
+# Across six unrelated labelled tracks this axis returned "a soulful
+# gospel-trained voice" on four of them, including a reggae track, a trap
+# track and a power-pop track. It is not describing the voice.
+#
+# The labels are kept because PRESETS still use this field. Set enabled: true
+# to score it from audio again.
+enabled: false
 axis: vocal_timbre
 prompt: "a song with {label}"
 top_k: 2

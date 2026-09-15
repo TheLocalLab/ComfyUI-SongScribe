@@ -121,7 +121,7 @@ model, so saying less beats saying something wrong.
 |---|---|
 | `audio_file` | Upload widget. Set to `(use AUDIO input)` when driving from a socket. |
 | `audio` *(optional)* | `AUDIO` from an upstream node; takes priority when connected |
-| `describe` | `clap` scores mood/instruments/vocals; `off` emits measured facts only |
+| `describe` | `clap` scores instruments, production, scene and vocals; `off` emits measured facts only |
 | `genre_source` | `clap`, `maest` (supervised, more accurate), or `off` |
 | `clap_model` | `music_and_speech` (default) or `general` |
 | `transcribe_lyrics` | `off` / `if missing` / `always` |
@@ -249,9 +249,12 @@ honoured its own prompt, not this analyzer's accuracy.
 
 **Known weak spots, stated plainly:**
 
-- **`mood` and `vocal_timbre` barely discriminate.** Across six unrelated
-  tracks, `mood` returned the same top label on five of them and `vocal_timbre`
-  on four. Treat them as decoration; a preset supplies both far more reliably.
+- **`mood` and `vocal_timbre` are retired from audio scoring.** Across six
+  unrelated tracks, `mood` returned the same top label on five of them and
+  `vocal_timbre` on four — defaults with a track-shaped rounding error, not
+  classifications. Their vocabulary files remain (presets still use those
+  fields, where a human asserts the value rather than a model inferring it);
+  set `enabled: true` in `songscribe/vocab/` to score them from audio again.
 - **`genre` via CLAP is a coin flip.** Confidence does *not* predict
   correctness there — the two worst calls scored highest. Use `maest`.
 - **Vocal gender was removed from the vocabulary.** CLAP scored 2/5 on a binary
