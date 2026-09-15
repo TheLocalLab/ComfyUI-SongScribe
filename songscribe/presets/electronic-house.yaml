@@ -8,23 +8,21 @@ drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
   - house
-  - deep house
 mood:
   - hypnotic and trance-like
-  - euphoric and rushing
 scene:
   - a crowded dancefloor at peak hour
 production:
-  - a deep sub-heavy club mix
-  - sidechain pumping compression
+  - warm club system mix
+  - long patient builds
 instruments:
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - warm Rhodes electric piano
-  - analog synth pads
+  - four-on-the-floor kick with open hats on the offbeat
+  - filtered disco sample loop
+  - shuffled sixteenth hi-hats
+  - stabbing piano chords
+  - soulful chopped vocal sample
 vocal_presence: wordless
 vocal_timbre:
-  - a soulful gospel-trained voice
+  - soulful gospel-trained voice
 vocal_delivery:
-  - wordless humming and ooh-ahh textures
-  - chopped and stuttered as a sample
+  - a single sampled phrase looped and filtered

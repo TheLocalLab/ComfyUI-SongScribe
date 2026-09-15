@@ -7,25 +7,22 @@ feel: machine-tight
 drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
-  - heavy metal
-  - techno
+  - industrial metal
 mood:
   - menacing and aggressive
-  - claustrophobic and dense
 scene:
   - a video game boss fight
 production:
-  - gritty distortion and fuzz
-  - a loud heavily compressed master
-  - lo-fi bitcrushed digital artefacts
+  - clipped and mechanical
+  - cold and metallic
 instruments:
-  - heavily distorted guitar
-  - 808 drum machine
-  - acoustic drum kit
-  - analog synth pads
-  - orchestral timpani
+  - mechanical programmed drum loop
+  - downtuned chugging riff
+  - sampled machinery and metal impacts
+  - harsh synth drone
+  - abrupt digital cuts
 vocal_presence: sung
 vocal_timbre:
-  - a gritty rasping voice
+  - gritty rasping voice
 vocal_delivery:
-  - shouted and screamed
+  - barked through a distortion pedal

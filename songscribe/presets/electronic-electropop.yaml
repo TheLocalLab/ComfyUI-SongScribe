@@ -7,25 +7,23 @@ feel: machine-tight
 drums: balanced
 low_end: solid bass weight
 genre:
-  - synth-pop
-  - indie pop
+  - electropop
 mood:
   - bittersweet
-  - confident and swaggering
 scene:
   - a long night drive
 production:
-  - a clean modern polished mix
-  - gentle detuning and chorus wobble
+  - clean modern mix
+  - heavy sidechain on the pads
 instruments:
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - arpeggiated synthesizer
-  - analog synth pads
+  - punchy programmed drums
+  - detuned synth bass
+  - vocoded harmony stack
+  - plucked synth counter-melody
+  - filtered build into the chorus
 vocal_presence: sung
 vocal_timbre:
-  - a clear bright voice
-  - a heavily autotuned voice
+  - clear bright voice
 vocal_delivery:
-  - sung softly and gently
-  - layered in thick stacked harmonies
+  - sung with processed precision
+  - pitch-corrected as an effect

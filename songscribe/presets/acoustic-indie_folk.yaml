@@ -8,26 +8,23 @@ drums: harmonically led
 low_end: moderate low end
 genre:
   - indie folk
-  - singer-songwriter acoustic
 mood:
   - tender and intimate
-  - bittersweet
 scene:
   - a campfire singalong
   - a slow lazy Sunday morning
 production:
-  - a dry close-mic'd intimate sound
-  - a raw live-room recording
+  - close-mic'd and dry
+  - audible fingers on strings and breath
 instruments:
   - fingerpicked acoustic guitar
-  - upright piano
-  - upright double bass
-  - mandolin
-  - brushed jazz drums
+  - brushed snare keeping time
+  - upright bass underneath
+  - mandolin or banjo doubling the melody
+  - whole-room group harmony on the chorus
 vocal_presence: sung
 vocal_timbre:
-  - a warm husky voice
-  - a rough untrained raw voice
+  - warm husky voice
 vocal_delivery:
-  - sung softly and gently
-  - doubled with a close harmony
+  - sung quietly and close to the mic
+  - a second voice joining in thirds

@@ -8,25 +8,22 @@ drums: balanced
 low_end: solid bass weight
 genre:
   - blues
-  - classic soul
 mood:
   - melancholy and wistful
-  - gritty and raw
 scene:
   - a cocktail lounge evening
 production:
-  - a raw live-room recording
-  - warm analog tape saturation
+  - live in a small room
+  - warm valve amp saturation
 instruments:
-  - clean electric guitar
-  - Hammond organ
-  - electric bass guitar
-  - acoustic drum kit
-  - saxophone
+  - twelve-bar form with a turnaround
+  - shuffle feel on the ride
+  - bent and vibratoed guitar phrases
+  - Hammond organ underneath
+  - call and response between voice and guitar
 vocal_presence: sung
 vocal_timbre:
-  - a gritty rasping voice
-  - a smoky jazz-club voice
+  - gritty rasping voice
 vocal_delivery:
-  - belted out powerfully
-  - phrased lazily behind the beat
+  - moaned and drawn out
+  - guitar answering every sung line

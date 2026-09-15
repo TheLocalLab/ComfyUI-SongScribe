@@ -8,20 +8,18 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - synthwave
-  - synth-pop
 mood:
   - warm and nostalgic
-  - mysterious and shadowy
 scene:
   - a long night drive
 production:
-  - a wide spacious stereo image
-  - long cavernous hall reverb
-  - warm analog tape saturation
+  - 1980s analog warmth
+  - huge gated reverb
+  - tape saturation
 instruments:
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - bright synth lead
-  - arpeggiated synthesizer
-  - analog synth pads
+  - pulsing analog bass arpeggio
+  - gated snare with enormous reverb
+  - saw-wave lead melody
+  - neon-bright pad chords
+  - slow filter sweep through the build
 vocal_presence: instrumental

@@ -8,19 +8,17 @@ drums: drum-forward
 low_end: moderate low end
 genre:
   - dixieland
-  - jazz
 mood:
   - playful and carefree
-  - euphoric and rushing
 scene:
   - a campfire singalong
 production:
-  - a raw live-room recording
-  - a narrow mono-leaning image
+  - one-room live recording
+  - narrow vintage image
 instruments:
-  - solo trumpet
-  - clarinet
-  - upright double bass
-  - acoustic drum kit
-  - honky-tonk piano
+  - collective improvisation with everyone soloing at once
+  - trumpet carrying the lead
+  - clarinet weaving counter-melody above
+  - trombone sliding underneath
+  - banjo and tuba keeping time
 vocal_presence: instrumental

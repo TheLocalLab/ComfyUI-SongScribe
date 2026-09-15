@@ -7,24 +7,23 @@ feel: machine-tight
 drums: drum-forward
 low_end: solid bass weight
 genre:
-  - punk rock
-  - alternative rock
+  - dance-punk
 mood:
   - energetic and driving
-  - angry and defiant
 scene:
   - a festival main stage
 production:
-  - a raw live-room recording
-  - gritty distortion and fuzz
+  - dry and punchy
+  - raw but danceable
 instruments:
-  - acoustic drum kit
-  - electric bass guitar
-  - crunchy distorted electric guitar
-  - punchy electronic drum machine
+  - disco beat played on a live kit
+  - cowbell on the offbeat
+  - angular scratchy guitar
+  - distorted bass carrying the riff
+  - shouted call-and-response
 vocal_presence: sung
 vocal_timbre:
-  - a nasal indie voice
+  - nasal indie voice
 vocal_delivery:
-  - shouted and screamed
-  - sung in a flat deadpan monotone
+  - shouted and yelped
+  - whole-band chant on the hook

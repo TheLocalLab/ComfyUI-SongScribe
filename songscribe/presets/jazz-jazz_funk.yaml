@@ -7,20 +7,18 @@ feel: loose and human
 drums: drum-forward
 low_end: solid bass weight
 genre:
-  - jazz fusion
-  - funk
+  - jazz-funk
 mood:
   - confident and swaggering
-  - playful and carefree
 scene:
   - a crowded dancefloor at peak hour
 production:
-  - a crisp studio multitrack production
-  - warm analog tape saturation
+  - punchy and dry
+  - live band locked together
 instruments:
-  - warm Rhodes electric piano
-  - slap bass
-  - acoustic drum kit
-  - saxophone
-  - clean electric guitar
+  - wah clavinet riff
+  - popping slap bass
+  - tight syncopated horn hits
+  - Rhodes comping over a vamp
+  - extended instrumental solo section
 vocal_presence: instrumental

@@ -7,25 +7,23 @@ feel: machine-tight
 drums: drum-forward
 low_end: solid bass weight
 genre:
-  - disco
-  - synth-pop
+  - italo-disco
 mood:
   - euphoric and rushing
-  - warm and nostalgic
 scene:
   - a crowded dancefloor at peak hour
 production:
-  - a wide spacious stereo image
-  - long cavernous hall reverb
-  - warm analog tape saturation
+  - bright analog sheen
+  - generous reverb on everything
 instruments:
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - arpeggiated synthesizer
-  - bright synth lead
+  - octave-jumping synth bassline
+  - drum machine claps on the backbeat
+  - sparkling arpeggio
+  - vocoder counter-melody
+  - simple repeated synth hook
 vocal_presence: sung
 vocal_timbre:
-  - a clear bright voice
+  - clear bright voice
 vocal_delivery:
-  - crooned smoothly
-  - drenched in delay and reverb
+  - sung with earnest melodrama
+  - vocoded answering phrases

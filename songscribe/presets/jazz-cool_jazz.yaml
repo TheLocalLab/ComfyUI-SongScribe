@@ -8,19 +8,17 @@ drums: harmonically led
 low_end: moderate low end
 genre:
   - cool jazz
-  - jazz
 mood:
   - calm and meditative
-  - reflective and quiet
 scene:
   - a cocktail lounge evening
 production:
-  - a dry close-mic'd intimate sound
-  - warm analog tape saturation
+  - dry and intimate
+  - restrained dynamics throughout
 instruments:
-  - saxophone
-  - muted trumpet
-  - upright double bass
-  - brushed jazz drums
-  - grand piano
+  - muted trumpet stating the melody
+  - relaxed swing that never pushes
+  - sparse piano comping
+  - soft brushed drums
+  - long unhurried phrases
 vocal_presence: instrumental

@@ -7,21 +7,19 @@ feel: loose and human
 drums: harmonically led
 low_end: light low end
 genre:
-  - string quartet
-  - classical orchestral
+  - chamber music
 mood:
-  - reflective and quiet
   - tender and intimate
 scene:
-  - a funeral or memorial
   - a romantic dinner
+  - a funeral or memorial
 production:
-  - long cavernous hall reverb
-  - a dry close-mic'd intimate sound
+  - small hall acoustic
+  - no processing at all
 instruments:
-  - solo violin
-  - solo cello
-  - string section
-  - harp
-  - grand piano
+  - string quartet with each voice audible
+  - counterpoint between the parts
+  - solo cello taking the melody
+  - no percussion
+  - rubato phrasing
 vocal_presence: instrumental

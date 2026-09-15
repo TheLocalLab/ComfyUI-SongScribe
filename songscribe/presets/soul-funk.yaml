@@ -8,24 +8,23 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - funk
-  - disco
 mood:
   - playful and carefree
-  - confident and swaggering
 scene:
   - a crowded dancefloor at peak hour
 production:
-  - a crisp studio multitrack production
-  - a wide spacious stereo image
+  - dry punchy drums
+  - live band in a room
+  - everything locked to the one
 instruments:
-  - acoustic drum kit
-  - slap bass
-  - clean electric guitar
-  - Hammond organ
-  - brass section
+  - syncopated slap and pop bass
+  - wah-wah clavinet
+  - tight sixteenth-note hi-hats
+  - stabbing horn section hits
+  - single-chord vamp
 vocal_presence: sung
 vocal_timbre:
-  - a powerful belting voice
+  - gritty rasping voice
 vocal_delivery:
-  - belted out powerfully
-  - answered by a call-and-response choir
+  - shouted and percussive
+  - grunts and hollers on the offbeats

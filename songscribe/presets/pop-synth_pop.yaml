@@ -8,23 +8,23 @@ drums: balanced
 low_end: solid bass weight
 genre:
   - synth-pop
-  - indie pop
 mood:
   - bittersweet
-  - hopeful and uplifting
 scene:
   - a long night drive
 production:
-  - a wide spacious stereo image
-  - long cavernous hall reverb
+  - gated reverb on the snare
+  - wide 1980s reverb
+  - analog warmth
 instruments:
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - arpeggiated synthesizer
-  - analog synth pads
+  - pulsing analog synth bass sequence
+  - drum machine with a huge gated snare
+  - arpeggiated synth figure
+  - bright monophonic lead
+  - glassy bell counter-melody
 vocal_presence: sung
 vocal_timbre:
-  - a clear bright voice
+  - clear bright voice
 vocal_delivery:
-  - sung softly and gently
-  - doubled with a close harmony
+  - sung with cool restraint
+  - doubled an octave up in the chorus

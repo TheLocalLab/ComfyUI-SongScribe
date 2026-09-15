@@ -8,22 +8,22 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - classic rock
-  - hard rock
 mood:
   - confident and swaggering
-  - triumphant and soaring
 scene:
   - a summer road trip
 production:
-  - a raw live-room recording
-  - warm analog tape saturation
+  - analog tape saturation
+  - recorded live off the floor
 instruments:
-  - acoustic drum kit
-  - electric bass guitar
-  - crunchy distorted electric guitar
-  - Hammond organ
+  - overdriven riff built on power chords
+  - Hammond organ underneath
+  - swung rock drums with heavy cymbals
+  - bluesy pentatonic guitar solo
+  - melodic bass fills between lines
 vocal_presence: sung
 vocal_timbre:
-  - a gritty rasping voice
+  - gritty rasping voice
 vocal_delivery:
-  - belted out powerfully
+  - belted at the top of the range
+  - wailing held notes

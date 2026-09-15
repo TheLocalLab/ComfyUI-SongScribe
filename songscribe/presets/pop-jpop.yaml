@@ -8,24 +8,22 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - j-pop
-  - indie pop
 mood:
   - bright and joyful
-  - euphoric and rushing
 scene:
   - a festival main stage
 production:
-  - a clean modern polished mix
-  - a loud heavily compressed master
+  - dense loud mix
+  - everything bright and forward
 instruments:
-  - acoustic drum kit
-  - crunchy distorted electric guitar
-  - bright synth lead
-  - electric bass guitar
-  - grand piano
+  - bright distorted guitars
+  - busy driving eighth-note bass
+  - fill-heavy energetic drums
+  - soaring chorus melody with a wide range
+  - orchestral string stabs
 vocal_presence: sung
 vocal_timbre:
-  - a clear bright voice
+  - clear bright voice
 vocal_delivery:
-  - belted out powerfully
-  - layered in thick stacked harmonies
+  - sung with emotional force in a high register
+  - layered chorus harmonies

@@ -8,24 +8,22 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - jump blues
-  - blues
 mood:
   - confident and swaggering
-  - bright and joyful
 scene:
   - a crowded dancefloor at peak hour
 production:
-  - a raw live-room recording
-  - warm analog tape saturation
+  - live and hot
+  - horns pushed to the edge
 instruments:
-  - saxophone
-  - brass section
-  - upright double bass
-  - honky-tonk piano
-  - acoustic drum kit
+  - honking tenor saxophone solo
+  - slapped upright bass
+  - boogie piano underneath
+  - shuffle on the ride cymbal
+  - riffing horn section behind the vocal
 vocal_presence: sung
 vocal_timbre:
-  - a powerful belting voice
+  - powerful belting voice
 vocal_delivery:
-  - belted out powerfully
-  - answered by a call-and-response choir
+  - shouted with showmanship
+  - crowd-response hooks

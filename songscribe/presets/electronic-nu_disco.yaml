@@ -7,25 +7,23 @@ feel: machine-tight
 drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
-  - disco
-  - house
+  - nu-disco
 mood:
   - playful and carefree
-  - sensual and smouldering
 scene:
   - a crowded dancefloor at peak hour
 production:
-  - a clean modern polished mix
-  - sidechain pumping compression
+  - clean modern polish
+  - sidechain pump under the kick
 instruments:
-  - punchy electronic drum machine
-  - slap bass
-  - clean electric guitar
-  - analog synth pads
-  - handclaps
+  - filtered funk guitar riff
+  - popping disco bassline
+  - four-on-the-floor with live-feel hats
+  - sweeping disco strings
+  - handclaps layered on the backbeat
 vocal_presence: sung
 vocal_timbre:
-  - a soulful gospel-trained voice
+  - soulful gospel-trained voice
 vocal_delivery:
-  - crooned smoothly
-  - layered in thick stacked harmonies
+  - crooned over the groove
+  - falsetto hook

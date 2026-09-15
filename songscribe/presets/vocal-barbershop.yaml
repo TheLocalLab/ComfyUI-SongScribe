@@ -8,21 +8,22 @@ drums: harmonically led
 low_end: light low end
 genre:
   - barbershop
-  - folk
 mood:
   - playful and carefree
-  - warm and nostalgic
 scene:
   - a wedding first dance
 production:
-  - a dry close-mic'd intimate sound
-  - a narrow mono-leaning image
+  - completely unaccompanied
+  - close vintage mono image
 instruments:
-  - handclaps
+  - four voices and no instruments at all
+  - lead, tenor above, baritone and bass
+  - ringing close-harmony chords
+  - swipes and tag endings
+  - finger snaps only
 vocal_presence: sung
 vocal_timbre:
-  - a choir of many voices
-  - a clear bright voice
+  - choir of many voices
 vocal_delivery:
-  - layered in thick stacked harmonies
-  - answered by a call-and-response choir
+  - four-part close harmony throughout
+  - held tag chord at the end

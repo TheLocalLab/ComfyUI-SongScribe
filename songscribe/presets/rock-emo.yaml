@@ -8,23 +8,22 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - emo
-  - punk rock
 mood:
   - melancholy and wistful
-  - angry and defiant
 scene:
   - a film's emotional climax
 production:
-  - a raw live-room recording
-  - gritty distortion and fuzz
+  - raw live-room recording
+  - guitars wide, vocals dry and forward
 instruments:
-  - acoustic drum kit
-  - crunchy distorted electric guitar
-  - electric bass guitar
-  - clean electric guitar
+  - twinkly clean arpeggiated guitar
+  - octave-chord riffing
+  - half-time chorus drop
+  - driving bass through the chorus
+  - sudden stop before the last line
 vocal_presence: sung
 vocal_timbre:
-  - a strained emotional voice
+  - strained emotional voice
 vocal_delivery:
-  - shouted and screamed
-  - sung with heavy vibrato
+  - voice cracking at the peak
+  - shouted double on the final chorus

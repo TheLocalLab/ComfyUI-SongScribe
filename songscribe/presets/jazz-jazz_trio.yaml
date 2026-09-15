@@ -8,19 +8,17 @@ drums: balanced
 low_end: solid bass weight
 genre:
   - jazz
-  - bebop jazz
 mood:
   - reflective and quiet
-  - sensual and smouldering
 scene:
   - a cocktail lounge evening
 production:
-  - a raw live-room recording
-  - warm analog tape saturation
+  - one room, minimal miking
+  - warm and unhurried
 instruments:
-  - grand piano
-  - upright double bass
-  - brushed jazz drums
-  - solo trumpet
-  - saxophone
+  - walking upright bass
+  - brushed ride cymbal keeping time
+  - comping piano with rootless voicings
+  - each player soloing in turn
+  - trading fours before the head returns
 vocal_presence: instrumental

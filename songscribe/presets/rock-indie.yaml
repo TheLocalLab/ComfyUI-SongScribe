@@ -8,23 +8,22 @@ drums: drum-forward
 low_end: moderate low end
 genre:
   - indie rock
-  - alternative rock
 mood:
   - bittersweet
-  - energetic and driving
 scene:
   - a summer road trip
 production:
-  - a raw live-room recording
-  - a crisp studio multitrack production
+  - raw live-room recording
+  - slightly ragged and unpolished
 instruments:
-  - acoustic drum kit
-  - electric bass guitar
-  - clean electric guitar
-  - crunchy distorted electric guitar
+  - jangly clean electric guitar
+  - driving eighth-note bass
+  - live drums with a loose backbeat
+  - shouted group backing vocals
+  - a second guitar answering the vocal
 vocal_presence: sung
 vocal_timbre:
-  - a nasal indie voice
+  - nasal indie voice
 vocal_delivery:
-  - sung with heavy vibrato
-  - doubled with a close harmony
+  - sung slightly off-pitch with feeling
+  - whole-band gang vocal on the hook

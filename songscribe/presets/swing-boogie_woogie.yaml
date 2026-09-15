@@ -8,22 +8,21 @@ drums: balanced
 low_end: solid bass weight
 genre:
   - boogie woogie
-  - blues
 mood:
   - playful and carefree
-  - energetic and driving
 scene:
   - a cocktail lounge evening
 production:
-  - a raw live-room recording
-  - warm analog tape saturation
+  - single room, single microphone
+  - vintage and raw
 instruments:
-  - honky-tonk piano
-  - upright double bass
-  - acoustic drum kit
-  - saxophone
+  - rolling eight-to-the-bar left-hand bass figure
+  - right-hand blues licks against it
+  - shuffle throughout
+  - twelve-bar form
+  - piano carrying everything
 vocal_presence: sung
 vocal_timbre:
-  - a gritty rasping voice
+  - gritty rasping voice
 vocal_delivery:
-  - belted out powerfully
+  - shouted over the piano

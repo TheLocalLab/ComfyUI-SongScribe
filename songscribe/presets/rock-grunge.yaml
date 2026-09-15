@@ -8,24 +8,21 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - grunge
-  - alternative rock
 mood:
   - angry and defiant
-  - gritty and raw
 scene:
   - a film's emotional climax
 production:
-  - a raw live-room recording
-  - gritty distortion and fuzz
+  - blown-out and raw
+  - deliberately unpolished
 instruments:
-  - acoustic drum kit
-  - electric bass guitar
-  - heavily distorted guitar
-  - crunchy distorted electric guitar
+  - quiet clean verse exploding into a fuzz chorus
+  - sludgy detuned bass
+  - heavy pounding drums
+  - squealing feedback between sections
+  - drop-D power chords
 vocal_presence: sung
 vocal_timbre:
-  - a rough untrained raw voice
-  - a strained emotional voice
+  - rough untrained voice
 vocal_delivery:
-  - shouted and screamed
-  - sung in a flat deadpan monotone
+  - mumbled in the verse, screamed in the chorus

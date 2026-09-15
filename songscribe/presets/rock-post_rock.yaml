@@ -10,17 +10,15 @@ genre:
   - post-rock
 mood:
   - epic and cinematic
-  - spacious and weightless
-  - hopeful and uplifting
 scene:
   - a film's emotional climax
 production:
-  - heavy reverb drenching everything
-  - a wide spacious stereo image
+  - enormous reverb
+  - wide dynamic build from near-silence to full volume
 instruments:
-  - clean electric guitar
-  - crunchy distorted electric guitar
-  - acoustic drum kit
-  - string section
-  - reversed ambient swells
+  - tremolo-picked guitar
+  - delay-soaked clean arpeggio
+  - slow crescendo over several minutes
+  - cymbal swells building underneath
+  - strings entering at the peak
 vocal_presence: instrumental

@@ -7,26 +7,23 @@ feel: steady
 drums: drum-forward
 low_end: solid bass weight
 genre:
-  - classic rock
-  - post-rock
+  - space rock
 mood:
-  - epic and cinematic
   - spacious and weightless
 scene:
   - a long night drive
 production:
-  - a wide spacious stereo image
-  - long cavernous hall reverb
-  - warm analog tape saturation
+  - cavernous reverb and echo
+  - wide phased stereo
 instruments:
-  - crunchy distorted electric guitar
-  - arpeggiated synthesizer
-  - electric bass guitar
-  - acoustic drum kit
-  - analog synth pads
+  - phaser-swept guitar
+  - hypnotic motorik drum beat
+  - analog synth sweeps
+  - one-chord drone underneath
+  - long instrumental passages
 vocal_presence: sung
 vocal_timbre:
-  - a high airy falsetto
+  - distant heavily reverbed voice
 vocal_delivery:
-  - drenched in delay and reverb
-  - belted out powerfully
+  - chanted and repetitive
+  - buried under delay

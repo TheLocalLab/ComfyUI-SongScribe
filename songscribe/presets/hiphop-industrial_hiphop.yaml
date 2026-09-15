@@ -7,25 +7,24 @@ feel: machine-tight
 drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
-  - trap
-  - techno
+  - industrial hip hop
 mood:
   - menacing and aggressive
-  - claustrophobic and dense
 scene:
   - a video game boss fight
 production:
-  - gritty distortion and fuzz
-  - a loud heavily compressed master
-  - lo-fi bitcrushed digital artefacts
+  - clipped and overdriven
+  - dystopian atmosphere
+  - harsh and dense
 instruments:
-  - 808 drum machine
-  - heavily distorted guitar
-  - deep sub bass
-  - reversed ambient swells
+  - distorted overdriven 808s
+  - metallic percussion hits
+  - noise sweeps and risers
+  - harsh detuned synth stabs
+  - machine-like drum loop
 vocal_presence: spoken
 vocal_timbre:
-  - a strained emotional voice
+  - strained shouting voice
 vocal_delivery:
-  - shouted and screamed
-  - rapped in tight rhythmic flow
+  - barked and shouted delivery
+  - layered with growls

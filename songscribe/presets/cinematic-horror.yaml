@@ -7,22 +7,18 @@ feel: loose and human
 drums: harmonically led
 low_end: deep sub-heavy low end
 genre:
-  - cinematic score
-  - ambient electronic
+  - horror score
 mood:
   - haunting and eerie
-  - tense and anxious
-  - menacing and aggressive
 scene:
   - a tense chase scene
 production:
-  - heavy reverb drenching everything
-  - gritty distortion and fuzz
-  - lo-fi bitcrushed digital artefacts
+  - oppressive and close
+  - sudden extreme dynamic jumps
 instruments:
-  - solo violin
-  - string section
-  - reversed ambient swells
-  - orchestral timpani
-  - music box
+  - dissonant clustered strings
+  - prepared piano and scraped strings
+  - sub-bass drone underneath
+  - sudden stinger hits
+  - long silences that build dread
 vocal_presence: instrumental

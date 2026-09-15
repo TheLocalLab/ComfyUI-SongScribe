@@ -7,25 +7,22 @@ feel: machine-tight
 drums: drum-forward
 low_end: solid bass weight
 genre:
-  - trance
-  - synth-pop
+  - eurobeat
 mood:
   - euphoric and rushing
-  - urgent and restless
 scene:
   - a long night drive
-  - a crowded dancefloor at peak hour
 production:
-  - a loud heavily compressed master
-  - a wide spacious stereo image
+  - maximum energy, no space
+  - loud and bright
 instruments:
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - arpeggiated synthesizer
-  - bright synth lead
-  - grand piano
+  - hyper-fast octave bassline
+  - relentless sixteenth arpeggio
+  - huge anthemic chorus hook
+  - crash on every bar
+  - breakdown and rebuild before the final chorus
 vocal_presence: sung
 vocal_timbre:
-  - a powerful belting voice
+  - powerful belting voice
 vocal_delivery:
-  - belted out powerfully
+  - belted at full power throughout

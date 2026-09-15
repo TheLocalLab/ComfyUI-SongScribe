@@ -7,26 +7,24 @@ feel: loose and human
 drums: balanced
 low_end: solid bass weight
 genre:
-  - gospel
-  - country
+  - southern gospel
 mood:
   - hopeful and uplifting
-  - triumphant and soaring
 scene:
   - a wedding first dance
 production:
-  - a raw live-room recording
-  - warm analog tape saturation
+  - live congregation feel
+  - warm analog tape
+  - room ambience
 instruments:
-  - upright piano
-  - solo violin
-  - mandolin
-  - slide guitar
-  - acoustic drum kit
+  - four-part close harmony
+  - rolling gospel piano runs
+  - Hammond organ swells
+  - handclaps on the backbeat
+  - a key change into the final chorus
 vocal_presence: sung
 vocal_timbre:
-  - a soulful gospel-trained voice
-  - a choir of many voices
+  - soulful gospel-trained voice
 vocal_delivery:
-  - answered by a call-and-response choir
-  - layered in thick stacked harmonies
+  - call-and-response with the choir
+  - improvised runs over the last chorus

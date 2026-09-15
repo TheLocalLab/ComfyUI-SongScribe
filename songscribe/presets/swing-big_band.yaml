@@ -7,25 +7,23 @@ feel: loose and human
 drums: drum-forward
 low_end: solid bass weight
 genre:
-  - big band
-  - swing
+  - big band swing
 mood:
   - playful and carefree
-  - bright and joyful
 scene:
   - a cocktail lounge evening
 production:
-  - a raw live-room recording
-  - warm analog tape saturation
+  - recorded live as a full band
+  - brass wide and forward
 instruments:
-  - brass section
-  - saxophone
-  - upright double bass
-  - brushed jazz drums
-  - grand piano
+  - walking upright bass
+  - ride cymbal driving the swing
+  - punchy full brass section stabs
+  - call-and-response between brass and reeds
+  - a shout chorus before the final head
 vocal_presence: sung
 vocal_timbre:
-  - a smoky jazz-club voice
+  - smoky jazz-club voice
 vocal_delivery:
-  - crooned smoothly
-  - answered by a call-and-response choir
+  - crooned in front of the band
+  - band answering each phrase

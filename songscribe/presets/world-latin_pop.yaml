@@ -8,25 +8,23 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - latin pop
-  - reggaeton
 mood:
   - romantic and longing
-  - playful and carefree
 scene:
   - a beach party
   - a crowded dancefloor at peak hour
 production:
-  - a clean modern polished mix
-  - a wide spacious stereo image
+  - bright modern mix
+  - percussion layered wide
 instruments:
-  - congas and bongos
-  - acoustic guitar
-  - brass section
-  - electric bass guitar
-  - hand percussion
+  - montuno piano figure
+  - congas and timbales
+  - brass section stabs
+  - clave pattern underneath
+  - tumbao bass locking with the congas
 vocal_presence: sung
 vocal_timbre:
-  - a warm husky voice
+  - warm husky voice
 vocal_delivery:
-  - crooned smoothly
-  - belted out powerfully
+  - sung with passionate vibrato
+  - coro answering the lead

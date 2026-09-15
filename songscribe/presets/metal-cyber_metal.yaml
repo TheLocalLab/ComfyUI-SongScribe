@@ -7,27 +7,23 @@ feel: machine-tight
 drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
-  - heavy metal
-  - synthwave
+  - cyber metal
 mood:
-  - menacing and aggressive
   - epic and cinematic
 scene:
   - a video game boss fight
   - a tense chase scene
 production:
-  - a loud heavily compressed master
-  - a wide spacious stereo image
-  - gritty distortion and fuzz
+  - loud modern master
+  - neon synthetic sheen over heavy guitars
 instruments:
-  - heavily distorted guitar
-  - 808 drum machine
-  - bright synth lead
-  - analog synth pads
-  - string section
+  - downtuned riff under retro synth leads
+  - gated snare and double kick
+  - orchestral hits and cinematic strings
+  - arpeggiated synth between riffs
+  - sub drops on section changes
 vocal_presence: sung
 vocal_timbre:
-  - a strained emotional voice
+  - strained emotional voice
 vocal_delivery:
-  - shouted and screamed
-  - rapped in tight rhythmic flow
+  - rapped verse into a soaring clean chorus

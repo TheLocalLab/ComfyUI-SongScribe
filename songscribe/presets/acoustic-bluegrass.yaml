@@ -8,24 +8,22 @@ drums: harmonically led
 low_end: moderate low end
 genre:
   - bluegrass
-  - folk
 mood:
   - playful and carefree
-  - bright and joyful
 scene:
   - a campfire singalong
 production:
-  - a raw live-room recording
-  - a dry close-mic'd intimate sound
+  - recorded live around one microphone
+  - no drums at all
 instruments:
-  - banjo
-  - mandolin
-  - fingerpicked acoustic guitar
-  - upright double bass
-  - solo violin
+  - rolling three-finger banjo
+  - chopping mandolin on the backbeat
+  - fiddle taking the break
+  - slapped upright bass
+  - instruments trading solos in turn
 vocal_presence: sung
 vocal_timbre:
-  - a clear bright voice
+  - clear bright voice
 vocal_delivery:
-  - layered in thick stacked harmonies
-  - answered by a call-and-response choir
+  - high lonesome tenor above the melody
+  - three-part harmony on the chorus

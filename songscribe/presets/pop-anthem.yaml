@@ -9,25 +9,23 @@ low_end: solid bass weight
 genre:
   - mainstream pop
 mood:
-  - bright and joyful
   - euphoric and rushing
 scene:
   - a festival main stage
   - a gym workout
 production:
-  - a clean modern polished mix
-  - a loud heavily compressed master
-  - sidechain pumping compression
+  - loud polished master
+  - heavy sidechain pump
+  - wide stereo chorus
 instruments:
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - bright synth lead
-  - clean electric guitar
-  - handclaps
+  - four-on-the-floor kick
+  - huge layered clap snare
+  - stacked supersaw chorus
+  - pitched vocal chop hook
+  - riser and silence before the drop
 vocal_presence: sung
 vocal_timbre:
-  - a clear bright voice
-  - a smooth polished pop voice
+  - clear bright voice
 vocal_delivery:
-  - belted out powerfully
-  - layered in thick stacked harmonies
+  - belted in the chorus, restrained in the verse
+  - octave-up double on the last chorus

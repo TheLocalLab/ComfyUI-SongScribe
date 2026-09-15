@@ -8,24 +8,22 @@ drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
   - heavy metal
-  - hard rock
 mood:
   - menacing and aggressive
-  - epic and cinematic
 scene:
   - a video game boss fight
 production:
-  - a loud heavily compressed master
-  - gritty distortion and fuzz
+  - tight modern and loud
+  - scooped guitar tone
 instruments:
-  - acoustic drum kit
-  - heavily distorted guitar
-  - electric bass guitar
-  - orchestral timpani
+  - palm-muted gallop riff
+  - double-kick drum pattern
+  - twin guitar harmony lines
+  - shred solo with tapping
+  - crash accents on the riff turnarounds
 vocal_presence: sung
 vocal_timbre:
-  - a gritty rasping voice
-  - a strained emotional voice
+  - gritty rasping voice
 vocal_delivery:
-  - shouted and screamed
-  - belted out powerfully
+  - snarled and shouted
+  - clean soaring chorus against harsh verses

@@ -8,16 +8,18 @@ drums: harmonically led
 low_end: light low end
 genre:
   - solo piano
-  - classical orchestral
 mood:
   - reflective and quiet
-  - melancholy and wistful
 scene:
   - falling asleep and winding down
   - a funeral or memorial
 production:
-  - a dry close-mic'd intimate sound
-  - long cavernous hall reverb
+  - close-mic'd with audible hammers and pedal
+  - natural room decay
 instruments:
-  - grand piano
+  - one grand piano and nothing else
+  - sustain pedal blurring the harmony
+  - rubato phrasing that breathes
+  - sparse left hand
+  - long silences between phrases
 vocal_presence: instrumental

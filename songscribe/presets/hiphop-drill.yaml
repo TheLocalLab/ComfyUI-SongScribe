@@ -9,20 +9,22 @@ low_end: deep sub-heavy low end
 genre:
   - drill
 mood:
-  - menacing and aggressive
-  - tense and anxious
+  - dark and menacing
 scene:
   - a long night drive
 production:
-  - a deep sub-heavy club mix
-  - gritty distortion and fuzz
+  - cold and spacious mix
+  - lots of empty space
+  - deep clean sub
 instruments:
-  - 808 drum machine
-  - punchy electronic drum machine
-  - string section
-  - analog synth pads
+  - sliding 808 bass glides
+  - skittering hi-hat triplets
+  - sparse rimshot snare with a half-time feel
+  - ominous four-note minor piano motif
+  - plucked dark strings
 vocal_presence: spoken
 vocal_timbre:
-  - a deep resonant low-register voice
+  - deep resonant low-register voice
 vocal_delivery:
-  - rapped in tight rhythmic flow
+  - laid-back drawled flow
+  - doubled on the last word of each bar

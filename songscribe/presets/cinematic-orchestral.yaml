@@ -7,20 +7,18 @@ feel: loose and human
 drums: harmonically led
 low_end: moderate low end
 genre:
-  - classical orchestral
-  - cinematic score
+  - orchestral score
 mood:
   - reflective and quiet
-  - hopeful and uplifting
 scene:
   - a film's emotional climax
 production:
-  - long cavernous hall reverb
-  - a wide spacious stereo image
+  - recorded in a concert hall
+  - natural dynamics, no compression
 instruments:
-  - string section
-  - solo violin
-  - flute
-  - clarinet
-  - harp
+  - string section carrying the theme
+  - solo woodwind answering
+  - harp arpeggios underneath
+  - no drum kit
+  - theme restated by full orchestra at the climax
 vocal_presence: instrumental

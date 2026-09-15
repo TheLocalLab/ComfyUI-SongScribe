@@ -8,25 +8,23 @@ drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
   - afrobeats
-  - reggaeton
 mood:
   - playful and carefree
-  - sensual and smouldering
 scene:
   - a beach party
   - a crowded dancefloor at peak hour
 production:
-  - a clean modern polished mix
-  - a deep sub-heavy club mix
+  - clean modern polish
+  - percussion wide and bright
 instruments:
-  - congas and bongos
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - clean electric guitar
-  - tambourine and shaker
+  - syncopated log-drum bass pattern
+  - shaker and woodblock through every bar
+  - clean guitar riff looping
+  - sparse arrangement with lots of space
+  - vocal ad-libs as percussion
 vocal_presence: sung
 vocal_timbre:
-  - a warm mid-range voice
+  - warm mid-range voice
 vocal_delivery:
-  - crooned smoothly
-  - layered in thick stacked harmonies
+  - sung with a relaxed melodic lilt
+  - pidgin ad-libs between lines

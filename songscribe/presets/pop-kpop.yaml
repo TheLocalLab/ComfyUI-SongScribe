@@ -8,26 +8,23 @@ drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
   - k-pop
-  - mainstream pop
 mood:
   - confident and swaggering
-  - euphoric and rushing
 scene:
   - a festival main stage
 production:
-  - a clean modern polished mix
-  - a loud heavily compressed master
-  - sidechain pumping compression
+  - immaculate high-gloss production
+  - loud and transient-heavy
+  - dramatic transitions
 instruments:
-  - punchy electronic drum machine
-  - 808 drum machine
-  - bright synth lead
-  - arpeggiated synthesizer
-  - handclaps
+  - trap-influenced verse beat
+  - four-on-the-floor chorus
+  - stacked supersaw chorus
+  - chopped vocal hook
+  - a dramatic beat switch before the last chorus
 vocal_presence: sung
 vocal_timbre:
-  - a smooth polished pop voice
-  - a clear bright voice
+  - clear bright voice
 vocal_delivery:
-  - layered in thick stacked harmonies
-  - rapped in tight rhythmic flow
+  - rapped verse switching to a belted chorus
+  - four distinct voices trading lines

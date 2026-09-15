@@ -8,21 +8,19 @@ drums: harmonically led
 low_end: light low end
 genre:
   - ambient electronic
-  - new age
 mood:
   - calm and meditative
-  - spacious and weightless
 scene:
   - falling asleep and winding down
   - meditation and yoga
 production:
-  - heavy reverb drenching everything
-  - a wide spacious stereo image
-  - a shimmering high-end sheen
+  - vast reverb
+  - no percussion at all
+  - very slow movement
 instruments:
-  - analog synth pads
-  - reversed ambient swells
-  - field recording ambience
-  - grand piano
-  - solo cello
+  - slowly evolving pad textures
+  - granular shimmer
+  - distant field recordings
+  - single sustained piano notes with long decay
+  - no drums
 vocal_presence: instrumental

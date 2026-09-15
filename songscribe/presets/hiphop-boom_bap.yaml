@@ -2,7 +2,7 @@ name: Hip-Hop / Boom Bap
 category: hiphop
 bpm: 92
 key: E minor
-harmony: simple diatonic
+harmony: moderately extended
 feel: loose and human
 drums: drum-forward
 low_end: solid bass weight
@@ -14,17 +14,18 @@ mood:
 scene:
   - a long night drive
 production:
-  - a dusty low-passed mix
-  - warm analog tape saturation
+  - dusty sample-based production
+  - filtered and low-passed
+  - SP-1200 grit
 instruments:
-  - dusty boom-bap drums
-  - deep sub bass
-  - grand piano
-  - muted trumpet
-  - vinyl crackle texture
+  - swung dusty drum break
+  - cracked snare on the two and four
+  - walking upright bass sample
+  - chopped jazzy piano loop
+  - constant vinyl crackle
 vocal_presence: spoken
 vocal_timbre:
-  - a warm mid-range voice
+  - warm mid-range voice
 vocal_delivery:
-  - rapped in tight rhythmic flow
-  - ad-libbed loosely over the beat
+  - rapped in a steady pocket flow
+  - ad-libs answering each line

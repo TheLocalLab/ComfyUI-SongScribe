@@ -7,24 +7,24 @@ feel: machine-tight
 drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
-  - drill
-  - trap
+  - grime
 mood:
   - urgent and restless
-  - menacing and aggressive
 scene:
   - an after-hours club
 production:
-  - a deep sub-heavy club mix
-  - a loud heavily compressed master
+  - raw and aggressive
+  - low-budget punch
+  - sparse and clipped
 instruments:
-  - 808 drum machine
-  - punchy electronic drum machine
-  - bright synth lead
-  - deep sub bass
+  - square-wave bass stabs
+  - eski-style clipped drums
+  - siren synth lead
+  - sharp snare on the three
+  - abrupt beat drops
 vocal_presence: spoken
 vocal_timbre:
-  - a gritty rasping voice
+  - gritty rasping voice
 vocal_delivery:
-  - rapped in tight rhythmic flow
-  - answered by a call-and-response choir
+  - rapid clipped flow
+  - crowd-shout chorus

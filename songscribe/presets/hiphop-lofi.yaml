@@ -11,23 +11,23 @@ genre:
   - chillhop
 mood:
   - laid-back and dreamy
-  - warm and nostalgic
 scene:
   - studying and late-night focus
   - rainy-day headphones listening
 production:
-  - a muddy lo-fi bedroom mix
-  - heavy vinyl crackle and surface noise
-  - tape hiss and wow-flutter pitch wobble
+  - muddy low-passed bedroom mix
+  - tape wow and flutter
+  - everything slightly detuned
 instruments:
-  - dusty boom-bap drums
-  - deep sub bass
-  - warm Rhodes electric piano
-  - jazzy electric guitar
-  - vinyl crackle texture
+  - soft thumping kick
+  - lazy brushed hi-hats behind the beat
+  - warm Rhodes loop with chorus wobble
+  - muted jazz guitar fills
+  - heavy vinyl crackle
+  - round sub bass
 vocal_presence: wordless
 vocal_timbre:
-  - a soft androgynous voice
+  - soft androgynous voice
 vocal_delivery:
-  - hushed and half-spoken
-  - sitting low in the mix like another instrument
+  - hushed and half-spoken, low in the mix
+  - wordless mmm and ooh hums

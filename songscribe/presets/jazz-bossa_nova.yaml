@@ -8,25 +8,23 @@ drums: harmonically led
 low_end: moderate low end
 genre:
   - bossa nova
-  - latin pop
 mood:
-  - calm and meditative
   - romantic and longing
 scene:
   - a beach party
   - a romantic dinner
 production:
-  - a dry close-mic'd intimate sound
-  - warm analog tape saturation
+  - dry and close
+  - gentle throughout, never loud
 instruments:
-  - fingerpicked acoustic guitar
-  - upright double bass
-  - brushed jazz drums
-  - flute
-  - vibraphone
+  - syncopated nylon-string guitar pattern
+  - soft rim-click keeping the clave
+  - shaker underneath
+  - flute or muted trumpet on the melody
+  - seventh and ninth chords throughout
 vocal_presence: sung
 vocal_timbre:
-  - a light breathy voice
+  - light breathy voice
 vocal_delivery:
-  - sung softly and gently
-  - phrased lazily behind the beat
+  - sung almost under the breath
+  - lagging just behind the beat

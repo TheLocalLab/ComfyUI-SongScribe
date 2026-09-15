@@ -7,24 +7,23 @@ feel: machine-tight
 drums: drum-forward
 low_end: solid bass weight
 genre:
-  - alternative rock
-  - synth-pop
+  - alternative dance
 mood:
   - mysterious and shadowy
-  - hypnotic and trance-like
 scene:
   - an after-hours club
 production:
-  - a wide spacious stereo image
-  - warm analog tape saturation
+  - cold and dry
+  - post-punk edge over a dance beat
 instruments:
-  - punchy electronic drum machine
-  - warm analog synth bass
-  - clean electric guitar
-  - arpeggiated synthesizer
+  - motorik four-on-the-floor
+  - driving post-punk bassline high in the mix
+  - angular clean guitar stabs
+  - cold analog synth sequence
+  - minimal verses opening into the chorus
 vocal_presence: sung
 vocal_timbre:
-  - a deep resonant low-register voice
+  - deep resonant low-register voice
 vocal_delivery:
-  - sung in a flat deadpan monotone
-  - drenched in delay and reverb
+  - sung in a detached monotone
+  - obsessive repeated hook

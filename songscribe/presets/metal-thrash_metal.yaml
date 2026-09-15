@@ -7,22 +7,23 @@ feel: machine-tight
 drums: drum-forward
 low_end: solid bass weight
 genre:
-  - heavy metal
-  - punk rock
+  - thrash metal
 mood:
   - angry and defiant
-  - menacing and aggressive
 scene:
   - a video game boss fight
 production:
-  - a raw live-room recording
-  - gritty distortion and fuzz
+  - raw fast and loud
+  - trebly guitar tone
 instruments:
-  - heavily distorted guitar
-  - acoustic drum kit
-  - electric bass guitar
+  - relentless palm-muted downpicking
+  - double-kick blast sections
+  - chromatic riff runs
+  - frantic shred solo
+  - abrupt tempo changes
 vocal_presence: sung
 vocal_timbre:
-  - a gritty rasping voice
+  - gritty rasping voice
 vocal_delivery:
-  - shouted and screamed
+  - shouted staccato delivery
+  - gang-shouted chorus

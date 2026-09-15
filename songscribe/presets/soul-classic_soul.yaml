@@ -8,25 +8,24 @@ drums: balanced
 low_end: solid bass weight
 genre:
   - classic soul
-  - funk
+  - Motown
 mood:
   - bright and joyful
-  - hopeful and uplifting
 scene:
   - a wedding first dance
 production:
-  - a raw live-room recording
-  - warm analog tape saturation
+  - vintage mono-leaning mix
+  - recorded live in one room
+  - tape saturation
 instruments:
-  - acoustic drum kit
-  - electric bass guitar
-  - Hammond organ
-  - brass section
-  - tambourine and shaker
+  - driving tambourine on every backbeat
+  - melodic walking electric bass
+  - punchy horn section stabs
+  - Hammond organ pads
+  - vibraphone sparkle
 vocal_presence: sung
 vocal_timbre:
-  - a powerful belting voice
-  - a soulful gospel-trained voice
+  - powerful belting voice
 vocal_delivery:
-  - belted out powerfully
-  - answered by a call-and-response choir
+  - belted with full-throated power
+  - call-and-response backing trio
