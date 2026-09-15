@@ -21,13 +21,13 @@ handled for you.
 Python that runs ComfyUI:
 
 ```bash
-python_embeded/python.exe -m pip install librosa mutagen pyyaml
+python_embeded\python.exe -m pip install librosa mutagen pyyaml
 ```
 
 Optional, only if you want lyric transcription:
 
 ```bash
-python_embeded/python.exe -m pip install faster-whisper
+python_embeded\python.exe -m pip install faster-whisper
 ```
 
 Restart ComfyUI. The nodes appear under the **SongScribe** category.
