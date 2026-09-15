@@ -329,6 +329,27 @@ checkpoint so the suite doesn't pull gigabytes.
 | `tools/compare_models.py` *(tests/)* | A/B CLAP checkpoints |
 | `tools/try_maest.py` | Compare MAEST against CLAP on your own files |
 
+## Releasing
+
+Published to the [Comfy Registry](https://registry.comfy.org), which is what
+powers ComfyUI Manager's listing.
+
+`.github/workflows/publish_action.yml` publishes on any push to `main` that
+touches `pyproject.toml`. Since `version` lives there, **a version bump is what
+ships a release** — editing presets, nodes or this README alone will not
+publish. Bump the version to release those changes.
+
+```toml
+version = "0.13.0"   # bump, commit, push -> publishes
+```
+
+A failed run can be retried from the Actions tab via **Run workflow** rather
+than by pushing a dummy commit.
+
+Requires a repository secret named `REGISTRY_ACCESS_TOKEN` (Settings → Secrets
+and variables → Actions). First-time publishing can also be done manually with
+`comfy node publish`.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
