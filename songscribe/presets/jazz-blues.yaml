@@ -8,6 +8,9 @@ drums: balanced
 low_end: solid bass weight
 genre:
   - blues
+  - slow blues
+  - electric blues
+  - soul blues
 mood:
   - melancholy and wistful
 scene:

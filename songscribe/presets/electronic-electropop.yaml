@@ -8,6 +8,9 @@ drums: balanced
 low_end: solid bass weight
 genre:
   - electropop
+  - synth-pop
+  - pop
+  - electronic
 mood:
   - bittersweet
 scene:

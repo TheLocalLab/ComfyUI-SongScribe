@@ -8,6 +8,9 @@ drums: drum-forward
 low_end: deep sub-heavy low end
 genre:
   - heavy metal
+  - metal
+  - rock
+  - hard rock
 mood:
   - menacing and aggressive
 scene:

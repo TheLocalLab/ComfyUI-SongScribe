@@ -8,6 +8,9 @@ drums: balanced
 low_end: solid bass weight
 genre:
   - jazz
+  - straight-ahead jazz
+  - bebop
+  - swing
 mood:
   - reflective and quiet
 scene:

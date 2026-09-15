@@ -8,6 +8,10 @@ drums: harmonically led
 low_end: moderate low end
 genre:
   - bluegrass
+  - country
+  - folk
+  - americana
+  - appalachian
 mood:
   - playful and carefree
 scene:

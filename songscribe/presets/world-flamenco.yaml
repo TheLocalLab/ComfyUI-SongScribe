@@ -8,6 +8,9 @@ drums: drum-forward
 low_end: moderate low end
 genre:
   - flamenco
+  - spanish guitar
+  - world
+  - latin
 mood:
   - gritty and raw
 scene:

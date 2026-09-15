@@ -8,6 +8,9 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - thrash metal
+  - metal
+  - speed metal
+  - heavy metal
 mood:
   - angry and defiant
 scene:

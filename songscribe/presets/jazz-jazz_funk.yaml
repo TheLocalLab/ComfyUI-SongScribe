@@ -8,6 +8,9 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - jazz-funk
+  - funk
+  - jazz fusion
+  - soul jazz
 mood:
   - confident and swaggering
 scene:

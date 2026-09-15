@@ -8,6 +8,9 @@ drums: drum-forward
 low_end: solid bass weight
 genre:
   - afro-jazz
+  - jazz
+  - afrobeat
+  - world
 mood:
   - hypnotic and trance-like
 scene:

@@ -8,6 +8,9 @@ drums: drum-forward
 low_end: moderate low end
 genre:
   - indie rock
+  - alternative rock
+  - rock
+  - indie
 mood:
   - bittersweet
 scene:

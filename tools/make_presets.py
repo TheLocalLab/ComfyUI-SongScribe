@@ -20,6 +20,7 @@ import sys
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "songscribe", "presets")
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # noqa: E402
+from genre_terms import expand as expand_genres  # noqa: E402
 from presets_core import P  # noqa: E402
 from presets_yue2 import P2  # noqa: E402
 
@@ -48,7 +49,7 @@ def emit(entry) -> str:
         f"low_end: {low_end}",
     ]
     for field, values in (
-        ("genre", genre), ("mood", mood), ("scene", scene),
+        ("genre", expand_genres(genre)), ("mood", mood), ("scene", scene),
         ("production", production), ("instruments", instruments),
     ):
         lines.append(f"{field}:")

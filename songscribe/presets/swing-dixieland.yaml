@@ -8,6 +8,9 @@ drums: drum-forward
 low_end: moderate low end
 genre:
   - dixieland
+  - traditional jazz
+  - new orleans jazz
+  - ragtime
 mood:
   - playful and carefree
 scene:
