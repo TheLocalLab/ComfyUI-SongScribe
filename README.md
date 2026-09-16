@@ -1,18 +1,25 @@
-# SongScribe
+# SongScribe — AI Music Prompt Nodes for ComfyUI
 
-<img src="icon.png" width="96" align="right" alt="SongScribe">
+<img src="icon.png" width="96" align="right" alt="SongScribe logo: an eighth note over an audio waveform">
 
-ComfyUI nodes for music generation prompts. Pick a style from a **73-preset
-library**, or **analyse a song** to get a caption, its lyrics and its duration.
+**Style prompts and song captions for AI music generation in ComfyUI.** Pick a
+style from a 73-preset library, or analyse any song to get a prompt, its lyrics
+and its duration.
 
-Outputs two prompt formats:
+Works with both major open music models:
 
-- **[MiniMax Music 3](https://github.com/MiniMax-AI/MiniMax-Music3)** — three-section caption
-- **[YuE2](https://map-yue2.github.io/)** — flat comma-separated descriptors
+- **[MiniMax Music 3](https://github.com/MiniMax-AI/MiniMax-Music3)** — three-section caption format
+- **[YuE2](https://map-yue2.github.io/)** — flat comma-separated style prompt
 
-Plain `STRING` / `FLOAT` outputs, so they fit any audio workflow. Runs on CPU.
+Outputs plain `STRING` / `FLOAT`, so they fit any audio workflow. **Runs on CPU** —
+no extra VRAM, nothing competing with your music model.
 
 ## Install
+
+**One-click (Windows):** [The Local Lab installer](https://www.patreon.com/TheLocalLab/posts/yue2-song-one-ai-169585892)
+sets up the latest ComfyUI portable, ComfyUI Manager, this node and its
+dependencies in a single run — no manual Python or git steps. Handy for a clean
+machine or a second install.
 
 **ComfyUI Manager:** search for *SongScribe* and install. Dependencies are
 handled for you.

@@ -3,6 +3,21 @@ name = "songscribe"
 description = "Style prompts from a 73-preset library, plus caption, lyrics and duration extracted from audio. Targets MiniMax Music 3 and YuE2 prompt formats. Runs on CPU."
 version = "0.12.0"
 license = "MIT"
+requires-python = ">=3.10"
+
+# Surfaced by Comfy Registry search and by package indexes.
+keywords = [
+    "comfyui", "comfyui-nodes", "custom-nodes",
+    "music", "music-generation", "ai-music", "text-to-music",
+    "minimax-music", "yue2", "song", "lyrics",
+    "prompt", "style-prompt", "prompt-generator",
+    "audio-analysis", "bpm-detection", "key-detection",
+]
+
+# Pure Python; the analysis runs on CPU, so it is not GPU- or OS-specific.
+classifiers = [
+    "Operating System :: OS Independent",
+]
 
 # classifiers = [
 #     # For OS-independent nodes (works on all operating systems)
