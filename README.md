@@ -157,7 +157,7 @@ them.
 Tests need no ComfyUI:
 
 ```bash
-python_embeded/python.exe custom_nodes/ComfyUI-SongScribe/tests/smoke_test.py
+python_embeded\python.exe custom_nodes\ComfyUI-SongScribe	ests\smoke_test.py
 ```
 
 ---
